@@ -1,0 +1,137 @@
+[
+  {
+    "level": "PH-01",
+    "gpcs": [
+      { "grapheme": "s", "say": "sss", "example": "sun" },
+      { "grapheme": "a", "say": "a (short, as in ant)", "example": "ant" },
+      { "grapheme": "t", "say": "t (tongue behind teeth, no 'uh')", "example": "top" },
+      { "grapheme": "p", "say": "p", "example": "pig" },
+      { "grapheme": "i", "say": "i (short, as in ink)", "example": "ink" },
+      { "grapheme": "n", "say": "nnn", "example": "net" },
+      { "grapheme": "m", "say": "mmm", "example": "man" },
+      { "grapheme": "d", "say": "d", "example": "dog" }
+    ]
+  },
+  {
+    "level": "PH-02",
+    "gpcs": [
+      { "grapheme": "g", "say": "g", "example": "got" },
+      { "grapheme": "o", "say": "o (short, as in pot)", "example": "pot" },
+      { "grapheme": "c", "say": "c (as in cat)", "example": "cat" },
+      { "grapheme": "k", "say": "k", "example": "kite" },
+      { "grapheme": "ck", "say": "ck (as in duck)", "example": "duck" },
+      { "grapheme": "e", "say": "e (short, as in egg)", "example": "egg" },
+      { "grapheme": "u", "say": "u (short, as in up)", "example": "up" },
+      { "grapheme": "r", "say": "rrr", "example": "rat" }
+    ]
+  },
+  {
+    "level": "PH-03",
+    "gpcs": [
+      { "grapheme": "h", "say": "h", "example": "hat" },
+      { "grapheme": "b", "say": "b", "example": "bus" },
+      { "grapheme": "f", "say": "fff", "example": "fun" },
+      { "grapheme": "ff", "say": "ff (as in huff)", "example": "huff" },
+      { "grapheme": "l", "say": "lll", "example": "leg" },
+      { "grapheme": "ll", "say": "ll (as in bell)", "example": "bell" },
+      { "grapheme": "ss", "say": "ss (as in mess)", "example": "mess" }
+    ]
+  },
+  {
+    "level": "PH-05",
+    "gpcs": [
+      { "grapheme": "j", "say": "j", "example": "jam" },
+      { "grapheme": "v", "say": "vvv", "example": "van" },
+      { "grapheme": "w", "say": "w", "example": "web" },
+      { "grapheme": "x", "say": "x (ks, as in box)", "example": "box" },
+      { "grapheme": "y", "say": "y (as in yes)", "example": "yes" },
+      { "grapheme": "z", "say": "zzz", "example": "zip" },
+      { "grapheme": "zz", "say": "zz (as in buzz)", "example": "buzz" },
+      { "grapheme": "qu", "say": "qu (kw, as in queen)", "example": "queen" }
+    ]
+  },
+  {
+    "level": "PH-06",
+    "gpcs": [
+      { "grapheme": "ch", "say": "ch", "example": "chip" },
+      { "grapheme": "sh", "say": "sh", "example": "ship" },
+      { "grapheme": "th", "say": "th (soft, tongue between teeth, as in thin)", "example": "thin" },
+      { "grapheme": "ng", "say": "ng (as in sing)", "example": "sing" },
+      { "grapheme": "nk", "say": "nk (as in sink)", "example": "sink" }
+    ]
+  },
+  {
+    "level": "PH-07",
+    "gpcs": [
+      { "grapheme": "ai", "say": "ai (ay, as in rain)", "example": "rain" },
+      { "grapheme": "ee", "say": "ee", "example": "feet" },
+      { "grapheme": "igh", "say": "igh (i, as in night)", "example": "night" },
+      { "grapheme": "oa", "say": "oa (oh, as in boat)", "example": "boat" },
+      { "grapheme": "oo", "say": "oo (long, as in moon)", "example": "moon", "variant": "long" },
+      { "grapheme": "oo", "say": "oo (short, as in book)", "example": "book", "variant": "short" }
+    ]
+  },
+  {
+    "level": "PH-08",
+    "gpcs": [
+      { "grapheme": "ar", "say": "ar", "example": "car" },
+      { "grapheme": "or", "say": "or", "example": "fork" },
+      { "grapheme": "ur", "say": "ur (er, as in burn)", "example": "burn" },
+      { "grapheme": "ow", "say": "ow (as in cow)", "example": "cow" },
+      { "grapheme": "oi", "say": "oi (oy, as in coin)", "example": "coin" },
+      { "grapheme": "ear", "say": "ear (eer, as in fear)", "example": "fear" },
+      { "grapheme": "air", "say": "air", "example": "hair" },
+      { "grapheme": "er", "say": "er", "example": "her" }
+    ]
+  },
+  {
+    "level": "PH-11",
+    "gpcs": [
+      { "grapheme": "ay", "say": "ay", "example": "play" },
+      { "grapheme": "ou", "say": "ou (ow, as in out)", "example": "out" },
+      { "grapheme": "ie", "say": "ie (igh, as in pie)", "example": "pie" },
+      { "grapheme": "ea", "say": "ea (ee, as in sea)", "example": "sea" },
+      { "grapheme": "oy", "say": "oy", "example": "boy" },
+      { "grapheme": "ir", "say": "ir (er, as in bird)", "example": "bird" },
+      { "grapheme": "ue", "say": "ue (oo or yoo, as in blue)", "example": "blue" },
+      { "grapheme": "aw", "say": "aw", "example": "paw" }
+    ]
+  },
+  {
+    "level": "PH-12",
+    "gpcs": [
+      { "grapheme": "wh", "say": "wh (w, as in when)", "example": "when" },
+      { "grapheme": "ph", "say": "ph (f, as in photo)", "example": "photo" },
+      { "grapheme": "ew", "say": "ew (oo or yoo, as in new)", "example": "new" },
+      { "grapheme": "oe", "say": "oe (oh, as in toe)", "example": "toe" },
+      { "grapheme": "au", "say": "au (aw, as in launch)", "example": "launch" },
+      { "grapheme": "ey", "say": "ey (ay, as in they)", "example": "they" }
+    ]
+  },
+  {
+    "level": "PH-13",
+    "gpcs": [
+      { "grapheme": "a-e", "say": "a-e (ay, as in cake)", "example": "cake" },
+      { "grapheme": "e-e", "say": "e-e (ee, as in these)", "example": "these" },
+      { "grapheme": "i-e", "say": "i-e (igh, as in bike)", "example": "bike" },
+      { "grapheme": "o-e", "say": "o-e (oh, as in home)", "example": "home" },
+      { "grapheme": "u-e", "say": "u-e (oo or yoo, as in cube)", "example": "cube" }
+    ]
+  },
+  {
+    "level": "PH-14",
+    "gpcs": [
+      { "grapheme": "ow", "say": "ow (long o, as in snow)", "example": "snow", "variant": "long-o" },
+      { "grapheme": "ie", "say": "ie (ee, as in field)", "example": "field", "variant": "ee" },
+      { "grapheme": "ea", "say": "ea (short e, as in head)", "example": "head", "variant": "short-e" },
+      { "grapheme": "ou", "say": "ou (oo, as in could)", "example": "could", "variant": "oo" },
+      { "grapheme": "y", "say": "y (igh, as in fly)", "example": "fly", "variant": "igh" },
+      { "grapheme": "y", "say": "y (ee, as in happy)", "example": "happy", "variant": "ee" },
+      { "grapheme": "ch", "say": "ch (k, as in school)", "example": "school", "variant": "k" },
+      { "grapheme": "c", "say": "c (s, as in ice)", "example": "ice", "variant": "s" },
+      { "grapheme": "g", "say": "g (j, as in gem)", "example": "gem", "variant": "j" },
+      { "grapheme": "a", "say": "a (o, after w, as in was)", "example": "was", "variant": "o" },
+      { "grapheme": "o", "say": "o (u, as in son)", "example": "son", "variant": "u" }
+    ]
+  }
+]
