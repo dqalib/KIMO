@@ -56,5 +56,5 @@ KIMO/
   PROJECT_BRIEF.md     this file
   docs/                research, skill map, decisions
   kimi-briefs/         task briefs for Kimi
-  app/                 Next.js code (created at setup)
+  src/                 Next.js app code (see README code map)
 ```
