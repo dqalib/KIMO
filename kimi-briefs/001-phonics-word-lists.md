@@ -1,6 +1,6 @@
 # 001 — Phonics word lists (PH-01 → PH-16)
 
-Status: ready
+Status: done — PR #1
 Owner: Kimi · Reviewer: Claude, then DQ
 
 ## Goal
@@ -89,4 +89,10 @@ Vitest tests that fail if the data breaks the rules. At minimum:
 - PR opened from `kimi/001-phonics-word-lists` with a short summary: total words, total nonsense words, anything you weren't sure about.
 
 ## Notes from Kimi
-(fill in)
+- 540 words total: 424 real, 116 alien (40 in PH-10, 40 in PH-15, 36 in the two PH-16 papers).
+- `gpcs.json` has 54 GPCs; PH-14 has 11 alternative-pronunciation items (within the 10–14 range).
+- **e-e is thin**: the only decodable e-e words I could find are *eve*, *these*, *theme*. Options: accept 3, or move e-e to PH-14 as an alternative spelling of ee. Flag for DQ/Claude.
+- Alien words were screened for accidental real words (*gaff*, *fess*, *snuff*, *chuff*, *muss*, *primp* were replaced) and for rude-sounding readings. Two-syllable aliens appear only in PH-15/16, as briefed.
+- Split-digraph grapheme lists follow the brief's example: the `e` of `a-e` is not a separate grapheme (`cake` = `["c","a-e","k"]`). `ice`/`mice` are written `["i-e","c"]` since the split digraph spans the final `e`.
+- PH-14: one demonstration word per alternative pronunciation. Easy to extend if DQ wants more practice on a specific one (e.g. more `c`-as-`s` words: *cent*, *icy*, *race*).
+- `say` fields in `gpcs.json` are prompts for DQ's recording session (pure sounds, no schwa).
