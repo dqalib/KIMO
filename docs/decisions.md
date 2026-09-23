@@ -8,3 +8,11 @@
 | 2026-09-23 | Project folder: KIMO |
 | 2026-09-23 | Auth0 not used — Supabase auth instead |
 | 2026-09-23 | Private family use for DQ's own kids — no payments, no Stripe, no marketing site, no public sign-up |
+| 2026-09-23 | Users: Yaqub (Y4), Yonis (Y3), Shirwa (Y1) |
+| 2026-09-23 | Device: iPad — tablet-first design, installable PWA |
+| 2026-09-23 | Kimi has read access to the repo |
+| 2026-09-23 | Lovable not used for building — one codebase (Next.js), built by Claude + Kimi. Lovable optional for throwaway mockups only |
+| 2026-09-23 | Vercel team "kimo" created; import repo once app scaffold is pushed |
+| 2026-09-23 | Build order: Release 1 = times tables (TT) + phonics (PH); Release 2 = rest of maths; Release 3 = rest of English |
+| 2026-09-23 | Mastery gate default: ≥90% first-time accuracy + time target, 2 sets in a row (configurable) |
+| 2026-09-23 | Phonics order configurable; default DfE-style progression until school scheme known |
