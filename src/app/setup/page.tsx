@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ParentGate from "@/components/ParentGate";
+import { SignInForm } from "@/components/SyncPanel";
+import { isSyncConfigured } from "@/lib/sync";
 import { AVATARS, COLORS, addChild, isSetupUnlocked, setParentPin, unlockSetup, useAppState } from "@/lib/store";
 import { TT_LEVELS, defaultStartLevel } from "@/lib/tt";
 
@@ -21,6 +24,7 @@ export default function SetupPage() {
 }
 
 function CreatePin() {
+  const router = useRouter();
   const [pin, setPin] = useState("");
   const [confirm, setConfirm] = useState("");
   const valid = /^\d{4}$/.test(pin) && pin === confirm;
@@ -56,6 +60,16 @@ function CreatePin() {
       >
         Save PIN
       </button>
+      {isSyncConfigured() && (
+        <details className="w-full mt-4">
+          <summary className="text-center text-brand font-bold cursor-pointer">
+            Already using KIMO on another device? Sign in
+          </summary>
+          <div className="mt-3">
+            <SignInForm compact onSignedIn={() => router.replace("/")} />
+          </div>
+        </details>
+      )}
     </main>
   );
 }

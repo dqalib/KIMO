@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/nunito";
 import "./globals.css";
+import SyncProvider from "@/components/SyncProvider";
 
 export const metadata: Metadata = {
   title: "KIMO",
@@ -19,7 +20,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-GB" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <SyncProvider />
+        {children}
+      </body>
     </html>
   );
 }

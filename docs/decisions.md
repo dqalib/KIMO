@@ -16,3 +16,6 @@
 | 2026-09-23 | Build order: Release 1 = times tables (TT) + phonics (PH); Release 2 = rest of maths; Release 3 = rest of English |
 | 2026-09-23 | Mastery gate default: ≥90% first-time accuracy + time target, 2 sets in a row (configurable) |
 | 2026-09-23 | Phonics order configurable; default DfE-style progression until school scheme known |
+| 2026-09-23 | Git identity for this repo: DQ <dqalib@gmail.com> |
+| 2026-09-23 | Sync design: whole family data = one JSON row per parent account in Supabase (`family_state`, RLS owner-only). Devices stay offline-first (localStorage) and merge on sync |
+| 2026-09-23 | One parent login (email + password, created in Supabase dashboard, public sign-up off). Children never log in |

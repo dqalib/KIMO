@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import ParentGate from "@/components/ParentGate";
+import SyncPanel from "@/components/SyncPanel";
 import { accuracy } from "@/lib/mastery";
 import { exportJson, removeChild, setCurrentLevel, useAppState } from "@/lib/store";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
@@ -45,6 +46,8 @@ function Dashboard() {
         </Link>
       </header>
 
+      <SyncPanel />
+
       {state.children.map((c) => {
         const tt = state.tt[c.id];
         const lvl = tt && getLevel(tt.current);
@@ -64,7 +67,8 @@ function Dashboard() {
               <div>
                 <h2 className="text-2xl font-extrabold">{c.name}</h2>
                 <p className="text-muted">
-                  Year {c.schoolYear} · {week.length} sets / ~{minutes} min this week
+                  Year {c.schoolYear} · {week.length} set{week.length === 1 ? "" : "s"} ·{" "}
+                  {week.length === 0 ? "none" : minutes < 1 ? "under 1 min" : `~${minutes} min`} this week
                 </p>
               </div>
               {tt?.flagged && (
@@ -155,7 +159,7 @@ function Dashboard() {
         <button onClick={download} className="underline">
           Download backup
         </button>
-        <span>Progress is saved on this device for now.</span>
+        <span>Backups are a JSON file of all progress on this device.</span>
       </footer>
     </main>
   );
