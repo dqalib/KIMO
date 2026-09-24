@@ -1,6 +1,6 @@
 # 003 — Tap, listen and sound-button components
 
-Status: ready
+Status: done — PR #3
 Owner: Kimi · Reviewer: Claude, then DQ
 
 ## Goal
@@ -74,4 +74,10 @@ One page showing: a ChoiceGrid with 2, 3, 4 and 6 options (and the result state)
 - PR from `kimi/003-choice-and-audio-components` with 2 screenshots of the demo page.
 
 ## Notes from Kimi
-(fill in)
+- All five files created; `npm run lint`, `npm test`, `npm run build` pass. No existing screens touched.
+- **iPad emulation check done** in headless Chrome at 768×1024 (portrait) and 834×1112 (landscape): no overflow, buttons ≥ 88px, easy tap targets. Screenshots: `shots/demo-portrait.png` and `shots/demo-landscape.png` in the KIMO-kimi clone (repo convention is screenshots not committed — `Claude outputs/` is gitignored; PAT can't upload PR attachments, so the images are in the clone + shown to DQ directly rather than embedded in the PR body).
+- `SpeakButton` renders nothing during SSR (`canSpeak()` is false server-side) — buttons appear after hydration. On devices with no speech support they never appear, per the brief.
+- `autoPlay` gotcha found in review: React hooks lint forbids synchronous setState in effects, so the speaking-state is set via a zero-delay timeout; behaviour unchanged.
+- `SoundButtons` renders letters at 72px in fixed 76px cells; words up to ~7 graphemes fit portrait iPad at the demo's max-w-3xl. Longer words (PH-16 style) may need a smaller variant later — flag for the phonics screen brief.
+- `speech.ts` prefers en-GB (Daniel/Kate/Serena on iPad), falls back to any en-*; voices load async on Safari — `primeVoices()` handles `voiceschanged`. Rate 0.85 default.
+- Next.js 16: read `node_modules/next/dist/docs/` per AGENTS.md — client-component conventions unchanged from what the code uses.
