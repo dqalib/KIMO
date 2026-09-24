@@ -73,3 +73,10 @@ For SP-02, 04, 06, 07 choose everyday words a child that age would know.
 - `I`, `I'll`, `I'm`, `I've` are the only non-lowercase words — the only exception to test 4, documented in the test.
 - SP-02 words all add the suffix with no root spelling change (no consonant doubling, no e-dropping), per the brief.
 - All sentences are original, 5–10 words, UK English; each contains its word exactly once (mechanical test).
+
+## Review (Claude)
+Approved with fixes, made in review:
+- **SP-08 replaced.** The pairs used (advice/advise, aisle/isle, prophecy/prophesy…) are Appendix 1's **Years 5–6** list. Checked against the published PDF: the Years 3–4 homophones are accept/except, affect/effect, ball/bawl, berry/bury, brake/break, fair/fare, grate/great, groan/grown, here/hear, heel/heal/he'll, knot/not, mail/male, main/mane, meat/meet, medal/meddle, missed/mist, peace/piece, plain/plane, rain/rein/reign, scene/seen, weather/whether, whose/who's — 46 words, new sentences written. A test now pins SP-08 to this list.
+- *Mr, Mrs, Christmas, February* restored with capitals (children should learn them that way); the test allows exactly these plus *I*-forms.
+- Cross-list overlaps (busy, heard, past, great, break, here, reign) kept — each level mirrors its statutory list.
+

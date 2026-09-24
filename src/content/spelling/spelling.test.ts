@@ -29,7 +29,7 @@ const EXPECTED_YEAR: Record<string, number> = {
 
 const EXPECTED_COUNT: Record<string, number> = {
   "SP-01": 45, "SP-02": 30, "SP-03": 64, "SP-04": 40,
-  "SP-05": 55, "SP-06": 40, "SP-07": 40, "SP-08": 58, "SP-09": 54,
+  "SP-05": 55, "SP-06": 40, "SP-07": 40, "SP-08": 46, "SP-09": 54,
 };
 
 // The full years 3-4 statutory word list with optional endings expanded,
@@ -40,7 +40,7 @@ const Y3_4_LIST = [
   "centre", "century", "certain", "circle", "complete", "consider", "continue", "decide",
   "describe", "different", "difficult", "disappear", "early", "earth", "eight", "eighth",
   "enough", "exercise", "experience", "experiment", "extreme", "famous", "favourite",
-  "february", "forward", "forwards", "fruit", "grammar", "group", "guard", "guide", "heard",
+  "February", "forward", "forwards", "fruit", "grammar", "group", "guard", "guide", "heard",
   "heart", "height", "history", "imagine", "increase", "important", "interest", "island",
   "knowledge", "learn", "length", "library", "material", "medicine", "mention", "minute",
   "natural", "naughty", "notice", "occasion", "occasionally", "often", "opposite", "ordinary",
@@ -107,19 +107,22 @@ describe("spelling levels.json", () => {
     }
   });
 
-  it("words are lowercase letters, apostrophes or hyphens only (the pronoun 'I' excepted)", () => {
+  // Words that must be spelled with a capital letter (the pronoun I, titles, names of days/months/festivals).
+  const CAPITALISED = ["I", "I'll", "I'm", "I've", "Mr", "Mrs", "Christmas", "February"];
+
+  it("words are lowercase letters, apostrophes or hyphens only (words that need a capital excepted)", () => {
     for (const l of LEVELS) {
       for (const w of l.words) {
-        if (w.word === "I" || /^I'[a-z]+$/.test(w.word)) continue;
+        if (CAPITALISED.includes(w.word)) continue;
         expect(w.word, `${w.word} in ${l.level}`).toMatch(/^[a-z'-]+$/);
       }
     }
-    // exactly these capitalized forms are allowed: the pronoun I and its contractions
+    // exactly these capitalised forms are allowed
     const capitalized = LEVELS.flatMap((l) => l.words)
       .map((w) => w.word)
       .filter((word) => !/^[a-z'-]+$/.test(word))
       .sort();
-    expect(capitalized).toEqual(["I", "I'll", "I'm", "I've"].sort());
+    expect(capitalized).toEqual([...CAPITALISED].sort());
   });
 
   it("homophoneOf references exist in SP-08 and are mutual", () => {
@@ -145,5 +148,18 @@ describe("spelling levels.json", () => {
     for (const l of LEVELS) {
       for (const w of l.words) expect(BANNED).not.toContain(w.word.toLowerCase());
     }
+  });
+
+  // Added in review (Claude): SP-08 must be the *Years 3–4* homophones from Appendix 1,
+  // not the Years 5–6 "often confused" list.
+  it("SP-08 is exactly the Appendix 1 years 3-4 homophone list", () => {
+    const Y3_4_HOMOPHONES = [
+      "accept", "except", "affect", "effect", "ball", "bawl", "berry", "bury", "brake", "break",
+      "fair", "fare", "grate", "great", "groan", "grown", "here", "hear", "heel", "heal", "he'll",
+      "knot", "not", "mail", "male", "main", "mane", "meat", "meet", "medal", "meddle", "missed", "mist",
+      "peace", "piece", "plain", "plane", "rain", "rein", "reign", "scene", "seen", "weather", "whether",
+      "whose", "who's",
+    ];
+    expect(level("SP-08").words.map((w) => w.word).sort()).toEqual([...Y3_4_HOMOPHONES].sort());
   });
 });
