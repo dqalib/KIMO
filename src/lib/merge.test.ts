@@ -79,4 +79,10 @@ describe("mergeStates", () => {
     expect(m.children).toHaveLength(2);
     expect(m.tt.y.current).toBe("TT-10");
   });
+
+  it("keeps the furthest handwriting stage per letter", () => {
+    const a = { ...base(), children: [child("s")], hw: { s: { c: { stage: 3 as const, streak: 1 }, a: { stage: 1 as const, streak: 2 } } } };
+    const b = { ...base(), children: [child("s")], hw: { s: { c: { stage: 2 as const, streak: 2 }, a: { stage: 2 as const, streak: 0 }, d: { stage: 1 as const, streak: 1 } } } };
+    expect(mergeStates(a, b).hw!.s).toEqual({ c: { stage: 3, streak: 1 }, a: { stage: 2, streak: 0 }, d: { stage: 1, streak: 1 } });
+  });
 });

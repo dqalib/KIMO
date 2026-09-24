@@ -20,6 +20,7 @@ This is the backbone of the app. Every question the app shows belongs to exactly
 | **SP** | English | Spelling | Y1–Y4 |
 | **GP** | English | Grammar & punctuation | Y1–Y4 |
 | **RC** | English | Reading comprehension | Y1–Y4 |
+| **HW** | English | Handwriting — letter formation (Apple Pencil) | Y1–Y2 |
 
 Level IDs are `STRAND-NN` (e.g. `TT-07`). These are our own names — nothing borrowed from Kumon.
 
@@ -105,6 +106,18 @@ Sound order follows the common DfE-validated progression. **Configurable**: once
 | PH-16 | **PSC rehearsal** (exact format) | 40 words: 20 real + 20 alien, parent marks |
 
 Audio note: text-to-speech is poor at pure phonics sounds ("sss" not "suh"). Plan is to **record the ~44 sounds once** (DQ, 15 minutes on a phone) and use TTS only for whole words.
+
+### HW · Handwriting (Shirwa) — Apple Pencil
+Lowercase letter formation, plain print (no lead-ins), taught in the usual letter families:
+
+| Level | Family | Letters |
+|---|---|---|
+| HW-01 | Long ladder | l i t u j y |
+| HW-02 | Curly caterpillar | c a d o q g e s f |
+| HW-03 | One-armed robot | r n m h b p k |
+| HW-04 | Zig-zag | v w x z |
+
+Each letter goes through 3 stages — **trace** (thick guide, start dot, arrow) → **trace faint** (thin guide, start dot) → **write alone** (lines + start dot only). **3 correct in a row** moves to the next stage; after stage 3 the letter is learned. The app checks the start point, direction, stroke order and that the letter is finished — not just the final shape — so a backwards *c* or a missing dot on *i* is caught. Sessions are 8 tries.
 
 ### Placement starting guesses (placement test will confirm)
 | Child | Strand | Expected start |

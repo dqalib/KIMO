@@ -8,8 +8,8 @@ import type { Outcome, SetResult } from "./mastery";
 import { applySet } from "./mastery";
 import { defaultStartLevel, nextLevel, prevLevel } from "./tt";
 
-export type { AppState, Attempt, Child } from "./store-types";
-import type { AppState, Attempt, Child } from "./store-types";
+export type { AppState, Attempt, Child, LetterProgress } from "./store-types";
+import type { AppState, Attempt, Child, LetterProgress } from "./store-types";
 
 const KEY = "kimo:v1";
 const EMPTY: AppState = { version: 1, children: [], tt: {}, weakFacts: {}, attempts: [] };
@@ -140,11 +140,14 @@ export function removeChild(id: string) {
   void _tt;
   void _wf;
   void _pu;
+  const { [id]: _hw, ...hw } = s.hw ?? {};
+  void _hw;
   save({
     ...s,
     children: s.children.filter((c) => c.id !== id),
     tt,
     progressUpdatedAt,
+    hw,
     weakFacts,
     attempts: s.attempts.filter((a) => a.childId !== id),
     deletedChildren: [...(s.deletedChildren ?? []), id],
@@ -198,3 +201,49 @@ export function recordSet(
 export function exportJson(): string {
   return JSON.stringify(load(), null, 2);
 }
+
+// ---- handwriting --------------------------------------------------------------
+
+export const HW_CORRECT_TO_ADVANCE = 3;
+
+export function letterProgress(s: AppState, childId: string, ch: string): LetterProgress {
+  return s.hw?.[childId]?.[ch] ?? { stage: 1, streak: 0 };
+}
+
+/** Record one letter attempt. 3 correct in a row moves the letter to the next stage. */
+export function recordLetter(childId: string, ch: string, ok: boolean): LetterProgress {
+  const s = load();
+  const cur = letterProgress(s, childId, ch);
+  let next: LetterProgress;
+  if (!ok) next = { stage: cur.stage, streak: 0 };
+  else if (cur.streak + 1 >= HW_CORRECT_TO_ADVANCE && cur.stage < 4)
+    next = { stage: (cur.stage + 1) as LetterProgress["stage"], streak: 0 };
+  else next = { stage: cur.stage, streak: cur.stage === 4 ? 0 : cur.streak + 1 };
+  save({ ...s, hw: { ...(s.hw ?? {}), [childId]: { ...(s.hw?.[childId] ?? {}), [ch]: next } } });
+  return next;
+}
+
+/** Log a finished handwriting session so it counts for streaks and shows on the dashboard. */
+export function recordLetterSession(childId: string, levelId: string, tries: number, correct: number, durationMs: number, wrong: string[], levelPassed: boolean) {
+  const s = load();
+  const attempt: Attempt = {
+    id: uid(),
+    childId,
+    levelId,
+    finishedAt: new Date().toISOString(),
+    total: tries,
+    correctFirstTime: correct,
+    durationMs,
+    secondsPerQuestion: 0,
+    outcome: levelPassed ? "levelPassed" : correct / Math.max(tries, 1) >= 0.9 ? "setPassed" : "setFailed",
+    wrong,
+  };
+  save({ ...s, attempts: [...s.attempts, attempt].slice(-2000) });
+}
+
+/** Parent override: set a letter's stage directly (e.g. mark as known). */
+export function setLetterStage(childId: string, ch: string, stage: LetterProgress["stage"]) {
+  const s = load();
+  save({ ...s, hw: { ...(s.hw ?? {}), [childId]: { ...(s.hw?.[childId] ?? {}), [ch]: { stage, streak: 0 } } } });
+}
+

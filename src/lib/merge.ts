@@ -6,9 +6,10 @@
 // - Times tables progress: per child, the most recently changed copy wins.
 // - Attempts: union by id (append-only history), newest 2,000 kept.
 // - Tricky facts: per fact, the higher count wins.
+// - Handwriting: per letter, the further stage wins (then the longer streak).
 // - Parent PIN: the most recently changed copy wins.
 
-import type { AppState } from "./store-types";
+import type { AppState, LetterProgress } from "./store-types";
 
 const MAX_ATTEMPTS = 2000;
 
@@ -53,6 +54,18 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     if (Object.keys(merged).length) weakFacts[c.id] = merged;
   }
 
+  const hw: NonNullable<AppState["hw"]> = {};
+  for (const c of liveChildren) {
+    const ha = a.hw?.[c.id] ?? {};
+    const hb = b.hw?.[c.id] ?? {};
+    const merged: Record<string, LetterProgress> = { ...ha };
+    for (const [ch, pb] of Object.entries(hb)) {
+      const pa = merged[ch];
+      if (!pa || pb.stage > pa.stage || (pb.stage === pa.stage && pb.streak > pa.streak)) merged[ch] = pb;
+    }
+    if (Object.keys(merged).length) hw[c.id] = merged;
+  }
+
   const pinFrom = later(a.pinUpdatedAt, b.pinUpdatedAt) === "a" ? a : b;
   const parentPinHash = pinFrom.parentPinHash ?? a.parentPinHash ?? b.parentPinHash;
   const pinUpdatedAt = pinFrom.pinUpdatedAt;
@@ -67,6 +80,7 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     weakFacts,
     attempts,
     deletedChildren: deleted,
+    ...(Object.keys(hw).length ? { hw } : {}),
   };
 }
 

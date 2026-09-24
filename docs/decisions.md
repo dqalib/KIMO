@@ -22,3 +22,4 @@
 | 2026-09-23 | Phonics word lists (Kimi, PR #1) accepted after review fixes; e-e kept at 3 words |
 | 2026-09-23 | Kids have Apple Pencils → plan: Pencil answers (Scribble test first), letter tracing for Shirwa, scratch pad for column methods. Keypad kept; Tables Check rehearsal stays keypad |
 | 2026-09-23 | Kimi must work in its own clone (`AI-Project\KIMO-kimi`), never in DQ's `KIMO` folder |
+| 2026-09-24 | Handwriting (HW) strand added for Y1–2: plain print, 4 letter families, trace → faint → alone, 3 in a row per stage |

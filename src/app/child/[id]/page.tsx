@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useAppState } from "@/lib/store";
+import { currentLetter, lettersMastered } from "@/lib/hw";
+import { FAMILIES } from "@/lib/letters";
+import { letterProgress, useAppState } from "@/lib/store";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
 
 export default function ChildHome() {
@@ -16,6 +18,11 @@ export default function ChildHome() {
   const current = getLevel(tt.current)!;
   const today = new Date().toDateString();
   const doneToday = state.attempts.filter((a) => a.childId === id && new Date(a.finishedAt).toDateString() === today).length;
+  // Handwriting shows for Years 1–2, or for anyone who has already started it.
+  const showHw = child.schoolYear <= 2 || !!state.hw?.[id];
+  const hwLetter = currentLetter(state, id);
+  const hwStage = hwLetter ? letterProgress(state, id, hwLetter.char).stage : 4;
+  const hwFamily = hwLetter ? FAMILIES.find((f) => f.id === hwLetter.family) : undefined;
   const streak = dayStreak(state.attempts.filter((a) => a.childId === id).map((a) => a.finishedAt));
 
   return (
@@ -40,6 +47,38 @@ export default function ChildHome() {
           </p>
         </div>
       </div>
+
+      {showHw && (
+        <section className="rounded-3xl p-6 bg-card border-4 flex items-center gap-6" style={{ borderColor: child.color }}>
+          <div
+            className="w-28 h-28 shrink-0 rounded-2xl flex items-center justify-center text-7xl font-black text-white"
+            style={{ background: child.color }}
+            aria-hidden
+          >
+            {hwLetter?.char ?? "✓"}
+          </div>
+          <div className="flex-1 flex flex-col gap-2">
+            <p className="font-bold text-muted">Handwriting ✏️ · {lettersMastered(state, id)}/26 letters</p>
+            <h2 className="text-3xl font-black">
+              {hwLetter ? `Letter “${hwLetter.char}”` : "All letters learned!"}
+            </h2>
+            {hwLetter && (
+              <p className="text-muted font-semibold">
+                {hwFamily?.name} · {({ 1: "trace it", 2: "trace the faint one", 3: "write it alone", 4: "" } as const)[hwStage]}
+              </p>
+            )}
+          </div>
+          {hwLetter && (
+            <Link
+              href={`/child/${id}/letters`}
+              className="h-16 px-8 rounded-2xl text-white text-2xl font-extrabold flex items-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
+              style={{ background: child.color }}
+            >
+              Write ▶
+            </Link>
+          )}
+        </section>
+      )}
 
       <section className="rounded-3xl p-6 text-white flex flex-col gap-4" style={{ background: child.color }}>
         <p className="font-bold opacity-90">Times tables · {current.id}</p>

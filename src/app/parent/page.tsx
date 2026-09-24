@@ -3,6 +3,7 @@
 import Link from "next/link";
 import ParentGate from "@/components/ParentGate";
 import SyncPanel from "@/components/SyncPanel";
+import { currentLetter, lettersMastered } from "@/lib/hw";
 import { accuracy } from "@/lib/mastery";
 import { exportJson, removeChild, setCurrentLevel, useAppState } from "@/lib/store";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
@@ -99,6 +100,13 @@ function Dashboard() {
               </div>
             )}
 
+            {(c.schoolYear <= 2 || state.hw?.[c.id]) && (
+              <p className="font-bold">
+                Handwriting: {lettersMastered(state, c.id)}/26 letters learned
+                {currentLetter(state, c.id) && <span className="font-normal text-muted"> · working on “{currentLetter(state, c.id)!.char}”</span>}
+              </p>
+            )}
+
             {weak.length > 0 && (
               <p className="text-sm">
                 <span className="font-bold">Tricky facts: </span>
@@ -132,7 +140,7 @@ function Dashboard() {
                         {a.correctFirstTime}/{a.total} ({Math.round(accuracy(a) * 100)}%)
                       </td>
                       <td>
-                        {Math.round(a.durationMs / 1000)}s / {a.total * a.secondsPerQuestion}s
+                        {Math.round(a.durationMs / 1000)}s{a.secondsPerQuestion > 0 && ` / ${a.total * a.secondsPerQuestion}s`}
                       </td>
                       <td>{OUTCOME_LABEL[a.outcome]}</td>
                     </tr>
