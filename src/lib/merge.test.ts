@@ -85,4 +85,11 @@ describe("mergeStates", () => {
     const b = { ...base(), children: [child("s")], hw: { s: { c: { stage: 2 as const, streak: 2 }, a: { stage: 2 as const, streak: 0 }, d: { stage: 1 as const, streak: 1 } } } };
     expect(mergeStates(a, b).hw!.s).toEqual({ c: { stage: 3, streak: 1 }, a: { stage: 2, streak: 0 }, d: { stage: 1, streak: 1 } });
   });
+
+  it("keeps the most recent keypad/Pencil choice per child", () => {
+    const a = { ...base(), children: [child("y")], inputMode: { y: { mode: "pencil" as const, at: "2026-09-24T09:00:00Z" } } };
+    const b = { ...base(), children: [child("y")], inputMode: { y: { mode: "keypad" as const, at: "2026-09-24T08:00:00Z" } } };
+    expect(mergeStates(b, a).inputMode!.y.mode).toBe("pencil");
+    expect(mergeStates(a, b).inputMode!.y.mode).toBe("pencil");
+  });
 });

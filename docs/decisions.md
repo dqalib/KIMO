@@ -23,3 +23,5 @@
 | 2026-09-23 | Kids have Apple Pencils → plan: Pencil answers (Scribble test first), letter tracing for Shirwa, scratch pad for column methods. Keypad kept; Tables Check rehearsal stays keypad |
 | 2026-09-23 | Kimi must work in its own clone (`AI-Project\KIMO-kimi`), never in DQ's `KIMO` folder |
 | 2026-09-24 | Handwriting (HW) strand added for Y1–2: plain print, 4 letter families, trace → faint → alone, 3 in a row per stage |
+| 2026-09-24 | Pencil answers use our own on-device digit reader (not Scribble): MLP trained on MNIST (via MIT `mnist` npm pkg) + synthetic pen digits; 97.9% per digit on unseen real handwriting. Auto-submits when sure (≥0.9), otherwise asks "Is it 56?" |
+| 2026-09-24 | Pencil mode is a per-child parent setting; +2 s per question on time targets; Tables Check rehearsal always keypad |

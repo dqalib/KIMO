@@ -7,6 +7,7 @@
 // - Attempts: union by id (append-only history), newest 2,000 kept.
 // - Tricky facts: per fact, the higher count wins.
 // - Handwriting: per letter, the further stage wins (then the longer streak).
+// - Answer input (keypad/Pencil) per child: the most recently changed copy wins.
 // - Parent PIN: the most recently changed copy wins.
 
 import type { AppState, LetterProgress } from "./store-types";
@@ -66,6 +67,14 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     if (Object.keys(merged).length) hw[c.id] = merged;
   }
 
+  const inputMode: NonNullable<AppState["inputMode"]> = {};
+  for (const c of liveChildren) {
+    const ia = a.inputMode?.[c.id];
+    const ib = b.inputMode?.[c.id];
+    const pick = !ib ? ia : !ia ? ib : ia.at >= ib.at ? ia : ib;
+    if (pick) inputMode[c.id] = pick;
+  }
+
   const pinFrom = later(a.pinUpdatedAt, b.pinUpdatedAt) === "a" ? a : b;
   const parentPinHash = pinFrom.parentPinHash ?? a.parentPinHash ?? b.parentPinHash;
   const pinUpdatedAt = pinFrom.pinUpdatedAt;
@@ -81,6 +90,7 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     attempts,
     deletedChildren: deleted,
     ...(Object.keys(hw).length ? { hw } : {}),
+    ...(Object.keys(inputMode).length ? { inputMode } : {}),
   };
 }
 

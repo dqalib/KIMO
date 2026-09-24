@@ -50,3 +50,4 @@ Claude outputs/
 
 Claude outputs/
 !.env.example
+ml/digits/mnist/

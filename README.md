@@ -30,6 +30,11 @@ npm run build
 | `src/lib/merge.ts` | Merges two copies of family data (device + cloud) |
 | `src/lib/sync.ts` | Supabase sign-in and sync |
 | `supabase/schema.sql` | Database table + security rules |
+| `src/lib/letters.ts` | Handwriting: letter stroke templates + tracing checker |
+| `src/lib/digits.ts` | Reads handwritten numbers from Pencil strokes (on-device) |
+| `public/models/digits-v1.json` | Digit reader model (int8, ~200 KB) — retrain with `ml/digits/train.py` |
+| `src/components/InkPad.tsx` | Apple Pencil canvas (pressure, palm rejection) |
+| `src/components/PencilAnswer.tsx` | Write-your-answer box for maths |
 | `src/app/` | Screens: `/` picker, `/setup`, `/child/[id]`, `/child/[id]/practice`, `/parent` |
 | `src/components/` | NumberPad, ParentGate |
 

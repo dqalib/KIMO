@@ -8,8 +8,8 @@ import type { Outcome, SetResult } from "./mastery";
 import { applySet } from "./mastery";
 import { defaultStartLevel, nextLevel, prevLevel } from "./tt";
 
-export type { AppState, Attempt, Child, LetterProgress } from "./store-types";
-import type { AppState, Attempt, Child, LetterProgress } from "./store-types";
+export type { AppState, Attempt, Child, InputMode, LetterProgress } from "./store-types";
+import type { AppState, Attempt, Child, InputMode, LetterProgress } from "./store-types";
 
 const KEY = "kimo:v1";
 const EMPTY: AppState = { version: 1, children: [], tt: {}, weakFacts: {}, attempts: [] };
@@ -245,5 +245,19 @@ export function recordLetterSession(childId: string, levelId: string, tries: num
 export function setLetterStage(childId: string, ch: string, stage: LetterProgress["stage"]) {
   const s = load();
   save({ ...s, hw: { ...(s.hw ?? {}), [childId]: { ...(s.hw?.[childId] ?? {}), [ch]: { stage, streak: 0 } } } });
+}
+
+// ---- answer input (keypad or Apple Pencil) ---------------------------------------
+
+/** Extra seconds per question allowed when answering with the Pencil (writing is slower than tapping). */
+export const PENCIL_EXTRA_SECONDS = 2;
+
+export function getInputMode(s: AppState, childId: string): InputMode {
+  return s.inputMode?.[childId]?.mode ?? "keypad";
+}
+
+export function setInputMode(childId: string, mode: InputMode) {
+  const s = load();
+  save({ ...s, inputMode: { ...(s.inputMode ?? {}), [childId]: { mode, at: now() } } });
 }
 

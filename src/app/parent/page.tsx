@@ -5,7 +5,7 @@ import ParentGate from "@/components/ParentGate";
 import SyncPanel from "@/components/SyncPanel";
 import { currentLetter, lettersMastered } from "@/lib/hw";
 import { accuracy } from "@/lib/mastery";
-import { exportJson, removeChild, setCurrentLevel, useAppState } from "@/lib/store";
+import { exportJson, getInputMode, removeChild, setCurrentLevel, setInputMode, useAppState } from "@/lib/store";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
 
 export default function ParentPage() {
@@ -99,6 +99,19 @@ function Dashboard() {
                 </select>
               </div>
             )}
+
+            <label className="flex items-center gap-3 font-bold">
+              Maths answers
+              <select
+                className="p-2 rounded-xl border-2 border-line bg-card font-normal"
+                value={getInputMode(state, c.id)}
+                onChange={(e) => setInputMode(c.id, e.target.value as "keypad" | "pencil")}
+                aria-label={`How ${c.name} answers`}
+              >
+                <option value="keypad">Tap the keypad</option>
+                <option value="pencil">Write with Apple Pencil (+2 s per question)</option>
+              </select>
+            </label>
 
             {(c.schoolYear <= 2 || state.hw?.[c.id]) && (
               <p className="font-bold">

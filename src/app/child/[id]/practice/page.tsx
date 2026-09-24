@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import NumberPad from "@/components/NumberPad";
+import PencilAnswer from "@/components/PencilAnswer";
 import { accuracy, isPassingSet, timeTargetMs, type Outcome, type SetResult } from "@/lib/mastery";
-import { recordSet, useAppState, type Child } from "@/lib/store";
+import { getInputMode, PENCIL_EXTRA_SECONDS, recordSet, useAppState, type Child, type InputMode } from "@/lib/store";
 import { generateSet, getLevel, nextLevel, prevLevel, type Question, type TTLevel } from "@/lib/tt";
 
 export default function PracticePage() {
@@ -16,13 +17,29 @@ export default function PracticePage() {
   const progress = state.tt[id];
   const level = progress && getLevel(progress.current);
   if (!child || !level) return null;
-  return <Practice child={child} level={level} weak={state.weakFacts[id] ?? {}} />;
+  // The Tables Check rehearsal is always typed, like the real check.
+  const mode: InputMode = level.hardLimit ? "keypad" : getInputMode(state, id);
+  return <Practice child={child} level={level} weak={state.weakFacts[id] ?? {}} initialMode={mode} />;
 }
 
 type Phase = "ready" | "main" | "fix" | "done";
 type Flash = "good" | "bad" | null;
 
-function Practice({ child, level, weak }: { child: Child; level: TTLevel; weak: Record<string, number> }) {
+function Practice({
+  child,
+  level,
+  weak,
+  initialMode,
+}: {
+  child: Child;
+  level: TTLevel;
+  weak: Record<string, number>;
+  initialMode: InputMode;
+}) {
+  const [mode, setMode] = useState<InputMode>(initialMode);
+  const [attemptNo, setAttemptNo] = useState(0); // bumps to clear the Pencil pad
+  // Writing takes a little longer than tapping, so Pencil sets get extra time per question.
+  const secondsPerQuestion = level.secondsPerQuestion + (mode === "pencil" && !level.hardLimit ? PENCIL_EXTRA_SECONDS : 0);
   const [questions] = useState<Question[]>(() => generateSet(level, weak));
   const [phase, setPhase] = useState<Phase>("ready");
   const [index, setIndex] = useState(0);
@@ -46,12 +63,12 @@ function Practice({ child, level, weak }: { child: Child; level: TTLevel; weak: 
       total: questions.length,
       correctFirstTime: correctFirst.current,
       durationMs: mainEndedAt.current - startedAt.current,
-      secondsPerQuestion: level.secondsPerQuestion,
+      secondsPerQuestion,
     };
     const outcome = recordSet(child.id, level.id, r, wrongRef.current.map((w) => ({ prompt: w.prompt, key: w.key })));
     setResult({ r, outcome });
     setPhase("done");
-  }, [child.id, level, questions.length]);
+  }, [child.id, level, questions.length, secondsPerQuestion]);
 
   const endMain = useCallback(() => {
     mainEndedAt.current = Date.now();
@@ -64,6 +81,7 @@ function Practice({ child, level, weak }: { child: Child; level: TTLevel; weak: 
 
   const advanceMain = useCallback(() => {
     setInput("");
+    setAttemptNo((n) => n + 1);
     setFlash(null);
     busy.current = false;
     if (index + 1 < questions.length) setIndex(index + 1);
@@ -76,10 +94,10 @@ function Practice({ child, level, weak }: { child: Child; level: TTLevel; weak: 
     setTimeout(advanceMain, 650);
   }, [questions, index, advanceMain]);
 
-  const submit = useCallback(() => {
-    if (busy.current || !q || input === "") return;
+  const submitValue = useCallback((value: string) => {
+    if (busy.current || !q || value === "") return;
     busy.current = true;
-    const correct = Number(input) === q.answer;
+    const correct = Number(value) === q.answer;
 
     if (phase === "main") {
       if (correct) {
@@ -96,6 +114,7 @@ function Practice({ child, level, weak }: { child: Child; level: TTLevel; weak: 
       setTimeout(() => {
         setFlash(null);
         setInput("");
+        setAttemptNo((n) => n + 1);
         setShowAnswer(false);
         busy.current = false;
         if (fixIndex + 1 < wrong.length) setFixIndex(fixIndex + 1);
@@ -106,11 +125,22 @@ function Practice({ child, level, weak }: { child: Child; level: TTLevel; weak: 
       setTimeout(() => {
         setFlash(null);
         setInput("");
+        setAttemptNo((n) => n + 1);
         setShowAnswer(true);
         busy.current = false;
       }, 650);
     }
-  }, [q, input, phase, advanceMain, markWrongMain, fixIndex, wrong.length, finish]);
+  }, [q, phase, advanceMain, markWrongMain, fixIndex, wrong.length, finish]);
+
+  const submit = useCallback(() => submitValue(input), [submitValue, input]);
+  const onPencilAnswer = useCallback(
+    (text: string) => {
+      setInput(text);
+      submitValue(text);
+    },
+    [submitValue],
+  );
+  const onPencilUnavailable = useCallback(() => setMode("keypad"), []);
 
   // Tables Check rehearsal: each question has a hard time limit.
   useEffect(() => {
@@ -214,7 +244,29 @@ function Practice({ child, level, weak }: { child: Child; level: TTLevel; weak: 
         )}
       </div>
 
-      <NumberPad onDigit={onDigit} onBack={onBack} onSubmit={submit} disabled={flash !== null} />
+      {mode === "pencil" ? (
+        <PencilAnswer
+          key={attemptNo}
+          color={child.color}
+          disabled={flash !== null}
+          onAnswer={onPencilAnswer}
+          onReading={setInput}
+          onUnavailable={onPencilUnavailable}
+        />
+      ) : (
+        <NumberPad onDigit={onDigit} onBack={onBack} onSubmit={submit} disabled={flash !== null} />
+      )}
+      {!level.hardLimit && (
+        <button
+          className="text-sm text-muted underline"
+          onClick={() => {
+            setInput("");
+            setMode(mode === "pencil" ? "keypad" : "pencil");
+          }}
+        >
+          {mode === "pencil" ? "Use the keypad instead" : "Write with the Pencil instead"}
+        </button>
+      )}
     </main>
   );
 }

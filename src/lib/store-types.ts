@@ -27,6 +27,8 @@ export interface LetterProgress {
   streak: number; // correct in a row at this stage
 }
 
+export type InputMode = "keypad" | "pencil";
+
 export interface AppState {
   version: 1;
   parentPinHash?: string;
@@ -38,4 +40,5 @@ export interface AppState {
   attempts: Attempt[];
   deletedChildren?: string[]; // ids removed on any device, so removal syncs
   hw?: Record<string, Record<string, LetterProgress>>; // child id -> letter -> progress
+  inputMode?: Record<string, { mode: InputMode; at: string }>; // child id -> how they answer maths
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { currentLetter, lettersMastered } from "@/lib/hw";
 import { FAMILIES } from "@/lib/letters";
-import { letterProgress, useAppState } from "@/lib/store";
+import { getInputMode, letterProgress, PENCIL_EXTRA_SECONDS, useAppState } from "@/lib/store";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
 
 export default function ChildHome() {
@@ -84,7 +84,9 @@ export default function ChildHome() {
         <p className="font-bold opacity-90">Times tables · {current.id}</p>
         <h2 className="text-4xl font-black">{current.title}</h2>
         <p className="opacity-90 font-semibold">
-          {current.setSize} questions · aim for {current.secondsPerQuestion} seconds each
+          {current.setSize} questions · aim for{" "}
+          {current.secondsPerQuestion + (getInputMode(state, id) === "pencil" && !current.hardLimit ? PENCIL_EXTRA_SECONDS : 0)} seconds each
+          {getInputMode(state, id) === "pencil" && !current.hardLimit && " · ✏️ Pencil"}
           {tt.passStreak > 0 && " · 1 more great set to pass!"}
         </p>
         <Link
