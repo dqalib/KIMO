@@ -19,3 +19,6 @@
 | 2026-09-23 | Git identity for this repo: DQ <dqalib@gmail.com> |
 | 2026-09-23 | Sync design: whole family data = one JSON row per parent account in Supabase (`family_state`, RLS owner-only). Devices stay offline-first (localStorage) and merge on sync |
 | 2026-09-23 | One parent login (email + password, created in Supabase dashboard, public sign-up off). Children never log in |
+| 2026-09-23 | Phonics word lists (Kimi, PR #1) accepted after review fixes; e-e kept at 3 words |
+| 2026-09-23 | Kids have Apple Pencils → plan: Pencil answers (Scribble test first), letter tracing for Shirwa, scratch pad for column methods. Keypad kept; Tables Check rehearsal stays keypad |
+| 2026-09-23 | Kimi must work in its own clone (`AI-Project\KIMO-kimi`), never in DQ's `KIMO` folder |

@@ -96,3 +96,11 @@ Vitest tests that fail if the data breaks the rules. At minimum:
 - Split-digraph grapheme lists follow the brief's example: the `e` of `a-e` is not a separate grapheme (`cake` = `["c","a-e","k"]`). `ice`/`mice` are written `["i-e","c"]` since the split digraph spans the final `e`.
 - PH-14: one demonstration word per alternative pronunciation. Easy to extend if DQ wants more practice on a specific one (e.g. more `c`-as-`s` words: *cent*, *icy*, *race*).
 - `say` fields in `gpcs.json` are prompts for DQ's recording session (pure sounds, no schwa).
+
+## Review (Claude)
+Approved with fixes, made in review:
+- PH-02: *go, no, so, to, do* removed — the final `o` isn't short /o/ at this stage (and *to/do* are tricky words). *car* removed — it was split `c-a-r`, but `ar` isn't taught until PH-08. Replaced with *got, not, cog, dot, mop, cod*.
+- PH-12: *photo* → *dolphin* (long `o` isn't taught yet).
+- PH-15: *quaffle* → *quibset* (quaffle is from Harry Potter — brand/book term).
+- Added tests so these can't come back: no two single letters that spell a taught digraph (e.g. `a`+`r`), no lone final vowel in PH-01–PH-09, and a banned-words list.
+- e-e: accepted as 3 words (*eve, these, theme*) — normal for this grapheme.

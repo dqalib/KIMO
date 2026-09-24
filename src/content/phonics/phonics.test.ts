@@ -30,6 +30,9 @@ const LEVELS = levels as Level[];
 
 const phOrder = (id: string) => Number(id.split("-")[1]);
 
+// Words where two letters that could be a digraph really are two separate sounds.
+const ALLOWED_LETTER_PAIRS = new Set<string>([]);
+
 // Earliest level at which each grapheme string is taught.
 const teachLevel = new Map<string, number>();
 for (const g of GPCS) {
@@ -212,5 +215,38 @@ describe("levels.json", () => {
         expect(w.word).toMatch(/^[a-z]+$/);
       }
     }
+  });
+
+  // Added in review (Claude): catch words that pass the grapheme check but would
+  // teach the wrong sound, e.g. "car" split as c-a-r before "ar" is taught.
+  it("no word is split into single letters where a digraph belongs", () => {
+    const multi = [...teachLevel.keys()].filter((g) => g.length > 1 && !g.includes("-"));
+    for (const l of LEVELS) {
+      for (const w of l.words) {
+        for (let i = 0; i < w.graphemes.length - 1; i++) {
+          // Two adjacent single-letter graphemes must not together spell a taught digraph
+          // (e.g. "a"+"r" = "ar", "s"+"h" = "sh"). Exception: real two-sound uses listed below.
+          const pair = w.graphemes[i] + w.graphemes[i + 1];
+          if (w.graphemes[i].length === 1 && w.graphemes[i + 1].length === 1 && multi.includes(pair)) {
+            const ok = ALLOWED_LETTER_PAIRS.has(`${w.word}:${pair}`);
+            expect(ok, `${w.word} in ${l.level} splits "${pair}" into two letters`).toBe(true);
+          }
+        }
+      }
+    }
+  });
+
+  it("early levels (PH-01..PH-09) have no words ending in a lone vowel (go, no, to, he)", () => {
+    for (const l of LEVELS.filter((x) => phOrder(x.level) <= 9)) {
+      for (const w of l.words) {
+        const last = w.graphemes[w.graphemes.length - 1];
+        expect(/^[aeiou]$/.test(last), `${w.word} in ${l.level} ends in a vowel sound not yet taught`).toBe(false);
+      }
+    }
+  });
+
+  it("no names from books, films, games or brands", () => {
+    const banned = ["quaffle", "quidditch", "muggle", "hogwarts", "pokemon", "lego", "minecraft", "roblox"];
+    for (const l of LEVELS) for (const w of l.words) expect(banned).not.toContain(w.word);
   });
 });
