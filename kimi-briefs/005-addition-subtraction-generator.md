@@ -1,6 +1,6 @@
 # 005 — Addition & subtraction question generator (AS-01 → AS-05)
 
-Status: ready
+Status: done — PR #5
 Owner: Kimi · Reviewer: Claude, then DQ
 
 ## Goal
@@ -59,4 +59,9 @@ export function generateASSet(level: ASLevel, tricky?: Record<string, number>, r
 - PR from `kimi/005-addition-subtraction-generator` with 3 example sets per level pasted in the PR description.
 
 ## Notes from Kimi
-(write here when done)
+
+- `text` uses `−` (U+2212) and `?` exactly as specced; `key` uses ASCII (`17-9`, `?+8=15`) so it stays stable and typeable.
+- Plain facts (no blank, no `=`) keep the `tt.ts` prompt style, e.g. `3 + 7`, `10 − 6`; only missing-number forms include `=`.
+- "Crosses 10" for AS-02 means addends whose units sum past 10 (`8 + 5`) or a subtraction that borrows past 10 (`15 − 7`); bonds to 20 (`? + 12 = 20`) are a separate shape. AS-04 "crosses a tens boundary" = regrouping (`47 + 6`, `83 − 5`); ± tens (`36 + 40`) never regroup.
+- Generation is pool-based per shape (like `tt.ts` weighted sampling without replacement), so tricky keys are 3× as likely and no key repeats; opening slots guarantee each set covers the level's rule shapes (crossing facts, blank positions, bonds).
+- Extra scope test beyond the list: AS-01 facts are always bonds to 10, AS-02/03 numbers and answers stay within 20/100, AS-04 is only ± 1-digit or ± tens, AS-05 is two 2-digit numbers or a bond to 100.
