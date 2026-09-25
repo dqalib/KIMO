@@ -109,4 +109,13 @@ describe("mergeStates", () => {
     expect(m.spTricky!.y).toEqual({ because: 2, island: 1 });
     expect(m.ph).toBeUndefined();
   });
+
+  it("merges grammar and maths progress per child", () => {
+    const a = { ...base(), children: [child("s")], gp: { s: prog("GP-02") }, gpUpdatedAt: { s: "2026-09-25T09:00:00Z" }, as: { s: prog("AS-01") }, asUpdatedAt: { s: "2026-09-25T07:00:00Z" }, asTricky: { s: { "3+7": 1 } } };
+    const b = { ...base(), children: [child("s")], as: { s: prog("AS-02") }, asUpdatedAt: { s: "2026-09-25T08:00:00Z" }, asTricky: { s: { "3+7": 2 } } };
+    const m = mergeStates(a, b);
+    expect(m.gp!.s.current).toBe("GP-02");
+    expect(m.as!.s.current).toBe("AS-02");
+    expect(m.asTricky!.s).toEqual({ "3+7": 2 });
+  });
 });

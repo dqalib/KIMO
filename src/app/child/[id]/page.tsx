@@ -4,9 +4,8 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { currentLetter, lettersMastered } from "@/lib/hw";
 import { FAMILIES } from "@/lib/letters";
-import { getPhLevel } from "@/lib/phonics";
-import { getSpLevel } from "@/lib/spelling";
-import { getInputMode, letterProgress, PENCIL_EXTRA_SECONDS, phProgress, spProgress, useAppState } from "@/lib/store";
+import { getInputMode, letterProgress, PENCIL_EXTRA_SECONDS, strandProgress, strandStarted, useAppState } from "@/lib/store";
+import { STRANDS } from "@/lib/strands";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
 
 export default function ChildHome() {
@@ -25,12 +24,6 @@ export default function ChildHome() {
   const hwLetter = currentLetter(state, id);
   const hwStage = hwLetter ? letterProgress(state, id, hwLetter.char).stage : 4;
   const hwFamily = hwLetter ? FAMILIES.find((f) => f.id === hwLetter.family) : undefined;
-  // Phonics shows for Years 1–2, or for anyone who has already started it.
-  const showPh = child.schoolYear <= 2 || !!state.ph?.[id];
-  const phLevel = getPhLevel(phProgress(state, id).current);
-  // Spelling shows from Year 2, or for anyone who has already started it.
-  const showSp = child.schoolYear >= 2 || !!state.sp?.[id];
-  const spLevel = getSpLevel(spProgress(state, id).current);
   const streak = dayStreak(state.attempts.filter((a) => a.childId === id).map((a) => a.finishedAt));
 
   return (
@@ -56,52 +49,36 @@ export default function ChildHome() {
         </div>
       </div>
 
-      {showPh && phLevel && (
-        <section className="rounded-3xl p-6 bg-card border-4 flex items-center gap-6" style={{ borderColor: child.color }}>
-          <div
-            className="w-28 h-28 shrink-0 rounded-2xl flex items-center justify-center text-6xl text-white"
-            style={{ background: child.color }}
-            aria-hidden
-          >
-            🔊
-          </div>
-          <div className="flex-1 flex flex-col gap-2">
-            <p className="font-bold text-muted">Phonics · {phLevel.id}</p>
-            <h2 className="text-3xl font-black">{phLevel.title}</h2>
-            {phLevel.grownUp && <p className="text-muted font-semibold">Needs a grown-up to listen</p>}
-          </div>
-          <Link
-            href={`/child/${id}/phonics`}
-            className="h-16 px-8 rounded-2xl text-white text-2xl font-extrabold flex items-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
-            style={{ background: child.color }}
-          >
-            Read ▶
-          </Link>
-        </section>
-      )}
-
-      {showSp && spLevel && (
-        <section className="rounded-3xl p-6 bg-card border-4 flex items-center gap-6" style={{ borderColor: child.color }}>
-          <div
-            className="w-28 h-28 shrink-0 rounded-2xl flex items-center justify-center text-5xl font-black text-white"
-            style={{ background: child.color }}
-            aria-hidden
-          >
-            Aa
-          </div>
-          <div className="flex-1 flex flex-col gap-2">
-            <p className="font-bold text-muted">Spelling · {spLevel.id}</p>
-            <h2 className="text-3xl font-black">{spLevel.title}</h2>
-          </div>
-          <Link
-            href={`/child/${id}/spelling`}
-            className="h-16 px-8 rounded-2xl text-white text-2xl font-extrabold flex items-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
-            style={{ background: child.color }}
-          >
-            Spell ▶
-          </Link>
-        </section>
-      )}
+      {STRANDS.filter((st) => st.shownFor(child.schoolYear) || strandStarted(state, st.key, id)).map((st) => {
+        const current = strandProgress(state, st.key, id).current;
+        const lvl = st.levels.find((l) => l.id === current);
+        if (!lvl) return null;
+        return (
+          <section key={st.key} className="rounded-3xl p-6 bg-card border-4 flex items-center gap-6" style={{ borderColor: child.color }}>
+            <div
+              className="w-28 h-28 shrink-0 rounded-2xl flex items-center justify-center text-5xl font-black text-white"
+              style={{ background: child.color }}
+              aria-hidden
+            >
+              {st.icon}
+            </div>
+            <div className="flex-1 flex flex-col gap-2">
+              <p className="font-bold text-muted">
+                {st.name} · {lvl.id}
+              </p>
+              <h2 className="text-3xl font-black">{lvl.title}</h2>
+              {lvl.grownUp && <p className="text-muted font-semibold">Needs a grown-up to listen</p>}
+            </div>
+            <Link
+              href={`/child/${id}/${st.path}`}
+              className="h-16 px-8 rounded-2xl text-white text-2xl font-extrabold flex items-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
+              style={{ background: child.color }}
+            >
+              {st.button}
+            </Link>
+          </section>
+        );
+      })}
 
       {showHw && (
         <section className="rounded-3xl p-6 bg-card border-4 flex items-center gap-6" style={{ borderColor: child.color }}>

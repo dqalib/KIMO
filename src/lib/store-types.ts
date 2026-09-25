@@ -47,4 +47,10 @@ export interface AppState {
   sp?: Record<string, LevelProgress>; // spelling progress by child id
   spUpdatedAt?: Record<string, string>;
   spTricky?: Record<string, Record<string, number>>; // child id -> word -> times wrong
+  gp?: Record<string, LevelProgress>; // grammar & punctuation progress by child id
+  gpUpdatedAt?: Record<string, string>;
+  gpTricky?: Record<string, Record<string, number>>; // child id -> question id -> times wrong
+  as?: Record<string, LevelProgress>; // addition & subtraction progress by child id
+  asUpdatedAt?: Record<string, string>;
+  asTricky?: Record<string, Record<string, number>>; // child id -> fact key -> times wrong
 }

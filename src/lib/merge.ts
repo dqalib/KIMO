@@ -6,7 +6,7 @@
 // - Times tables progress: per child, the most recently changed copy wins.
 // - Attempts: union by id (append-only history), newest 2,000 kept.
 // - Tricky facts: per fact, the higher count wins.
-// - Phonics, spelling: most recently changed progress wins per child; tricky-word counts take the higher.
+// - Phonics, spelling, grammar, addition/subtraction: most recently changed progress wins per child; tricky-word counts take the higher.
 // - Handwriting: per letter, the further stage wins (then the longer streak).
 // - Answer input (keypad/Pencil) per child: the most recently changed copy wins.
 // - Parent PIN: the most recently changed copy wins.
@@ -79,6 +79,8 @@ export function mergeStates(a: AppState, b: AppState): AppState {
   // Phonics and spelling: like times tables, most recently changed progress wins; tricky words take the max.
   const ph = mergeWordStrand(liveChildren, a.ph, b.ph, a.phUpdatedAt, b.phUpdatedAt, a.phTricky, b.phTricky);
   const sp = mergeWordStrand(liveChildren, a.sp, b.sp, a.spUpdatedAt, b.spUpdatedAt, a.spTricky, b.spTricky);
+  const gp = mergeWordStrand(liveChildren, a.gp, b.gp, a.gpUpdatedAt, b.gpUpdatedAt, a.gpTricky, b.gpTricky);
+  const as = mergeWordStrand(liveChildren, a.as, b.as, a.asUpdatedAt, b.asUpdatedAt, a.asTricky, b.asTricky);
 
   const pinFrom = later(a.pinUpdatedAt, b.pinUpdatedAt) === "a" ? a : b;
   const parentPinHash = pinFrom.parentPinHash ?? a.parentPinHash ?? b.parentPinHash;
@@ -98,6 +100,8 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     ...(Object.keys(inputMode).length ? { inputMode } : {}),
     ...(Object.keys(ph.progress).length ? { ph: ph.progress, phUpdatedAt: ph.updatedAt, phTricky: ph.tricky } : {}),
     ...(Object.keys(sp.progress).length ? { sp: sp.progress, spUpdatedAt: sp.updatedAt, spTricky: sp.tricky } : {}),
+    ...(Object.keys(gp.progress).length ? { gp: gp.progress, gpUpdatedAt: gp.updatedAt, gpTricky: gp.tricky } : {}),
+    ...(Object.keys(as.progress).length ? { as: as.progress, asUpdatedAt: as.updatedAt, asTricky: as.tricky } : {}),
   };
 }
 

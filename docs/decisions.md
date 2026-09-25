@@ -29,3 +29,6 @@
 | 2026-09-25 | Pass rules can vary per level (accuracyTarget) and levels can have no time target (secondsPerQuestion 0) |
 | 2026-09-25 | Spelling practice built (SP-01 → SP-09): app says word, sentence, word; child types on our own on-screen keyboard (no iPad autocorrect). 10 words a set, ≥90% first time, no time target. Wrong words come back as Look–Cover–Write–Check |
 | 2026-09-25 | Spelling start level before placement tests: Y1–2 → SP-01, Y3 → SP-03, Y4 → SP-05. Card shows from Year 2 (parent can start earlier). Capitals required only for words that have them (I, Mr, Christmas…) |
+| 2026-09-25 | Kimi 004 (grammar bank, 360 questions) accepted after fixing 14 questions; Kimi 005 (AS-01 → AS-05 generator) accepted as is |
+| 2026-09-25 | Grammar practice (GP) and adding & taking away (AS) screens built. Grammar: tap-the-answer, 10 a set, ≥90%, no timer, question can be read aloud, wrong answers show a short "why". AS reuses the times-tables screen (keypad or Pencil, timed) |
+| 2026-09-25 | Default strands by school year: phonics + adding & taking away for Y1–2; spelling + grammar from Y2; parent can start any strand early. Start levels: GP Y1–2 → GP-01, Y3 → GP-03, Y4 → GP-07; AS Y1 → AS-01, Y2 → AS-02 |

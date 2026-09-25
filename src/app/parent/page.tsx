@@ -5,9 +5,8 @@ import ParentGate from "@/components/ParentGate";
 import SyncPanel from "@/components/SyncPanel";
 import { currentLetter, lettersMastered } from "@/lib/hw";
 import { accuracy } from "@/lib/mastery";
-import { PH_LEVELS, getPhLevel } from "@/lib/phonics";
-import { SP_LEVELS, getSpLevel } from "@/lib/spelling";
-import { exportJson, getInputMode, phProgress, removeChild, setCurrentLevel, setInputMode, setPhLevel, setSpLevel, spProgress, useAppState } from "@/lib/store";
+import { exportJson, getInputMode, removeChild, setCurrentLevel, setInputMode, setStrandLevel, strandProgress, strandStarted, useAppState } from "@/lib/store";
+import { STRANDS } from "@/lib/strands";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
 
 export default function ParentPage() {
@@ -115,47 +114,39 @@ function Dashboard() {
               </select>
             </label>
 
-            {(c.schoolYear <= 2 || state.ph?.[c.id]) && (
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="font-bold">
-                  Phonics: {phProgress(state, c.id).current} · {getPhLevel(phProgress(state, c.id).current)?.title}
-                </span>
-                {state.ph?.[c.id]?.flagged && <span className="px-3 py-1 rounded-full bg-warn/15 text-warn font-bold">Needs help</span>}
-                <select
-                  className="ml-auto p-2 rounded-xl border-2 border-line bg-card"
-                  value={phProgress(state, c.id).current}
-                  onChange={(e) => setPhLevel(c.id, e.target.value)}
-                  aria-label={`Change ${c.name}'s phonics level`}
-                >
-                  {PH_LEVELS.map((l) => (
-                    <option key={l.id} value={l.id}>
-                      Move to {l.id} · {l.title}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="font-bold">
-                Spelling: {spProgress(state, c.id).current} · {getSpLevel(spProgress(state, c.id).current)?.title}
-                {!state.sp?.[c.id] && c.schoolYear < 2 && <span className="text-muted font-semibold"> (starts in Year 2 — pick a level to start early)</span>}
-              </span>
-              {state.sp?.[c.id]?.flagged && <span className="px-3 py-1 rounded-full bg-warn/15 text-warn font-bold">Needs help</span>}
-              <select
-                className="ml-auto p-2 rounded-xl border-2 border-line bg-card"
-                value={!state.sp?.[c.id] && c.schoolYear < 2 ? "" : spProgress(state, c.id).current}
-                onChange={(e) => e.target.value && setSpLevel(c.id, e.target.value)}
-                aria-label={`Change ${c.name}'s spelling level`}
-              >
-                {!state.sp?.[c.id] && c.schoolYear < 2 && <option value="">Not started</option>}
-                {SP_LEVELS.map((l) => (
-                  <option key={l.id} value={l.id}>
-                    Move to {l.id} · {l.title}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {STRANDS.map((st) => {
+              const started = strandStarted(state, st.key, c.id);
+              const shown = started || st.shownFor(c.schoolYear);
+              const p = strandProgress(state, st.key, c.id);
+              return (
+                <div key={st.key} className="flex flex-wrap items-center gap-3">
+                  <span className="font-bold">
+                    {st.name}:{" "}
+                    {shown ? (
+                      <>
+                        {p.current} · {st.levels.find((l) => l.id === p.current)?.title}
+                      </>
+                    ) : (
+                      <span className="text-muted font-semibold">off ({st.hiddenNote}) — pick a level to start early</span>
+                    )}
+                  </span>
+                  {p.flagged && <span className="px-3 py-1 rounded-full bg-warn/15 text-warn font-bold">Needs help</span>}
+                  <select
+                    className="ml-auto p-2 rounded-xl border-2 border-line bg-card"
+                    value={shown ? p.current : ""}
+                    onChange={(e) => e.target.value && setStrandLevel(st.key, c.id, e.target.value)}
+                    aria-label={`Change ${c.name}'s ${st.name.toLowerCase()} level`}
+                  >
+                    {!shown && <option value="">Not started</option>}
+                    {st.levels.map((l) => (
+                      <option key={l.id} value={l.id}>
+                        Move to {l.id} · {l.title}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              );
+            })}
 
             {(c.schoolYear <= 2 || state.hw?.[c.id]) && (
               <p className="font-bold">

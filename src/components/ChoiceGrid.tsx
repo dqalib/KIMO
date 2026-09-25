@@ -9,9 +9,11 @@ interface Props {
   /** After answering: colour the chosen button (green/red) and reveal the correct one. */
   result?: { chosen: number; correct: number };
   size?: "md" | "lg"; // lg = phonics (huge text)
+  /** One option per row, left-aligned, smaller text — for whole-sentence answers. */
+  stack?: boolean;
 }
 
-export default function ChoiceGrid({ options, onChoose, disabled, result, size = "md" }: Props) {
+export default function ChoiceGrid({ options, onChoose, disabled, result, size = "md", stack = false }: Props) {
   // Physical keyboard support for laptop testing: keys 1-6 choose that option.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -23,19 +25,22 @@ export default function ChoiceGrid({ options, onChoose, disabled, result, size =
     return () => window.removeEventListener("keydown", onKey);
   }, [options, onChoose, disabled, result]);
 
-  const cols =
-    options.length === 2 ? "grid-cols-2" : options.length === 3 ? "grid-cols-3" : options.length === 4 ? "grid-cols-2" : "grid-cols-3";
+  const cols = stack
+    ? "grid-cols-1"
+    : options.length === 2 ? "grid-cols-2" : options.length === 3 ? "grid-cols-3" : options.length === 4 ? "grid-cols-2" : "grid-cols-3";
 
-  const textSize = size === "lg" ? "text-5xl" : "text-3xl";
+  const textSize = stack ? "text-2xl sm:text-3xl text-left px-6 py-4" : size === "lg" ? "text-5xl" : "text-3xl";
 
-  const base =
-    "min-h-[88px] px-3 rounded-2xl font-extrabold bg-card border-2 border-line shadow-[0_4px_0_var(--line)] active:translate-y-1 active:shadow-none transition-all disabled:opacity-40";
+  const base = "min-h-[88px] px-3 rounded-2xl font-extrabold border-2 active:translate-y-1 active:shadow-none transition-all";
 
+  // Colour classes are chosen exclusively (never bg-card together with bg-good),
+  // because with both present the CSS order decides which wins.
   function colour(i: number): string {
-    if (!result) return "text-ink";
+    const plain = "text-ink bg-card border-line shadow-[0_4px_0_var(--line)]";
+    if (!result) return `${plain} disabled:opacity-40`;
     if (i === result.correct) return "text-white bg-good border-good shadow-[0_4px_0_#15803d]";
     if (i === result.chosen) return "text-white bg-bad border-bad shadow-[0_4px_0_#b91c1c]";
-    return "text-ink opacity-60";
+    return `${plain} opacity-50`;
   }
 
   return (
