@@ -57,6 +57,8 @@ export default function DevComponents() {
           <SoundButtons graphemes={["sh", "i", "p"]} highlight={0} />
           <SoundButtons graphemes={["n", "igh", "t"]} highlight={1} />
           <SoundButtons graphemes={["c", "a-e", "k"]} />
+          <SoundButtons graphemes={["b", "i-e", "k", "s"]} />
+          <SoundButtons graphemes={["a-e", "ch"]} />
           <SoundButtons graphemes={["s", "t", "a", "m", "p"]} />
         </div>
       </Section>

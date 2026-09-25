@@ -4,8 +4,9 @@
 // Data lives in localStorage on each device; src/lib/sync.ts copies it to/from Supabase.
 
 import { useSyncExternalStore } from "react";
-import type { Outcome, SetResult } from "./mastery";
+import type { LevelProgress, Outcome, SetResult } from "./mastery";
 import { applySet } from "./mastery";
+import { defaultSpStart } from "./spelling";
 import { defaultStartLevel, nextLevel, prevLevel } from "./tt";
 
 export type { AppState, Attempt, Child, InputMode, LetterProgress } from "./store-types";
@@ -261,3 +262,86 @@ export function setInputMode(childId: string, mode: InputMode) {
   save({ ...s, inputMode: { ...(s.inputMode ?? {}), [childId]: { mode, at: now() } } });
 }
 
+// ---- phonics --------------------------------------------------------------------
+
+export function phProgress(s: AppState, childId: string): LevelProgress {
+  return s.ph?.[childId] ?? { current: "PH-01", passed: [], passStreak: 0, failStreak: 0, flagged: false };
+}
+
+export function recordPhSet(childId: string, levelId: string, result: SetResult, wrongWords: string[], next?: string, prev?: string): Outcome {
+  const s = load();
+  const { progress, outcome } = applySet(phProgress(s, childId), levelId, result, next, prev);
+  const tricky = { ...(s.phTricky?.[childId] ?? {}) };
+  for (const w of wrongWords) tricky[w] = (tricky[w] ?? 0) + 1;
+  const attempt: Attempt = {
+    id: uid(),
+    childId,
+    levelId,
+    finishedAt: new Date().toISOString(),
+    ...result,
+    outcome,
+    wrong: wrongWords,
+  };
+  save({
+    ...s,
+    ph: { ...(s.ph ?? {}), [childId]: progress },
+    phUpdatedAt: { ...(s.phUpdatedAt ?? {}), [childId]: now() },
+    phTricky: { ...(s.phTricky ?? {}), [childId]: tricky },
+    attempts: [...s.attempts, attempt].slice(-2000),
+  });
+  return outcome;
+}
+
+export function setPhLevel(childId: string, levelId: string) {
+  const s = load();
+  const p = phProgress(s, childId);
+  save({
+    ...s,
+    ph: { ...(s.ph ?? {}), [childId]: { ...p, current: levelId, passStreak: 0, failStreak: 0, flagged: false } },
+    phUpdatedAt: { ...(s.phUpdatedAt ?? {}), [childId]: now() },
+  });
+}
+
+
+// ---- spelling -------------------------------------------------------------------
+
+export function spProgress(s: AppState, childId: string): LevelProgress {
+  const existing = s.sp?.[childId];
+  if (existing) return existing;
+  const year = s.children.find((c) => c.id === childId)?.schoolYear ?? 1;
+  return { current: defaultSpStart(year), passed: [], passStreak: 0, failStreak: 0, flagged: false };
+}
+
+export function recordSpSet(childId: string, levelId: string, result: SetResult, wrongWords: string[], next?: string, prev?: string): Outcome {
+  const s = load();
+  const { progress, outcome } = applySet(spProgress(s, childId), levelId, result, next, prev);
+  const tricky = { ...(s.spTricky?.[childId] ?? {}) };
+  for (const w of wrongWords) tricky[w] = (tricky[w] ?? 0) + 1;
+  const attempt: Attempt = {
+    id: uid(),
+    childId,
+    levelId,
+    finishedAt: new Date().toISOString(),
+    ...result,
+    outcome,
+    wrong: wrongWords,
+  };
+  save({
+    ...s,
+    sp: { ...(s.sp ?? {}), [childId]: progress },
+    spUpdatedAt: { ...(s.spUpdatedAt ?? {}), [childId]: now() },
+    spTricky: { ...(s.spTricky ?? {}), [childId]: tricky },
+    attempts: [...s.attempts, attempt].slice(-2000),
+  });
+  return outcome;
+}
+
+export function setSpLevel(childId: string, levelId: string) {
+  const s = load();
+  const p = spProgress(s, childId);
+  save({
+    ...s,
+    sp: { ...(s.sp ?? {}), [childId]: { ...p, current: levelId, passStreak: 0, failStreak: 0, flagged: false } },
+    spUpdatedAt: { ...(s.spUpdatedAt ?? {}), [childId]: now() },
+  });
+}

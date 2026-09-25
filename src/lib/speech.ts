@@ -4,6 +4,9 @@
 
 let cachedVoice: SpeechSynthesisVoice | null = null;
 let primed = false;
+// Hold a reference to the utterance being spoken: Chrome can garbage-collect
+// an unreferenced utterance mid-speech and then never fire `onend`.
+let current: SpeechSynthesisUtterance | null = null;
 
 function pickVoice(): SpeechSynthesisVoice | null {
   if (!canSpeak()) return null;
@@ -54,8 +57,21 @@ export function speak(text: string, opts?: { rate?: number }): Promise<void> {
     u.rate = opts?.rate ?? 0.85;
     const voice = cachedVoice ?? pickVoice();
     if (voice) u.voice = voice;
-    u.onend = () => resolve();
-    u.onerror = () => resolve();
+    // iOS Safari sometimes never fires `onend`; a watchdog (generous estimate of
+    // the speaking time) makes sure the promise always settles, so buttons
+    // don't stay stuck in their "speaking" state.
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      clearTimeout(watchdog);
+      if (current === u) current = null;
+      resolve();
+    };
+    const watchdog = setTimeout(finish, 2000 + (text.length * 120) / u.rate);
+    u.onend = finish;
+    u.onerror = finish;
+    current = u;
     window.speechSynthesis.speak(u);
   });
 }

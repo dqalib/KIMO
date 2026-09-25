@@ -6,6 +6,7 @@
 // - Times tables progress: per child, the most recently changed copy wins.
 // - Attempts: union by id (append-only history), newest 2,000 kept.
 // - Tricky facts: per fact, the higher count wins.
+// - Phonics, spelling: most recently changed progress wins per child; tricky-word counts take the higher.
 // - Handwriting: per letter, the further stage wins (then the longer streak).
 // - Answer input (keypad/Pencil) per child: the most recently changed copy wins.
 // - Parent PIN: the most recently changed copy wins.
@@ -75,6 +76,10 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     if (pick) inputMode[c.id] = pick;
   }
 
+  // Phonics and spelling: like times tables, most recently changed progress wins; tricky words take the max.
+  const ph = mergeWordStrand(liveChildren, a.ph, b.ph, a.phUpdatedAt, b.phUpdatedAt, a.phTricky, b.phTricky);
+  const sp = mergeWordStrand(liveChildren, a.sp, b.sp, a.spUpdatedAt, b.spUpdatedAt, a.spTricky, b.spTricky);
+
   const pinFrom = later(a.pinUpdatedAt, b.pinUpdatedAt) === "a" ? a : b;
   const parentPinHash = pinFrom.parentPinHash ?? a.parentPinHash ?? b.parentPinHash;
   const pinUpdatedAt = pinFrom.pinUpdatedAt;
@@ -91,10 +96,44 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     deletedChildren: deleted,
     ...(Object.keys(hw).length ? { hw } : {}),
     ...(Object.keys(inputMode).length ? { inputMode } : {}),
+    ...(Object.keys(ph.progress).length ? { ph: ph.progress, phUpdatedAt: ph.updatedAt, phTricky: ph.tricky } : {}),
+    ...(Object.keys(sp.progress).length ? { sp: sp.progress, spUpdatedAt: sp.updatedAt, spTricky: sp.tricky } : {}),
   };
 }
 
 /** True when two states hold the same data (used to skip pointless uploads). */
 export function sameState(a: AppState, b: AppState): boolean {
   return JSON.stringify(a) === JSON.stringify(b);
+}
+
+type Progress = NonNullable<AppState["ph"]>;
+type Stamps = Record<string, string>;
+type Tricky = Record<string, Record<string, number>>;
+
+/** Merge one word-based strand (phonics or spelling) for every live child. */
+function mergeWordStrand(
+  children: { id: string }[],
+  pa: Progress | undefined,
+  pb: Progress | undefined,
+  ta: Stamps | undefined,
+  tb: Stamps | undefined,
+  ka: Tricky | undefined,
+  kb: Tricky | undefined,
+) {
+  const progress: Progress = {};
+  const updatedAt: Stamps = {};
+  const tricky: Tricky = {};
+  for (const c of children) {
+    const x = pa?.[c.id];
+    const y = pb?.[c.id];
+    const pick = !y ? "a" : !x ? "b" : later(ta?.[c.id], tb?.[c.id]);
+    const p = pick === "a" ? x : y;
+    if (p) progress[c.id] = p;
+    const t = pick === "a" ? ta?.[c.id] : tb?.[c.id];
+    if (t) updatedAt[c.id] = t;
+    const tr: Record<string, number> = { ...(ka?.[c.id] ?? {}) };
+    for (const [w, n] of Object.entries(kb?.[c.id] ?? {})) tr[w] = Math.max(tr[w] ?? 0, n);
+    if (Object.keys(tr).length) tricky[c.id] = tr;
+  }
+  return { progress, updatedAt, tricky };
 }

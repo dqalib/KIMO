@@ -81,3 +81,8 @@ One page showing: a ChoiceGrid with 2, 3, 4 and 6 options (and the result state)
 - `SoundButtons` renders letters at 72px in fixed 76px cells; words up to ~7 graphemes fit portrait iPad at the demo's max-w-3xl. Longer words (PH-16 style) may need a smaller variant later — flag for the phonics screen brief.
 - `speech.ts` prefers en-GB (Daniel/Kate/Serena on iPad), falls back to any en-*; voices load async on Safari — `primeVoices()` handles `voiceschanged`. Rate 0.85 default.
 - Next.js 16: read `node_modules/next/dist/docs/` per AGENTS.md — client-component conventions unchanged from what the code uses.
+
+## Review (Claude)
+Approved with one fix:
+- `SpeakButton` returned `null` on the server but a button in the browser → React hydration error #418 on every page using it (confirmed in the browser console). Fixed by reading speech support through `useSyncExternalStore` with a server snapshot of `false`, so both renders match and the button appears straight after hydration.
+- Also fixed (second pass): `speak()` could hang on iOS when Safari never fires `onend` — added a watchdog timeout and kept a reference to the live utterance. `SoundButtons` put a split digraph's `e` at the very end of the word ("biks e" for `b·i-e·k·s`) — it now goes straight after the next grapheme; the arc now dips below the dots/lines instead of running through them.

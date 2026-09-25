@@ -16,9 +16,8 @@ Task briefs for Kimi. One file per task: `NNN-short-name.md`. Claude (lead) writ
 | # | Brief | Status |
 |---|---|---|
 | 001 | [Phonics word lists](001-phonics-word-lists.md) | done — reviewed, PR #1 |
-| 002 | [Spelling word lists](002-spelling-word-lists.md) | ready |
-| 003 | [Tap, listen and sound-button components](003-choice-and-audio-components.md) | ready |
+| 002 | [Spelling word lists](002-spelling-word-lists.md) | done — reviewed, PR #2 |
+| 003 | [Tap, listen and sound-button components](003-choice-and-audio-components.md) | done — reviewed, PR #3 |
 
-002 and 003 are independent — do them in any order, or in parallel.
 
 **Work only in your own clone: `C:\Users\Dayib.Qalib\Downloads\AI-Project\KIMO-kimi`. Never in the `KIMO` folder.**

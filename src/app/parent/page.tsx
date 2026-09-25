@@ -5,7 +5,9 @@ import ParentGate from "@/components/ParentGate";
 import SyncPanel from "@/components/SyncPanel";
 import { currentLetter, lettersMastered } from "@/lib/hw";
 import { accuracy } from "@/lib/mastery";
-import { exportJson, getInputMode, removeChild, setCurrentLevel, setInputMode, useAppState } from "@/lib/store";
+import { PH_LEVELS, getPhLevel } from "@/lib/phonics";
+import { SP_LEVELS, getSpLevel } from "@/lib/spelling";
+import { exportJson, getInputMode, phProgress, removeChild, setCurrentLevel, setInputMode, setPhLevel, setSpLevel, spProgress, useAppState } from "@/lib/store";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
 
 export default function ParentPage() {
@@ -112,6 +114,48 @@ function Dashboard() {
                 <option value="pencil">Write with Apple Pencil (+2 s per question)</option>
               </select>
             </label>
+
+            {(c.schoolYear <= 2 || state.ph?.[c.id]) && (
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="font-bold">
+                  Phonics: {phProgress(state, c.id).current} · {getPhLevel(phProgress(state, c.id).current)?.title}
+                </span>
+                {state.ph?.[c.id]?.flagged && <span className="px-3 py-1 rounded-full bg-warn/15 text-warn font-bold">Needs help</span>}
+                <select
+                  className="ml-auto p-2 rounded-xl border-2 border-line bg-card"
+                  value={phProgress(state, c.id).current}
+                  onChange={(e) => setPhLevel(c.id, e.target.value)}
+                  aria-label={`Change ${c.name}'s phonics level`}
+                >
+                  {PH_LEVELS.map((l) => (
+                    <option key={l.id} value={l.id}>
+                      Move to {l.id} · {l.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="font-bold">
+                Spelling: {spProgress(state, c.id).current} · {getSpLevel(spProgress(state, c.id).current)?.title}
+                {!state.sp?.[c.id] && c.schoolYear < 2 && <span className="text-muted font-semibold"> (starts in Year 2 — pick a level to start early)</span>}
+              </span>
+              {state.sp?.[c.id]?.flagged && <span className="px-3 py-1 rounded-full bg-warn/15 text-warn font-bold">Needs help</span>}
+              <select
+                className="ml-auto p-2 rounded-xl border-2 border-line bg-card"
+                value={!state.sp?.[c.id] && c.schoolYear < 2 ? "" : spProgress(state, c.id).current}
+                onChange={(e) => e.target.value && setSpLevel(c.id, e.target.value)}
+                aria-label={`Change ${c.name}'s spelling level`}
+              >
+                {!state.sp?.[c.id] && c.schoolYear < 2 && <option value="">Not started</option>}
+                {SP_LEVELS.map((l) => (
+                  <option key={l.id} value={l.id}>
+                    Move to {l.id} · {l.title}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             {(c.schoolYear <= 2 || state.hw?.[c.id]) && (
               <p className="font-bold">

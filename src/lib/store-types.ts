@@ -41,4 +41,10 @@ export interface AppState {
   deletedChildren?: string[]; // ids removed on any device, so removal syncs
   hw?: Record<string, Record<string, LetterProgress>>; // child id -> letter -> progress
   inputMode?: Record<string, { mode: InputMode; at: string }>; // child id -> how they answer maths
+  ph?: Record<string, LevelProgress>; // phonics progress by child id
+  phUpdatedAt?: Record<string, string>;
+  phTricky?: Record<string, Record<string, number>>; // child id -> word -> times wrong
+  sp?: Record<string, LevelProgress>; // spelling progress by child id
+  spUpdatedAt?: Record<string, string>;
+  spTricky?: Record<string, Record<string, number>>; // child id -> word -> times wrong
 }

@@ -11,7 +11,8 @@ export interface SetResult {
   total: number;
   correctFirstTime: number;
   durationMs: number;
-  secondsPerQuestion: number;
+  secondsPerQuestion: number; // 0 = no time target (e.g. phonics, handwriting)
+  accuracyTarget?: number; // overrides MASTERY.accuracyTarget for this level
 }
 
 export interface LevelProgress {
@@ -31,7 +32,9 @@ export function timeTargetMs(r: SetResult): number {
 }
 
 export function isPassingSet(r: SetResult): boolean {
-  return accuracy(r) >= MASTERY.accuracyTarget && r.durationMs <= timeTargetMs(r);
+  const target = r.accuracyTarget ?? MASTERY.accuracyTarget;
+  const inTime = r.secondsPerQuestion <= 0 || r.durationMs <= timeTargetMs(r);
+  return accuracy(r) >= target && inTime;
 }
 
 export type Outcome = "levelPassed" | "setPassed" | "setFailed" | "droppedBack";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { canSpeak, primeVoices, speak, stopSpeaking } from "@/lib/speech";
 
 interface Props {
@@ -15,8 +15,16 @@ interface Props {
   size?: "md" | "lg";
 }
 
+// Speech support is only known in the browser. Reading it this way keeps the
+// server render and the first browser render identical (no hydration error).
+const noop = () => () => {};
+function useCanSpeak() {
+  return useSyncExternalStore(noop, canSpeak, () => false);
+}
+
 export default function SpeakButton({ text, label = "Hear it", autoPlay, size = "md" }: Props) {
   const [speaking, setSpeaking] = useState(false);
+  const supported = useCanSpeak();
   const mounted = useRef(true);
 
   useEffect(() => {
@@ -38,7 +46,7 @@ export default function SpeakButton({ text, label = "Hear it", autoPlay, size = 
   }, [autoPlay, text]);
 
   // No speech support (older browser / SSR) — render nothing.
-  if (!canSpeak()) return null;
+  if (!supported) return null;
 
   const dims = size === "lg" ? "h-20 w-20 text-4xl" : "h-14 w-14 text-2xl";
 

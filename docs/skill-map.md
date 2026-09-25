@@ -105,6 +105,8 @@ Sound order follows the common DfE-validated progression. **Configurable**: once
 | PH-15 | Alien words set 2 (all GPCs) | *strom, blaim, zike* |
 | PH-16 | **PSC rehearsal** (exact format) | 40 words: 20 real + 20 alien, parent marks |
 
+**Question types (as built):** *hear the word, tap it* (3 words that differ by one sound) · *which sound is missing?* (the app says the word; 3+ sound words only) · *real or alien?* · *read it aloud — a grown-up taps ✓/✗* (alien-word levels and PH-16). PH-16 uses one full 40-word practice paper; pass mark 32/40, like the real check.
+
 Audio note: text-to-speech is poor at pure phonics sounds ("sss" not "suh"). Plan is to **record the ~44 sounds once** (DQ, 15 minutes on a phone) and use TTS only for whole words.
 
 ### HW · Handwriting (Shirwa) — Apple Pencil

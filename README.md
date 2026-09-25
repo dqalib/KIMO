@@ -35,6 +35,10 @@ npm run build
 | `public/models/digits-v1.json` | Digit reader model (int8, ~200 KB) — retrain with `ml/digits/train.py` |
 | `src/components/InkPad.tsx` | Apple Pencil canvas (pressure, palm rejection) |
 | `src/components/PencilAnswer.tsx` | Write-your-answer box for maths |
+| `src/lib/phonics.ts` | Phonics levels + question generator (uses `src/content/phonics`) |
+| `src/lib/spelling.ts` | Spelling levels, set generator and marking (uses `src/content/spelling`) |
+| `src/app/child/[id]/spelling/page.tsx`, `src/components/LetterKeyboard.tsx` | Spelling practice screen + big on-screen keyboard |
+| `src/components/ChoiceGrid.tsx`, `SpeakButton.tsx`, `SoundButtons.tsx`, `src/lib/speech.ts` | Tap-to-answer, text-to-speech and sound-button components (Kimi, brief 003) |
 | `src/app/` | Screens: `/` picker, `/setup`, `/child/[id]`, `/child/[id]/practice`, `/parent` |
 | `src/components/` | NumberPad, ParentGate |
 

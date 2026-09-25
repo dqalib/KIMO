@@ -92,4 +92,21 @@ describe("mergeStates", () => {
     expect(mergeStates(b, a).inputMode!.y.mode).toBe("pencil");
     expect(mergeStates(a, b).inputMode!.y.mode).toBe("pencil");
   });
+
+  it("keeps the most recently changed phonics progress", () => {
+    const a = { ...base(), children: [child("s")], ph: { s: prog("PH-03") }, phUpdatedAt: { s: "2026-09-25T09:00:00Z" }, phTricky: { s: { ship: 1 } } };
+    const b = { ...base(), children: [child("s")], ph: { s: prog("PH-02") }, phUpdatedAt: { s: "2026-09-25T08:00:00Z" }, phTricky: { s: { ship: 2, cat: 1 } } };
+    const m = mergeStates(b, a);
+    expect(m.ph!.s.current).toBe("PH-03");
+    expect(m.phTricky!.s).toEqual({ ship: 2, cat: 1 });
+  });
+
+  it("keeps the most recently changed spelling progress", () => {
+    const a = { ...base(), children: [child("y")], sp: { y: prog("SP-06") }, spUpdatedAt: { y: "2026-09-25T09:00:00Z" }, spTricky: { y: { because: 1 } } };
+    const b = { ...base(), children: [child("y")], sp: { y: prog("SP-05") }, spUpdatedAt: { y: "2026-09-25T08:00:00Z" }, spTricky: { y: { because: 2, island: 1 } } };
+    const m = mergeStates(b, a);
+    expect(m.sp!.y.current).toBe("SP-06");
+    expect(m.spTricky!.y).toEqual({ because: 2, island: 1 });
+    expect(m.ph).toBeUndefined();
+  });
 });

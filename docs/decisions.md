@@ -25,3 +25,7 @@
 | 2026-09-24 | Handwriting (HW) strand added for Y1–2: plain print, 4 letter families, trace → faint → alone, 3 in a row per stage |
 | 2026-09-24 | Pencil answers use our own on-device digit reader (not Scribble): MLP trained on MNIST (via MIT `mnist` npm pkg) + synthetic pen digits; 97.9% per digit on unseen real handwriting. Auto-submits when sure (≥0.9), otherwise asks "Is it 56?" |
 | 2026-09-24 | Pencil mode is a per-child parent setting; +2 s per question on time targets; Tables Check rehearsal always keypad |
+| 2026-09-25 | Kimi 003 components accepted (SpeakButton hydration fix). Phonics practice built on them: hear-the-word, missing-sound, real-or-alien, and grown-up-marked reading (alien words, PH-16 check rehearsal, pass mark 32/40) |
+| 2026-09-25 | Pass rules can vary per level (accuracyTarget) and levels can have no time target (secondsPerQuestion 0) |
+| 2026-09-25 | Spelling practice built (SP-01 → SP-09): app says word, sentence, word; child types on our own on-screen keyboard (no iPad autocorrect). 10 words a set, ≥90% first time, no time target. Wrong words come back as Look–Cover–Write–Check |
+| 2026-09-25 | Spelling start level before placement tests: Y1–2 → SP-01, Y3 → SP-03, Y4 → SP-05. Card shows from Year 2 (parent can start earlier). Capitals required only for words that have them (I, Mr, Christmas…) |
