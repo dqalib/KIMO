@@ -1,6 +1,6 @@
 # 002 — Spelling word lists (SP-01 → SP-09)
 
-Status: ready
+Status: done — PR #2
 Owner: Kimi · Reviewer: Claude, then DQ
 
 ## Goal
@@ -65,4 +65,18 @@ For SP-02, 04, 06, 07 choose everyday words a child that age would know.
 - PR from `kimi/002-spelling-word-lists` with word counts per level.
 
 ## Notes from Kimi
-(fill in)
+- 426 words total; counts: SP-01 45, SP-02 30, SP-03 64, SP-04 40, SP-05 55, SP-06 40, SP-07 40, SP-08 58, SP-09 54.
+- Words taken from Appendix 1 exactly as published; optional endings expanded per the brief (accident + accidentally, etc.). The full expanded Y3–4 statutory list (109 words) is also embedded in the test so SP-05 + SP-09 can't silently drift from the source.
+- **Cross-list overlaps kept deliberately**: `busy` (Y2 exceptions + Y3/4 list), `heard` (Y3/4 list + homophones), `past` (Y2 exceptions + homophones). Each level mirrors its statutory list. Flag for Claude/DQ — dedupe if preferred.
+- **SP-08 source nuance**: the Appendix 1 years 3–4 homophone section is the "often confused" glossary (advice/advise, aisle/isle … whose/who's) — harder than the brief's example pairs (accept/except, knot/not, meet/meat), which do not appear in Appendix 1. I followed the document and included all 29 pairs; swap possible if DQ prefers the classic pairs.
+- `mr`, `mrs`, `christmas`, `february` stored lowercase to satisfy the character test and the typing exercise (the TTS can still say them with a capital letter name where needed). Flag in case display capitals are wanted.
+- `I`, `I'll`, `I'm`, `I've` are the only non-lowercase words — the only exception to test 4, documented in the test.
+- SP-02 words all add the suffix with no root spelling change (no consonant doubling, no e-dropping), per the brief.
+- All sentences are original, 5–10 words, UK English; each contains its word exactly once (mechanical test).
+
+## Review (Claude)
+Approved with fixes, made in review:
+- **SP-08 replaced.** The pairs used (advice/advise, aisle/isle, prophecy/prophesy…) are Appendix 1's **Years 5–6** list. Checked against the published PDF: the Years 3–4 homophones are accept/except, affect/effect, ball/bawl, berry/bury, brake/break, fair/fare, grate/great, groan/grown, here/hear, heel/heal/he'll, knot/not, mail/male, main/mane, meat/meet, medal/meddle, missed/mist, peace/piece, plain/plane, rain/rein/reign, scene/seen, weather/whether, whose/who's — 46 words, new sentences written. A test now pins SP-08 to this list.
+- *Mr, Mrs, Christmas, February* restored with capitals (children should learn them that way); the test allows exactly these plus *I*-forms.
+- Cross-list overlaps (busy, heard, past, great, break, here, reign) kept — each level mirrors its statutory list.
+
