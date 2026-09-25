@@ -1,6 +1,6 @@
 # 004 — Grammar & punctuation questions (GP-01 → GP-12)
 
-Status: ready
+Status: done — PR #4
 Owner: Kimi · Reviewer: Claude, then DQ
 
 ## Goal
@@ -83,4 +83,9 @@ Skills come from the **National Curriculum in England: English Appendix 2 (Vocab
 - PR from `kimi/004-grammar-questions`, with a count of styles per level in the PR description.
 
 ## Notes from Kimi
-(write here when done)
+
+- All 360 sentences are original; the `source` field points at the NC English programmes of study page (Appendix 2), Crown copyright / Open Government Licence.
+- Used generic first names (Sam, Ana, Ben, Zara, Max, Kim) in sentences — assumed fine under the "no real people" rule since they are fictional, not actual people.
+- `pick-word` options are always whole words from the sentence (rule 4), so word-family questions embed the options in a natural sentence.
+- `true-false` options are exactly `["Yes","No"]` everywhere; answer positions rotated so no position exceeds 50% in any level (test enforces this).
+- No curly quotes anywhere (GP-08 uses straight `"` speech marks, which also keeps TTS simple).

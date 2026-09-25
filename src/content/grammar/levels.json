@@ -1,0 +1,4384 @@
+{
+  "source": "https://www.gov.uk/government/publications/national-curriculum-in-england-english-programmes-of-study/national-curriculum-in-england-english-programmes-of-study",
+  "sourceNote": "National Curriculum in England: English Appendix 2 (Vocabulary, grammar and punctuation), Crown copyright, Open Government Licence. All sentences are original.",
+  "levels": [
+    {
+      "level": "GP-01",
+      "year": 1,
+      "title": "Capital letters, full stops, finger spaces",
+      "questions": [
+        {
+          "id": "GP-01-001",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "The cat sat on the mat.",
+            "the cat sat on the mat.",
+            "The cat sat on the mat"
+          ],
+          "answer": 0,
+          "why": "Sentences start with a *capital letter* and end with a *full stop*."
+        },
+        {
+          "id": "GP-01-002",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "we went to the park.",
+            "We went to the park.",
+            "We went to the park"
+          ],
+          "answer": 1,
+          "why": "The first word needs a *capital letter* and the end needs a *full stop*."
+        },
+        {
+          "id": "GP-01-003",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "i like peas and beans.",
+            "I like peas and beans",
+            "I like peas and beans."
+          ],
+          "answer": 2,
+          "why": "The word *I* is always a capital, and a telling sentence ends with a *full stop*."
+        },
+        {
+          "id": "GP-01-004",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "The sun is hot ___",
+          "options": [
+            "?",
+            "."
+          ],
+          "answer": 1,
+          "why": "This sentence tells us something, so it ends with a *full stop*."
+        },
+        {
+          "id": "GP-01-005",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "Can you swim in the sea ___",
+          "options": [
+            "?",
+            "."
+          ],
+          "answer": 0,
+          "why": "This sentence asks something, so it ends with a *question mark*."
+        },
+        {
+          "id": "GP-01-006",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "What a big cake ___",
+          "options": [
+            ".",
+            "!"
+          ],
+          "answer": 1,
+          "why": "This sentence shows surprise, so it ends with an *exclamation mark*."
+        },
+        {
+          "id": "GP-01-007",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "I can hop and jump ___",
+          "options": [
+            ".",
+            "?"
+          ],
+          "answer": 0,
+          "why": "This sentence tells us something, so it ends with a *full stop*."
+        },
+        {
+          "id": "GP-01-008",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "Where is my coat ___",
+          "options": [
+            ".",
+            "?"
+          ],
+          "answer": 1,
+          "why": "The word *where* asks something, so the sentence ends with a *question mark*."
+        },
+        {
+          "id": "GP-01-009",
+          "style": "true-false",
+          "prompt": "Does this sentence start with a capital letter? \"Mum cut the bread.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Mum* starts the sentence, so it has a capital letter."
+        },
+        {
+          "id": "GP-01-010",
+          "style": "true-false",
+          "prompt": "Does this sentence start with a capital letter? \"the bus is late.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "The first word *the* needs a *capital letter*."
+        },
+        {
+          "id": "GP-01-011",
+          "style": "true-false",
+          "prompt": "Does this sentence end with a full stop? \"I saw a fox.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "This telling sentence ends with a *full stop*."
+        },
+        {
+          "id": "GP-01-012",
+          "style": "true-false",
+          "prompt": "Does this sentence end with a full stop? \"We had lots of fun\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "The sentence stops without any end mark. It needs a *full stop*."
+        },
+        {
+          "id": "GP-01-013",
+          "style": "pick-word",
+          "prompt": "Which word should start with a capital letter?",
+          "sentence": "on tuesday we bake cakes.",
+          "options": [
+            "tuesday",
+            "on",
+            "we"
+          ],
+          "answer": 0,
+          "why": "Days of the week need a *capital letter*."
+        },
+        {
+          "id": "GP-01-014",
+          "style": "pick-word",
+          "prompt": "Which word should start with a capital letter?",
+          "sentence": "my dog likes long walks.",
+          "options": [
+            "dog",
+            "my",
+            "likes"
+          ],
+          "answer": 1,
+          "why": "The first word of a sentence always starts with a *capital letter*."
+        },
+        {
+          "id": "GP-01-015",
+          "style": "pick-word",
+          "prompt": "Which name should start with a capital letter?",
+          "sentence": "sam and eva shared the pens.",
+          "options": [
+            "and",
+            "shared",
+            "sam"
+          ],
+          "answer": 2,
+          "why": "*Names* always start with a capital letter."
+        },
+        {
+          "id": "GP-01-016",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "The hen laid an egg.",
+            "Thehen laid anegg.",
+            "The hen laid an egg"
+          ],
+          "answer": 0,
+          "why": "We need *finger spaces* between every word."
+        },
+        {
+          "id": "GP-01-017",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "Run to the gate.",
+            "run to the gate.",
+            "Run to the gate"
+          ],
+          "answer": 0,
+          "why": "The first word needs a *capital letter* and the end needs a *full stop*."
+        },
+        {
+          "id": "GP-01-018",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "she has a red cup.",
+            "She has a red cup",
+            "She has a red cup."
+          ],
+          "answer": 1,
+          "why": "It has a capital letter at the start and a *full stop* at the end."
+        },
+        {
+          "id": "GP-01-019",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "I won the game ___",
+          "options": [
+            "!",
+            "."
+          ],
+          "answer": 0,
+          "why": "Winning is exciting, so this sentence ends with an *exclamation mark*."
+        },
+        {
+          "id": "GP-01-020",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "The shop shuts at five ___",
+          "options": [
+            "?",
+            "."
+          ],
+          "answer": 1,
+          "why": "This sentence tells us something, so it ends with a *full stop*."
+        },
+        {
+          "id": "GP-01-021",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "Are you coming too ___",
+          "options": [
+            "?",
+            "."
+          ],
+          "answer": 0,
+          "why": "The word *are* asks something, so the sentence ends with a *question mark*."
+        },
+        {
+          "id": "GP-01-022",
+          "style": "true-false",
+          "prompt": "Is the capital letter in the right place? \"ben fed the fish.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Ben* is a name, so it needs a *capital letter*."
+        },
+        {
+          "id": "GP-01-023",
+          "style": "true-false",
+          "prompt": "Is the capital letter in the right place? \"Ben fed the fish.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Ben* is a name and the sentence starts with a capital letter."
+        },
+        {
+          "id": "GP-01-024",
+          "style": "true-false",
+          "prompt": "Does this sentence end with the right mark? \"Watch out for the car.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Watch out* is a warning, so this sentence needs an *exclamation mark*."
+        },
+        {
+          "id": "GP-01-025",
+          "style": "pick-word",
+          "prompt": "Which word should start with a capital letter?",
+          "sentence": "in june the days are long.",
+          "options": [
+            "june",
+            "in",
+            "the"
+          ],
+          "answer": 0,
+          "why": "Months of the year need a *capital letter*."
+        },
+        {
+          "id": "GP-01-026",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "The frog can hop",
+            "the frog can hop.",
+            "The frog can hop."
+          ],
+          "answer": 2,
+          "why": "It starts with a capital letter and ends with a *full stop*."
+        },
+        {
+          "id": "GP-01-027",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "we dig in the sand.",
+            "We dig in the sand",
+            "We dig in the sand."
+          ],
+          "answer": 2,
+          "why": "It starts with a capital letter and ends with a *full stop*."
+        },
+        {
+          "id": "GP-01-028",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "What a mess you made ___",
+          "options": [
+            ".",
+            "!"
+          ],
+          "answer": 1,
+          "why": "This sentence shows a strong feeling, so it ends with an *exclamation mark*."
+        },
+        {
+          "id": "GP-01-029",
+          "style": "true-false",
+          "prompt": "Does this sentence start and end correctly? \"The dog barked.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "It starts with a *capital letter* and ends with a *full stop*."
+        },
+        {
+          "id": "GP-01-030",
+          "style": "pick-word",
+          "prompt": "Which word should start with a capital letter?",
+          "sentence": "our teacher reads us stories.",
+          "options": [
+            "teacher",
+            "our",
+            "reads"
+          ],
+          "answer": 1,
+          "why": "The first word of a sentence always starts with a *capital letter*."
+        }
+      ]
+    },
+    {
+      "level": "GP-02",
+      "year": 1,
+      "title": "Question marks, exclamation marks; joining with and",
+      "questions": [
+        {
+          "id": "GP-02-001",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "Would you like some milk ___",
+          "options": [
+            "?",
+            "."
+          ],
+          "answer": 0,
+          "why": "The word *would* asks something, so the sentence ends with a *question mark*."
+        },
+        {
+          "id": "GP-02-002",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "The baby is asleep ___",
+          "options": [
+            "!",
+            "."
+          ],
+          "answer": 1,
+          "why": "This sentence tells us something, so it ends with a *full stop*."
+        },
+        {
+          "id": "GP-02-003",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "What a tall tree ___",
+          "options": [
+            "!",
+            "."
+          ],
+          "answer": 0,
+          "why": "This sentence shows surprise, so it ends with an *exclamation mark*."
+        },
+        {
+          "id": "GP-02-004",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "I like my new shoes ___",
+          "options": [
+            "?",
+            "."
+          ],
+          "answer": 1,
+          "why": "This sentence tells us something, so it ends with a *full stop*."
+        },
+        {
+          "id": "GP-02-005",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "Who is at the door ___",
+          "options": [
+            "?",
+            "."
+          ],
+          "answer": 0,
+          "why": "The word *who* asks something, so the sentence ends with a *question mark*."
+        },
+        {
+          "id": "GP-02-006",
+          "style": "pick-sentence",
+          "prompt": "Which sentence asks a question?",
+          "options": [
+            "My hat is red.",
+            "Where is my hat?",
+            "I like my hat."
+          ],
+          "answer": 1,
+          "why": "A question asks something and ends with a *question mark*."
+        },
+        {
+          "id": "GP-02-007",
+          "style": "pick-sentence",
+          "prompt": "Which sentence shows a strong feeling?",
+          "options": [
+            "We won the game!",
+            "We won the game.",
+            "we won the game!"
+          ],
+          "answer": 0,
+          "why": "Winning is exciting, so this sentence ends with an *exclamation mark*."
+        },
+        {
+          "id": "GP-02-008",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "what time is it?",
+            "What time is it?",
+            "What time is it."
+          ],
+          "answer": 1,
+          "why": "A question starts with a capital letter and ends with a *question mark*."
+        },
+        {
+          "id": "GP-02-009",
+          "style": "fill-gap",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "I wanted jam ___ honey on my toast.",
+          "options": [
+            "and",
+            "or"
+          ],
+          "answer": 0,
+          "why": "*And* joins two things together."
+        },
+        {
+          "id": "GP-02-010",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "Do you want milk ___ water?",
+          "options": [
+            "and",
+            "or"
+          ],
+          "answer": 1,
+          "why": "*Or* gives a choice between two things."
+        },
+        {
+          "id": "GP-02-011",
+          "style": "fill-gap",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "The cat was soft ___ warm.",
+          "options": [
+            "and",
+            "but"
+          ],
+          "answer": 0,
+          "why": "*And* joins the two describing words together."
+        },
+        {
+          "id": "GP-02-012",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "We can go now ___ wait here.",
+          "options": [
+            "but",
+            "or"
+          ],
+          "answer": 1,
+          "why": "*Or* gives a choice between two things."
+        },
+        {
+          "id": "GP-02-013",
+          "style": "true-false",
+          "prompt": "Does this sentence end with the right mark? \"How old are you?\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "This sentence asks something, so a *question mark* is right."
+        },
+        {
+          "id": "GP-02-014",
+          "style": "true-false",
+          "prompt": "Does this sentence end with the right mark? \"What a loud noise.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "This sentence shows surprise, so it needs an *exclamation mark*."
+        },
+        {
+          "id": "GP-02-015",
+          "style": "true-false",
+          "prompt": "Does this sentence end with the right mark? \"I can run fast!\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "This sentence shows a strong feeling, so an *exclamation mark* is right."
+        },
+        {
+          "id": "GP-02-016",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "Help me ___",
+          "options": [
+            ".",
+            "!"
+          ],
+          "answer": 1,
+          "why": "*Help* is a shout for help, so it ends with an *exclamation mark*."
+        },
+        {
+          "id": "GP-02-017",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is a question?",
+          "options": [
+            "Can frogs swim?",
+            "Frogs can swim.",
+            "The frog is green."
+          ],
+          "answer": 0,
+          "why": "It asks something and ends with a *question mark*."
+        },
+        {
+          "id": "GP-02-018",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "we had a great day!",
+            "We had a great day!",
+            "We had a great day"
+          ],
+          "answer": 1,
+          "why": "It starts with a capital letter and ends with an *exclamation mark*."
+        },
+        {
+          "id": "GP-02-019",
+          "style": "fill-gap",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "We sang ___ danced at the party.",
+          "options": [
+            "and",
+            "or"
+          ],
+          "answer": 0,
+          "why": "*And* joins two doing words together."
+        },
+        {
+          "id": "GP-02-020",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "Would you like chips ___ rice?",
+          "options": [
+            "and",
+            "or"
+          ],
+          "answer": 1,
+          "why": "*Or* gives a choice between two foods."
+        },
+        {
+          "id": "GP-02-021",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "Look out for the ball ___",
+          "options": [
+            "!",
+            "."
+          ],
+          "answer": 0,
+          "why": "*Look out* is a warning, so it ends with an *exclamation mark*."
+        },
+        {
+          "id": "GP-02-022",
+          "style": "true-false",
+          "prompt": "Does this sentence end with the right mark? \"What a cute puppy?\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "This sentence shows surprise, so it needs an *exclamation mark*."
+        },
+        {
+          "id": "GP-02-023",
+          "style": "pick-sentence",
+          "prompt": "Which sentence asks a question?",
+          "options": [
+            "What is for tea?",
+            "The tea is hot.",
+            "I drink my tea."
+          ],
+          "answer": 0,
+          "why": "It asks something and ends with a *question mark*."
+        },
+        {
+          "id": "GP-02-024",
+          "style": "fill-gap",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "He has a dog ___ a cat.",
+          "options": [
+            "but",
+            "and"
+          ],
+          "answer": 1,
+          "why": "*And* joins the two pets together."
+        },
+        {
+          "id": "GP-02-025",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "I found my lost glove ___",
+          "options": [
+            ".",
+            "?"
+          ],
+          "answer": 0,
+          "why": "This sentence tells us something, so it ends with a *full stop*."
+        },
+        {
+          "id": "GP-02-026",
+          "style": "pick-sentence",
+          "prompt": "Which sentence shows a strong feeling?",
+          "options": [
+            "I am so happy.",
+            "I am so happy!",
+            "i am so happy."
+          ],
+          "answer": 1,
+          "why": "This sentence shows a big feeling, so it ends with an *exclamation mark*."
+        },
+        {
+          "id": "GP-02-027",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "I packed my coat ___ my hat.",
+          "options": [
+            "and",
+            "because"
+          ],
+          "answer": 0,
+          "why": "*And* joins the two things packed together."
+        },
+        {
+          "id": "GP-02-028",
+          "style": "true-false",
+          "prompt": "Is this a question? \"Where are you going.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "It asks something, so it needs a *question mark*."
+        },
+        {
+          "id": "GP-02-029",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "How many legs has a spider?",
+            "how many legs has a spider?",
+            "How many legs has a spider."
+          ],
+          "answer": 0,
+          "why": "A question starts with a capital letter and ends with a *question mark*."
+        },
+        {
+          "id": "GP-02-030",
+          "style": "pick-mark",
+          "prompt": "Which mark goes at the end?",
+          "sentence": "What a lovely day ___",
+          "options": [
+            ".",
+            "!"
+          ],
+          "answer": 1,
+          "why": "This sentence shows a strong feeling, so it ends with an *exclamation mark*."
+        }
+      ]
+    },
+    {
+      "level": "GP-03",
+      "year": 2,
+      "title": "Nouns, verbs, adjectives",
+      "questions": [
+        {
+          "id": "GP-03-001",
+          "style": "pick-word",
+          "prompt": "Which word is a verb?",
+          "sentence": "The small dog ran home.",
+          "options": [
+            "ran",
+            "small",
+            "dog"
+          ],
+          "answer": 0,
+          "why": "A verb is a *doing word*. The dog *ran*."
+        },
+        {
+          "id": "GP-03-002",
+          "style": "pick-word",
+          "prompt": "Which word is a noun?",
+          "sentence": "The girl ate her lunch.",
+          "options": [
+            "ate",
+            "girl",
+            "her"
+          ],
+          "answer": 1,
+          "why": "A noun is a *naming word*. A *girl* is a person."
+        },
+        {
+          "id": "GP-03-003",
+          "style": "pick-word",
+          "prompt": "Which word is an adjective?",
+          "sentence": "The red ball bounced high.",
+          "options": [
+            "ball",
+            "bounced",
+            "red"
+          ],
+          "answer": 2,
+          "why": "An adjective is a *describing word*. The ball is *red*."
+        },
+        {
+          "id": "GP-03-004",
+          "style": "pick-word",
+          "prompt": "Which word is a verb?",
+          "sentence": "The baby slept all night.",
+          "options": [
+            "slept",
+            "baby",
+            "night"
+          ],
+          "answer": 0,
+          "why": "A verb is a *doing word*. The baby *slept*."
+        },
+        {
+          "id": "GP-03-005",
+          "style": "pick-word",
+          "prompt": "Which word is a noun?",
+          "sentence": "A fox ran across the field.",
+          "options": [
+            "ran",
+            "fox",
+            "across"
+          ],
+          "answer": 1,
+          "why": "A noun is a *naming word*. A *fox* is an animal."
+        },
+        {
+          "id": "GP-03-006",
+          "style": "pick-word",
+          "prompt": "Which word is an adjective?",
+          "sentence": "I like warm toast.",
+          "options": [
+            "toast",
+            "like",
+            "warm"
+          ],
+          "answer": 2,
+          "why": "An adjective is a *describing word*. The toast is *warm*."
+        },
+        {
+          "id": "GP-03-007",
+          "style": "pick-word",
+          "prompt": "Which word is a verb?",
+          "sentence": "The children play in the park.",
+          "options": [
+            "play",
+            "children",
+            "park"
+          ],
+          "answer": 0,
+          "why": "A verb is a *doing word*. The children *play*."
+        },
+        {
+          "id": "GP-03-008",
+          "style": "pick-word",
+          "prompt": "Which word is a noun?",
+          "sentence": "She wrote a long letter.",
+          "options": [
+            "letter",
+            "wrote",
+            "long"
+          ],
+          "answer": 0,
+          "why": "A noun is a *naming word*. A *letter* is a thing."
+        },
+        {
+          "id": "GP-03-009",
+          "style": "pick-word",
+          "prompt": "Which word is an adjective?",
+          "sentence": "The tall tree swayed in the wind.",
+          "options": [
+            "tree",
+            "swayed",
+            "tall"
+          ],
+          "answer": 2,
+          "why": "An adjective is a *describing word*. The tree is *tall*."
+        },
+        {
+          "id": "GP-03-010",
+          "style": "true-false",
+          "prompt": "Is 'book' a naming word (a noun)?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "A *book* is a thing, so it is a noun."
+        },
+        {
+          "id": "GP-03-011",
+          "style": "true-false",
+          "prompt": "Is 'run' a describing word (an adjective)?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Run* is a doing word. It is a verb."
+        },
+        {
+          "id": "GP-03-012",
+          "style": "true-false",
+          "prompt": "Is 'happy' a doing word (a verb)?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Happy* describes a feeling. It is an adjective."
+        },
+        {
+          "id": "GP-03-013",
+          "style": "true-false",
+          "prompt": "Is 'table' a naming word (a noun)?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "A *table* is a thing, so it is a noun."
+        },
+        {
+          "id": "GP-03-014",
+          "style": "fill-gap",
+          "prompt": "Pick a describing word.",
+          "sentence": "The ___ moon shone in the sky.",
+          "options": [
+            "run",
+            "bright"
+          ],
+          "answer": 1,
+          "why": "*Bright* describes the moon."
+        },
+        {
+          "id": "GP-03-015",
+          "style": "fill-gap",
+          "prompt": "Pick a doing word.",
+          "sentence": "The fish ___ in the pond.",
+          "options": [
+            "swims",
+            "blue"
+          ],
+          "answer": 0,
+          "why": "*Swims* tells us what the fish does."
+        },
+        {
+          "id": "GP-03-016",
+          "style": "fill-gap",
+          "prompt": "Pick a naming word.",
+          "sentence": "The ___ chased the ball.",
+          "options": [
+            "happy",
+            "puppy"
+          ],
+          "answer": 1,
+          "why": "*Puppy* names the animal that chased the ball."
+        },
+        {
+          "id": "GP-03-017",
+          "style": "fill-gap",
+          "prompt": "Pick a describing word.",
+          "sentence": "She wore a ___ coat.",
+          "options": [
+            "warm",
+            "skip"
+          ],
+          "answer": 0,
+          "why": "*Warm* describes the coat."
+        },
+        {
+          "id": "GP-03-018",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses a describing word?",
+          "options": [
+            "The man sat down.",
+            "The old man sat down.",
+            "The man sat."
+          ],
+          "answer": 1,
+          "why": "*Old* describes the man."
+        },
+        {
+          "id": "GP-03-019",
+          "style": "true-false",
+          "prompt": "Are these all doing words: jump, swim, read?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Jump*, *swim* and *read* are all verbs."
+        },
+        {
+          "id": "GP-03-020",
+          "style": "true-false",
+          "prompt": "Are these all naming words: soft, cold, tiny?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "These words describe things. They are adjectives."
+        },
+        {
+          "id": "GP-03-021",
+          "style": "true-false",
+          "prompt": "Are these all naming words: apple, chair, garden?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "An apple, a chair and a garden are all things."
+        },
+        {
+          "id": "GP-03-022",
+          "style": "pick-word",
+          "prompt": "Which word is a verb?",
+          "sentence": "The wind blew the leaves away.",
+          "options": [
+            "wind",
+            "blew",
+            "leaves"
+          ],
+          "answer": 1,
+          "why": "A verb is a *doing word*. The wind *blew*."
+        },
+        {
+          "id": "GP-03-023",
+          "style": "pick-word",
+          "prompt": "Which word is a noun?",
+          "sentence": "We baked a huge cake.",
+          "options": [
+            "cake",
+            "huge",
+            "baked"
+          ],
+          "answer": 0,
+          "why": "A noun is a *naming word*. The *cake* is a thing."
+        },
+        {
+          "id": "GP-03-024",
+          "style": "pick-word",
+          "prompt": "Which word is an adjective?",
+          "sentence": "The shy mouse hid in the shed.",
+          "options": [
+            "mouse",
+            "shy",
+            "hid"
+          ],
+          "answer": 1,
+          "why": "An adjective is a *describing word*. The mouse is *shy*."
+        },
+        {
+          "id": "GP-03-025",
+          "style": "pick-word",
+          "prompt": "Which word is a verb?",
+          "sentence": "Grandma knitted a warm scarf.",
+          "options": [
+            "knitted",
+            "Grandma",
+            "scarf"
+          ],
+          "answer": 0,
+          "why": "A verb is a *doing word*. Grandma *knitted*."
+        },
+        {
+          "id": "GP-03-026",
+          "style": "pick-word",
+          "prompt": "Which word is a noun?",
+          "sentence": "He kicked the ball hard.",
+          "options": [
+            "kicked",
+            "ball",
+            "hard"
+          ],
+          "answer": 1,
+          "why": "A noun is a *naming word*. The *ball* is a thing."
+        },
+        {
+          "id": "GP-03-027",
+          "style": "fill-gap",
+          "prompt": "Pick a doing word.",
+          "sentence": "The birds ___ in the tree.",
+          "options": [
+            "sing",
+            "soft"
+          ],
+          "answer": 0,
+          "why": "*Sing* tells us what the birds do."
+        },
+        {
+          "id": "GP-03-028",
+          "style": "fill-gap",
+          "prompt": "Pick a naming word.",
+          "sentence": "Put the milk in the ___.",
+          "options": [
+            "quick",
+            "fridge"
+          ],
+          "answer": 1,
+          "why": "The *fridge* is the thing that keeps milk cold."
+        },
+        {
+          "id": "GP-03-029",
+          "style": "fill-gap",
+          "prompt": "Pick a describing word.",
+          "sentence": "The soup was too ___.",
+          "options": [
+            "hot",
+            "hop"
+          ],
+          "answer": 0,
+          "why": "*Hot* describes the soup."
+        },
+        {
+          "id": "GP-03-030",
+          "style": "pick-word",
+          "prompt": "Which word is an adjective?",
+          "sentence": "The grumpy frog sat on a log.",
+          "options": [
+            "frog",
+            "grumpy",
+            "log"
+          ],
+          "answer": 1,
+          "why": "An adjective is a *describing word*. The frog is *grumpy*."
+        }
+      ]
+    },
+    {
+      "level": "GP-04",
+      "year": 2,
+      "title": "Conjunctions: or, but, when, if, that, because",
+      "questions": [
+        {
+          "id": "GP-04-001",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "I wanted to play ___ it was raining.",
+          "options": [
+            "but",
+            "or"
+          ],
+          "answer": 0,
+          "why": "*But* shows the two ideas are opposite."
+        },
+        {
+          "id": "GP-04-002",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "You can have tea ___ juice.",
+          "options": [
+            "or",
+            "because"
+          ],
+          "answer": 0,
+          "why": "*Or* gives a choice between two drinks."
+        },
+        {
+          "id": "GP-04-003",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "We stayed inside ___ it was cold.",
+          "options": [
+            "because",
+            "or"
+          ],
+          "answer": 0,
+          "why": "*Because* tells us the reason."
+        },
+        {
+          "id": "GP-04-004",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "___ the bell rings, line up.",
+          "options": [
+            "When",
+            "But"
+          ],
+          "answer": 0,
+          "why": "*When* tells us the time to line up."
+        },
+        {
+          "id": "GP-04-005",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "I will be sad ___ you go.",
+          "options": [
+            "if",
+            "and"
+          ],
+          "answer": 0,
+          "why": "*If* tells us what might happen."
+        },
+        {
+          "id": "GP-04-006",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "Dad said ___ we could bake.",
+          "options": [
+            "that",
+            "or"
+          ],
+          "answer": 0,
+          "why": "*That* joins what Dad said to the rest."
+        },
+        {
+          "id": "GP-04-007",
+          "style": "pick-word",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "The cake was sweet because I added honey.",
+          "options": [
+            "was",
+            "sweet",
+            "because"
+          ],
+          "answer": 2,
+          "why": "*Because* joins the reason to the sentence."
+        },
+        {
+          "id": "GP-04-008",
+          "style": "pick-word",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "She cried when she fell over.",
+          "options": [
+            "She",
+            "fell",
+            "when"
+          ],
+          "answer": 2,
+          "why": "*When* joins the two parts and tells us the time."
+        },
+        {
+          "id": "GP-04-009",
+          "style": "pick-word",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "We can walk or take the bus.",
+          "options": [
+            "can",
+            "take",
+            "or"
+          ],
+          "answer": 2,
+          "why": "*Or* gives a choice between two ways."
+        },
+        {
+          "id": "GP-04-010",
+          "style": "pick-word",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "I will stay if you stay too.",
+          "options": [
+            "will",
+            "stay",
+            "if"
+          ],
+          "answer": 2,
+          "why": "*If* joins the two parts and tells us a condition."
+        },
+        {
+          "id": "GP-04-011",
+          "style": "pick-word",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "He was tired but he kept going.",
+          "options": [
+            "tired",
+            "but",
+            "going"
+          ],
+          "answer": 1,
+          "why": "*But* shows the two ideas are opposite."
+        },
+        {
+          "id": "GP-04-012",
+          "style": "true-false",
+          "prompt": "Is 'because' a good joining word here? \"I was late because the bus broke down.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Because* tells us the reason for being late."
+        },
+        {
+          "id": "GP-04-013",
+          "style": "true-false",
+          "prompt": "Is 'but' a good joining word here? \"We can go but it stops raining.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*When* or *if* fits better: the rain stopping tells us the time."
+        },
+        {
+          "id": "GP-04-014",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the joining word correctly?",
+          "options": [
+            "We went home but it was dark.",
+            "We went home or it was dark.",
+            "We went home because it was dark."
+          ],
+          "answer": 2,
+          "why": "*Because* tells us the reason they went home."
+        },
+        {
+          "id": "GP-04-015",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses 'or' correctly?",
+          "options": [
+            "Would you like peas or beans.",
+            "would you like peas or beans?",
+            "Would you like peas or beans?"
+          ],
+          "answer": 2,
+          "why": "*Or* gives a choice, and a question ends with a question mark."
+        },
+        {
+          "id": "GP-04-016",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses 'if' correctly?",
+          "options": [
+            "But it rains, we stay in.",
+            "Or it rains, we stay in.",
+            "If it rains, we stay in."
+          ],
+          "answer": 2,
+          "why": "*If* tells us what happens on a condition."
+        },
+        {
+          "id": "GP-04-017",
+          "style": "true-false",
+          "prompt": "Does 'and' join these two ideas well? \"She has a dog and a cat.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*And* joins the two pets together."
+        },
+        {
+          "id": "GP-04-018",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "The bus was late ___ we walked instead.",
+          "options": [
+            "but",
+            "if"
+          ],
+          "answer": 0,
+          "why": "*But* shows the two ideas are opposite."
+        },
+        {
+          "id": "GP-04-019",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "I ate my tea ___ I was hungry.",
+          "options": [
+            "because",
+            "or"
+          ],
+          "answer": 0,
+          "why": "*Because* tells us the reason."
+        },
+        {
+          "id": "GP-04-020",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "Call me ___ you get home.",
+          "options": [
+            "when",
+            "but"
+          ],
+          "answer": 0,
+          "why": "*When* tells us the time to call."
+        },
+        {
+          "id": "GP-04-021",
+          "style": "pick-word",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "The star shone because the sky was clear.",
+          "options": [
+            "shone",
+            "because",
+            "clear"
+          ],
+          "answer": 1,
+          "why": "*Because* joins the reason to the sentence."
+        },
+        {
+          "id": "GP-04-022",
+          "style": "pick-word",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "I like chips but not with gravy.",
+          "options": [
+            "like",
+            "but",
+            "with"
+          ],
+          "answer": 1,
+          "why": "*But* shows the two ideas are opposite."
+        },
+        {
+          "id": "GP-04-023",
+          "style": "true-false",
+          "prompt": "Is this sentence joined well? \"We can stay or we can go.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Or* gives a choice between staying and going."
+        },
+        {
+          "id": "GP-04-024",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "She smiled ___ she had won the race.",
+          "options": [
+            "because",
+            "or"
+          ],
+          "answer": 0,
+          "why": "*Because* tells us the reason she smiled."
+        },
+        {
+          "id": "GP-04-025",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "He ran fast ___ he still missed the bus.",
+          "options": [
+            "when",
+            "but"
+          ],
+          "answer": 1,
+          "why": "*But* shows the two ideas are opposite."
+        },
+        {
+          "id": "GP-04-026",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses 'because' correctly?",
+          "options": [
+            "I was happy but it was Friday.",
+            "I was happy if it was Friday.",
+            "I was happy because it was Friday."
+          ],
+          "answer": 2,
+          "why": "*Because* tells us the reason for being happy."
+        },
+        {
+          "id": "GP-04-027",
+          "style": "pick-word",
+          "prompt": "Which word joins the two parts?",
+          "sentence": "Dad said that dinner was ready.",
+          "options": [
+            "said",
+            "dinner",
+            "that"
+          ],
+          "answer": 2,
+          "why": "*That* joins what Dad said to the rest."
+        },
+        {
+          "id": "GP-04-028",
+          "style": "true-false",
+          "prompt": "Is 'when' used well here? \"We wash our hands when we cook.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*When* tells us the time we wash our hands."
+        },
+        {
+          "id": "GP-04-029",
+          "style": "fill-gap",
+          "prompt": "Choose the best joining word.",
+          "sentence": "The dog barks ___ the doorbell rings.",
+          "options": [
+            "when",
+            "or"
+          ],
+          "answer": 0,
+          "why": "*When* tells us the time the dog barks."
+        },
+        {
+          "id": "GP-04-030",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses 'but' correctly?",
+          "options": [
+            "I looked everywhere or I could not find it.",
+            "I looked everywhere when I could not find it.",
+            "I looked everywhere but I could not find it."
+          ],
+          "answer": 2,
+          "why": "*But* shows the two opposite ideas."
+        }
+      ]
+    },
+    {
+      "level": "GP-05",
+      "year": 2,
+      "title": "Past and present tense; apostrophes for contraction",
+      "questions": [
+        {
+          "id": "GP-05-001",
+          "style": "fill-gap",
+          "prompt": "Which word is in the past tense?",
+          "sentence": "Yesterday we ___ to the seaside.",
+          "options": [
+            "went",
+            "go"
+          ],
+          "answer": 0,
+          "why": "*Yesterday* tells us it already happened, so we say *went*."
+        },
+        {
+          "id": "GP-05-002",
+          "style": "fill-gap",
+          "prompt": "Pick the present tense verb.",
+          "sentence": "She ___ her teeth every morning.",
+          "options": [
+            "brushed",
+            "brushes"
+          ],
+          "answer": 1,
+          "why": "*Every morning* means it happens now, so we say *brushes*."
+        },
+        {
+          "id": "GP-05-003",
+          "style": "fill-gap",
+          "prompt": "Which word is in the past tense?",
+          "sentence": "Last night I ___ in my bed.",
+          "options": [
+            "sleep",
+            "slept"
+          ],
+          "answer": 1,
+          "why": "*Last night* tells us it already happened, so we say *slept*."
+        },
+        {
+          "id": "GP-05-004",
+          "style": "fill-gap",
+          "prompt": "Pick the present tense verb.",
+          "sentence": "He ___ his bike to school today.",
+          "options": [
+            "rides",
+            "rode"
+          ],
+          "answer": 0,
+          "why": "*Today* means it is happening now, so we say *rides*."
+        },
+        {
+          "id": "GP-05-005",
+          "style": "fill-gap",
+          "prompt": "Which word is in the past tense?",
+          "sentence": "Yesterday they ___ football at break.",
+          "options": [
+            "played",
+            "play"
+          ],
+          "answer": 0,
+          "why": "*Yesterday* tells us it already happened, so we say *played*."
+        },
+        {
+          "id": "GP-05-006",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is in the past tense?",
+          "options": [
+            "We visited grandma on Sunday.",
+            "We visit grandma on Sundays.",
+            "We are visiting grandma now."
+          ],
+          "answer": 0,
+          "why": "*Visited* tells us it already happened."
+        },
+        {
+          "id": "GP-05-007",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is in the present tense?",
+          "options": [
+            "The bus stopped here.",
+            "The bus stops here.",
+            "The bus will stop here."
+          ],
+          "answer": 1,
+          "why": "*Stops* tells us it happens now."
+        },
+        {
+          "id": "GP-05-008",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the apostrophe correctly?",
+          "options": [
+            "I don't like sprouts.",
+            "I dont like sprouts.",
+            "I do'nt like sprouts."
+          ],
+          "answer": 0,
+          "why": "*Don't* is short for *do not*. The apostrophe shows the missing letter."
+        },
+        {
+          "id": "GP-05-009",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the apostrophe correctly?",
+          "options": [
+            "She cant find her shoe.",
+            "She can't find her shoe.",
+            "She ca'nt find her shoe."
+          ],
+          "answer": 1,
+          "why": "*Can't* is short for *cannot*. The apostrophe shows the missing letter."
+        },
+        {
+          "id": "GP-05-010",
+          "style": "pick-sentence",
+          "prompt": "Which word is written correctly?",
+          "options": [
+            "didnt",
+            "didn't",
+            "did'nt"
+          ],
+          "answer": 1,
+          "why": "*Didn't* is short for *did not*. The apostrophe goes where letters are missing."
+        },
+        {
+          "id": "GP-05-011",
+          "style": "pick-word",
+          "prompt": "Which word has an apostrophe?",
+          "sentence": "I won't go out in the rain.",
+          "options": [
+            "won't",
+            "go",
+            "out"
+          ],
+          "answer": 0,
+          "why": "*Won't* is short for *will not*."
+        },
+        {
+          "id": "GP-05-012",
+          "style": "pick-word",
+          "prompt": "Which word has an apostrophe?",
+          "sentence": "She hasn't got any pens.",
+          "options": [
+            "got",
+            "pens",
+            "hasn't"
+          ],
+          "answer": 2,
+          "why": "*Hasn't* is short for *has not*."
+        },
+        {
+          "id": "GP-05-013",
+          "style": "pick-word",
+          "prompt": "Which word has an apostrophe?",
+          "sentence": "We're going to the park.",
+          "options": [
+            "going",
+            "We're",
+            "park"
+          ],
+          "answer": 1,
+          "why": "*We're* is short for *we are*."
+        },
+        {
+          "id": "GP-05-014",
+          "style": "true-false",
+          "prompt": "Is this verb in the past tense? \"jumped\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Jumped* tells us the jumping already happened."
+        },
+        {
+          "id": "GP-05-015",
+          "style": "true-false",
+          "prompt": "Is this verb in the past tense? \"eating\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Eating* is happening now. The past tense is *ate*."
+        },
+        {
+          "id": "GP-05-016",
+          "style": "true-false",
+          "prompt": "Is this the short form of 'do not'? \"don't\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Don't* is short for *do not*."
+        },
+        {
+          "id": "GP-05-017",
+          "style": "true-false",
+          "prompt": "Is this the short form of 'cannot' written correctly? \"can'nt\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Cannot* shortens to *can't*. The apostrophe goes before the n."
+        },
+        {
+          "id": "GP-05-018",
+          "style": "fill-gap",
+          "prompt": "Pick the past tense verb.",
+          "sentence": "The bird ___ an egg last week.",
+          "options": [
+            "lays",
+            "laid"
+          ],
+          "answer": 1,
+          "why": "*Last week* tells us it already happened, so we say *laid*."
+        },
+        {
+          "id": "GP-05-019",
+          "style": "fill-gap",
+          "prompt": "Pick the word with the apostrophe.",
+          "sentence": "___ cold today, so wear a coat.",
+          "options": [
+            "Its",
+            "It's"
+          ],
+          "answer": 1,
+          "why": "*It's* is short for *it is*."
+        },
+        {
+          "id": "GP-05-020",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "Its time for bed.",
+            "It's time for bed.",
+            "Its' time for bed."
+          ],
+          "answer": 1,
+          "why": "*It's* is short for *it is*."
+        },
+        {
+          "id": "GP-05-021",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is in the past tense?",
+          "options": [
+            "They eat all the grapes.",
+            "They are eating all the grapes.",
+            "They ate all the grapes."
+          ],
+          "answer": 2,
+          "why": "*Ate* tells us it already happened."
+        },
+        {
+          "id": "GP-05-022",
+          "style": "fill-gap",
+          "prompt": "Pick the past tense verb.",
+          "sentence": "Dad ___ the car yesterday.",
+          "options": [
+            "washed",
+            "washes"
+          ],
+          "answer": 0,
+          "why": "*Yesterday* tells us it already happened."
+        },
+        {
+          "id": "GP-05-023",
+          "style": "fill-gap",
+          "prompt": "Pick the past tense verb.",
+          "sentence": "I ___ my lunchbox on the table.",
+          "options": [
+            "left",
+            "leave"
+          ],
+          "answer": 0,
+          "why": "Leaving the lunchbox happened already, so we say *left*."
+        },
+        {
+          "id": "GP-05-024",
+          "style": "pick-word",
+          "prompt": "Which word has an apostrophe?",
+          "sentence": "You shouldn't tease the cat.",
+          "options": [
+            "shouldn't",
+            "tease",
+            "cat"
+          ],
+          "answer": 0,
+          "why": "*Shouldn't* is short for *should not*."
+        },
+        {
+          "id": "GP-05-025",
+          "style": "true-false",
+          "prompt": "Is this sentence in the past tense? \"We are baking a cake.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Are baking* is happening now. The past tense is *baked*."
+        },
+        {
+          "id": "GP-05-026",
+          "style": "pick-sentence",
+          "prompt": "Which word is the short form of 'she is'?",
+          "options": [
+            "shes",
+            "she's",
+            "she'is"
+          ],
+          "answer": 1,
+          "why": "*She's* is short for *she is*. The apostrophe shows the missing letter."
+        },
+        {
+          "id": "GP-05-027",
+          "style": "fill-gap",
+          "prompt": "Pick the past tense verb.",
+          "sentence": "The team ___ the cup last year.",
+          "options": [
+            "won",
+            "wins"
+          ],
+          "answer": 0,
+          "why": "*Last year* tells us it already happened."
+        },
+        {
+          "id": "GP-05-028",
+          "style": "true-false",
+          "prompt": "Is the apostrophe in the right place? \"could'nt\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Cannot* shortens to *couldn't*. The apostrophe goes before the n."
+        },
+        {
+          "id": "GP-05-029",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the apostrophe correctly?",
+          "options": [
+            "Were off to the zoo.",
+            "We'er off to the zoo.",
+            "We're off to the zoo."
+          ],
+          "answer": 2,
+          "why": "*We're* is short for *we are*."
+        },
+        {
+          "id": "GP-05-030",
+          "style": "fill-gap",
+          "prompt": "Pick the past tense verb.",
+          "sentence": "The sun ___ at six o'clock this morning.",
+          "options": [
+            "rose",
+            "rises"
+          ],
+          "answer": 0,
+          "why": "*This morning* tells us it already happened, so we say *rose*."
+        }
+      ]
+    },
+    {
+      "level": "GP-06",
+      "year": 2,
+      "title": "Commas in lists; apostrophe for possession (singular)",
+      "questions": [
+        {
+          "id": "GP-06-001",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses commas correctly?",
+          "options": [
+            "I bought apples, pears and plums.",
+            "I bought apples pears and plums.",
+            "I bought, apples pears and plums."
+          ],
+          "answer": 0,
+          "why": "Commas separate the items in a *list*."
+        },
+        {
+          "id": "GP-06-002",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses commas correctly?",
+          "options": [
+            "We need pens paper and glue.",
+            "We need, pens paper and glue.",
+            "We need pens, paper and glue."
+          ],
+          "answer": 2,
+          "why": "Commas separate the items in a *list*."
+        },
+        {
+          "id": "GP-06-003",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses commas correctly?",
+          "options": [
+            "I packed socks, pants and a towel.",
+            "I packed socks pants and a towel.",
+            "I packed, socks pants and a towel."
+          ],
+          "answer": 0,
+          "why": "Commas separate the items in a *list*."
+        },
+        {
+          "id": "GP-06-004",
+          "style": "true-false",
+          "prompt": "Are the commas in the right places? \"She likes tea, toast and jam.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The commas separate the three foods."
+        },
+        {
+          "id": "GP-06-005",
+          "style": "true-false",
+          "prompt": "Are the commas in the right places? \"He has a dog a cat and a fish.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "A list of pets needs commas: *a dog, a cat and a fish*."
+        },
+        {
+          "id": "GP-06-006",
+          "style": "pick-mark",
+          "prompt": "Which mark goes in the gap?",
+          "sentence": "We saw ducks ___ geese and swans.",
+          "options": [
+            ",",
+            "'"
+          ],
+          "answer": 0,
+          "why": "A comma separates the birds in the list."
+        },
+        {
+          "id": "GP-06-007",
+          "style": "pick-mark",
+          "prompt": "Which mark goes in the gap?",
+          "sentence": "For tea we had peas ___ mash and carrots.",
+          "options": [
+            ",",
+            "."
+          ],
+          "answer": 0,
+          "why": "A comma separates the foods in the list."
+        },
+        {
+          "id": "GP-06-008",
+          "style": "pick-mark",
+          "prompt": "Which mark goes in the gap?",
+          "sentence": "My cake had candles ___ sprinkles and cherries.",
+          "options": [
+            ",",
+            "?"
+          ],
+          "answer": 0,
+          "why": "A comma separates the toppings in the list."
+        },
+        {
+          "id": "GP-06-009",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the apostrophe correctly?",
+          "options": [
+            "That is Sams coat.",
+            "That is Sam' coat.",
+            "That is Sam's coat."
+          ],
+          "answer": 2,
+          "why": "The coat belongs to *Sam*, so we write *Sam's*."
+        },
+        {
+          "id": "GP-06-010",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the apostrophe correctly?",
+          "options": [
+            "The dogs bowl is empty.",
+            "The dog's bowl is empty.",
+            "The dog' bowl is empty."
+          ],
+          "answer": 1,
+          "why": "The bowl belongs to the *dog*, so we write *dog's*."
+        },
+        {
+          "id": "GP-06-011",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the apostrophe correctly?",
+          "options": [
+            "Ana's hat is red.",
+            "Anas hat is red.",
+            "Ana' hat is red."
+          ],
+          "answer": 0,
+          "why": "The hat belongs to *Ana*, so we write *Ana's*."
+        },
+        {
+          "id": "GP-06-012",
+          "style": "pick-word",
+          "prompt": "Which word shows that something belongs to someone?",
+          "sentence": "This is Ben's pencil.",
+          "options": [
+            "Ben's",
+            "pencil",
+            "This"
+          ],
+          "answer": 0,
+          "why": "*Ben's* tells us the pencil belongs to Ben."
+        },
+        {
+          "id": "GP-06-013",
+          "style": "pick-word",
+          "prompt": "Which word shows that something belongs to someone?",
+          "sentence": "The cat's tail is long.",
+          "options": [
+            "tail",
+            "cat's",
+            "long"
+          ],
+          "answer": 1,
+          "why": "*Cat's* tells us the tail belongs to the cat."
+        },
+        {
+          "id": "GP-06-014",
+          "style": "true-false",
+          "prompt": "Does the apostrophe show belonging in this word? \"Mum's bag\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The bag belongs to *Mum*."
+        },
+        {
+          "id": "GP-06-015",
+          "style": "true-false",
+          "prompt": "Is this written correctly? \"the dogs bone\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "The bone belongs to the dog, so it needs an apostrophe: *the dog's bone*."
+        },
+        {
+          "id": "GP-06-016",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "The ___ lunch was in his bag.",
+          "options": [
+            "boys",
+            "boy's"
+          ],
+          "answer": 1,
+          "why": "The lunch belongs to the *boy*, so we write *boy's*."
+        },
+        {
+          "id": "GP-06-017",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "___ bike has a flat tyre.",
+          "options": [
+            "Zaras",
+            "Zara's"
+          ],
+          "answer": 1,
+          "why": "The bike belongs to *Zara*, so we write *Zara's*."
+        },
+        {
+          "id": "GP-06-018",
+          "style": "fill-gap",
+          "prompt": "Add the missing mark.",
+          "sentence": "I like chips ___ pizza and beans.",
+          "options": [
+            "'",
+            ","
+          ],
+          "answer": 1,
+          "why": "A comma separates the foods in the list."
+        },
+        {
+          "id": "GP-06-019",
+          "style": "pick-mark",
+          "prompt": "Which mark goes in the gap?",
+          "sentence": "The train was slow ___ noisy and full.",
+          "options": [
+            ".",
+            ","
+          ],
+          "answer": 1,
+          "why": "A comma separates the describing words in the list."
+        },
+        {
+          "id": "GP-06-020",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses commas correctly?",
+          "options": [
+            "We played tag, hopscotch and football.",
+            "We played tag hopscotch and football.",
+            "We played, tag hopscotch and football."
+          ],
+          "answer": 0,
+          "why": "Commas separate the games in the list."
+        },
+        {
+          "id": "GP-06-021",
+          "style": "true-false",
+          "prompt": "Are the commas in the right places? \"At the zoo we saw lions, tigers and bears.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The commas separate the three animals."
+        },
+        {
+          "id": "GP-06-022",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the apostrophe correctly?",
+          "options": [
+            "The trees leaves are green.",
+            "The tree's leaves are green.",
+            "The tree' leaves are green."
+          ],
+          "answer": 1,
+          "why": "The leaves belong to the *tree*, so we write *tree's*."
+        },
+        {
+          "id": "GP-06-023",
+          "style": "pick-word",
+          "prompt": "Which word shows that something belongs to someone?",
+          "sentence": "I heard the owl's hoot at night.",
+          "options": [
+            "heard",
+            "night",
+            "owl's"
+          ],
+          "answer": 2,
+          "why": "*Owl's* tells us the hoot belongs to the owl."
+        },
+        {
+          "id": "GP-06-024",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "The ___ door was left open.",
+          "options": [
+            "teacher's",
+            "teachers"
+          ],
+          "answer": 0,
+          "why": "The door belongs to the *teacher*, so we write *teacher's*."
+        },
+        {
+          "id": "GP-06-025",
+          "style": "pick-mark",
+          "prompt": "Which mark goes in the gap?",
+          "sentence": "I found pens ___ pencils and chalk.",
+          "options": [
+            "'",
+            ","
+          ],
+          "answer": 1,
+          "why": "A comma separates the things in the list."
+        },
+        {
+          "id": "GP-06-026",
+          "style": "true-false",
+          "prompt": "Is this written correctly? \"the girls coat\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "The coat belongs to the girl, so it needs an apostrophe: *the girl's coat*."
+        },
+        {
+          "id": "GP-06-027",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses commas correctly?",
+          "options": [
+            "She wore a coat, a scarf and gloves.",
+            "She wore a coat a scarf and gloves.",
+            "She wore, a coat a scarf and gloves."
+          ],
+          "answer": 0,
+          "why": "Commas separate the clothes in the list."
+        },
+        {
+          "id": "GP-06-028",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "My ___ bedroom is tidy.",
+          "options": [
+            "brother's",
+            "brothers"
+          ],
+          "answer": 0,
+          "why": "The bedroom belongs to my *brother*, so we write *brother's*."
+        },
+        {
+          "id": "GP-06-029",
+          "style": "pick-mark",
+          "prompt": "Which mark goes in the gap?",
+          "sentence": "The shelf held games ___ books and toys.",
+          "options": [
+            ".",
+            ","
+          ],
+          "answer": 1,
+          "why": "A comma separates the things in the list."
+        },
+        {
+          "id": "GP-06-030",
+          "style": "true-false",
+          "prompt": "Does the apostrophe show belonging in this word? \"children's\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Children's* tells us the thing belongs to the children."
+        }
+      ]
+    },
+    {
+      "level": "GP-07",
+      "year": 3,
+      "title": "a vs an; word families; prefixes",
+      "questions": [
+        {
+          "id": "GP-07-001",
+          "style": "fill-gap",
+          "prompt": "Choose the correct word.",
+          "sentence": "I ate ___ apple at break.",
+          "options": [
+            "an",
+            "a"
+          ],
+          "answer": 0,
+          "why": "*Apple* starts with a vowel sound, so we say *an*."
+        },
+        {
+          "id": "GP-07-002",
+          "style": "fill-gap",
+          "prompt": "Choose the correct word.",
+          "sentence": "She saw ___ unicorn in the book.",
+          "options": [
+            "a",
+            "an"
+          ],
+          "answer": 1,
+          "why": "*Unicorn* starts with a *yoo* sound, so we say *a*."
+        },
+        {
+          "id": "GP-07-003",
+          "style": "fill-gap",
+          "prompt": "Choose the correct word.",
+          "sentence": "He has ___ orange hat.",
+          "options": [
+            "an",
+            "a"
+          ],
+          "answer": 0,
+          "why": "*Orange* starts with a vowel sound, so we say *an*."
+        },
+        {
+          "id": "GP-07-004",
+          "style": "fill-gap",
+          "prompt": "Choose the correct word.",
+          "sentence": "We waited ___ hour for the bus.",
+          "options": [
+            "a",
+            "an"
+          ],
+          "answer": 1,
+          "why": "*Hour* starts with an *ow* vowel sound, even though it starts with h."
+        },
+        {
+          "id": "GP-07-005",
+          "style": "fill-gap",
+          "prompt": "Choose the correct word.",
+          "sentence": "I need ___ new pencil case.",
+          "options": [
+            "a",
+            "an"
+          ],
+          "answer": 0,
+          "why": "*New* starts with a consonant sound, so we say *a*."
+        },
+        {
+          "id": "GP-07-006",
+          "style": "fill-gap",
+          "prompt": "Choose the correct word.",
+          "sentence": "It took ___ year to build the den.",
+          "options": [
+            "an",
+            "a"
+          ],
+          "answer": 1,
+          "why": "*Year* starts with a *yuh* sound, so we say *a*."
+        },
+        {
+          "id": "GP-07-007",
+          "style": "true-false",
+          "prompt": "Is 'an' the right word here? \"I saw an elephant at the zoo.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Elephant* starts with a vowel sound."
+        },
+        {
+          "id": "GP-07-008",
+          "style": "true-false",
+          "prompt": "Is 'a' the right word here? \"She has a umbrella.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Umbrella* starts with a vowel sound, so it needs *an*."
+        },
+        {
+          "id": "GP-07-009",
+          "style": "pick-word",
+          "prompt": "Which word is in the same family as 'help'?",
+          "sentence": "The helpful girl held the shell.",
+          "options": [
+            "helpful",
+            "shell",
+            "held"
+          ],
+          "answer": 0,
+          "why": "*Helpful* has the same root word: *help*."
+        },
+        {
+          "id": "GP-07-010",
+          "style": "pick-word",
+          "prompt": "Which word is in the same family as 'joy'?",
+          "sentence": "I enjoy the joyful song about a toy.",
+          "options": [
+            "toy",
+            "enjoy",
+            "joyful"
+          ],
+          "answer": 1,
+          "why": "*Enjoy* has the same root word: *joy*."
+        },
+        {
+          "id": "GP-07-011",
+          "style": "pick-word",
+          "prompt": "Which word is in the same family as 'music'?",
+          "sentence": "The musician played music in the mud.",
+          "options": [
+            "musician",
+            "music",
+            "mud"
+          ],
+          "answer": 0,
+          "why": "*Musician* and *music* share the root word *music*."
+        },
+        {
+          "id": "GP-07-012",
+          "style": "pick-word",
+          "prompt": "Which word is in the same family as 'nation'?",
+          "sentence": "The national park protects nature for the nation.",
+          "options": [
+            "park",
+            "national",
+            "nature"
+          ],
+          "answer": 1,
+          "why": "*National* has the same root word: *nation*."
+        },
+        {
+          "id": "GP-07-013",
+          "style": "pick-word",
+          "prompt": "Which word is in the same family as 'teach'?",
+          "sentence": "My teacher is teaching us to swim.",
+          "options": [
+            "teacher",
+            "teaching",
+            "swim"
+          ],
+          "answer": 0,
+          "why": "*Teacher* and *teaching* share the root word *teach*."
+        },
+        {
+          "id": "GP-07-014",
+          "style": "true-false",
+          "prompt": "Are 'teacher' and 'teaching' in the same word family?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "Both come from the root word *teach*."
+        },
+        {
+          "id": "GP-07-015",
+          "style": "fill-gap",
+          "prompt": "Which prefix makes the right word?",
+          "sentence": "The door was ___locked, so we pushed it open.",
+          "options": [
+            "un",
+            "re"
+          ],
+          "answer": 0,
+          "why": "*Un-* means *not*: the door was not locked."
+        },
+        {
+          "id": "GP-07-016",
+          "style": "fill-gap",
+          "prompt": "Which prefix makes the right word?",
+          "sentence": "I will ___write my homework neatly this time.",
+          "options": [
+            "un",
+            "re"
+          ],
+          "answer": 1,
+          "why": "*Re-* means *again*: writing it once more."
+        },
+        {
+          "id": "GP-07-017",
+          "style": "fill-gap",
+          "prompt": "Which prefix makes the right word?",
+          "sentence": "The old gift was ___wrapped with new paper.",
+          "options": [
+            "re",
+            "un"
+          ],
+          "answer": 0,
+          "why": "*Re-* means *again*: wrapped a second time."
+        },
+        {
+          "id": "GP-07-018",
+          "style": "true-false",
+          "prompt": "Does 'un-' mean 'not' in the word 'unfair'?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Unfair* means *not fair*."
+        },
+        {
+          "id": "GP-07-019",
+          "style": "true-false",
+          "prompt": "Does 'mis-' mean 'wrongly' in the word 'misheard'?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Misheard* means you heard it wrongly."
+        },
+        {
+          "id": "GP-07-020",
+          "style": "true-false",
+          "prompt": "Does 're-' mean 'again' in the word 'return'?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "In *return*, *re-* means *back*, not *again*."
+        },
+        {
+          "id": "GP-07-021",
+          "style": "true-false",
+          "prompt": "Does 're-' mean 'again' in the word 'redo'?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Redo* means *do again*."
+        },
+        {
+          "id": "GP-07-022",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses 'a' or 'an' correctly?",
+          "options": [
+            "A ostrich has long legs.",
+            "An ostrich has long legs.",
+            "An dog has long legs."
+          ],
+          "answer": 1,
+          "why": "*Ostrich* starts with a vowel sound, so we say *an ostrich*."
+        },
+        {
+          "id": "GP-07-023",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses 'a' or 'an' correctly?",
+          "options": [
+            "He waited a hour.",
+            "He waited an hours.",
+            "He waited an hour."
+          ],
+          "answer": 2,
+          "why": "*Hour* starts with a vowel sound, so we say *an hour*."
+        },
+        {
+          "id": "GP-07-024",
+          "style": "fill-gap",
+          "prompt": "Choose the correct word.",
+          "sentence": "I had ___ egg and some toast for tea.",
+          "options": [
+            "a",
+            "an"
+          ],
+          "answer": 1,
+          "why": "*Egg* starts with a vowel sound, so we say *an egg*."
+        },
+        {
+          "id": "GP-07-025",
+          "style": "true-false",
+          "prompt": "Is 'an' the right word here? \"We saw an owl in the tree.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Owl* starts with a vowel sound."
+        },
+        {
+          "id": "GP-07-026",
+          "style": "true-false",
+          "prompt": "Is 'a' the right word here? \"I ate a apple.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Apple* starts with a vowel sound, so it needs *an*."
+        },
+        {
+          "id": "GP-07-027",
+          "style": "pick-word",
+          "prompt": "Which word is in the same family as 'use'?",
+          "sentence": "The useful chair is used every day.",
+          "options": [
+            "used",
+            "every",
+            "useful"
+          ],
+          "answer": 2,
+          "why": "*Useful* has the same root word: *use*."
+        },
+        {
+          "id": "GP-07-028",
+          "style": "fill-gap",
+          "prompt": "Which prefix makes the right word?",
+          "sentence": "The kind boy ___did his sums to check them.",
+          "options": [
+            "un",
+            "re"
+          ],
+          "answer": 1,
+          "why": "*Re-* means *again*: he did the sums a second time."
+        },
+        {
+          "id": "GP-07-029",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses 'an' correctly?",
+          "options": [
+            "She has an yellow coat.",
+            "She has an orange coat.",
+            "She has a orange coat."
+          ],
+          "answer": 1,
+          "why": "*Orange* starts with a vowel sound, but *yellow* does not."
+        },
+        {
+          "id": "GP-07-030",
+          "style": "true-false",
+          "prompt": "Does 'dis-' mean 'not' in the word 'disagree'?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Disagree* means *not agree*."
+        }
+      ]
+    },
+    {
+      "level": "GP-08",
+      "year": 3,
+      "title": "Inverted commas (speech marks)",
+      "questions": [
+        {
+          "id": "GP-08-001",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "\"Come here,\" said Mum.",
+            "\"Come here, said Mum.",
+            "Come here,\" said Mum."
+          ],
+          "answer": 0,
+          "why": "Speech marks go around the words that are spoken."
+        },
+        {
+          "id": "GP-08-002",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "\"It's raining, said Ana.",
+            "\"It's raining,\" said Ana.",
+            "It's raining,\" said Ana."
+          ],
+          "answer": 1,
+          "why": "The spoken words need an opening and a closing speech mark."
+        },
+        {
+          "id": "GP-08-003",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "The teacher said, Line up please.",
+            "The teacher said, \"Line up please.",
+            "The teacher said, \"Line up please.\""
+          ],
+          "answer": 2,
+          "why": "Speech marks go before and after the words that are spoken."
+        },
+        {
+          "id": "GP-08-004",
+          "style": "true-false",
+          "prompt": "Are the speech marks in the right place? \"Stop!\" shouted the referee.",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The spoken word *Stop!* has marks on both sides."
+        },
+        {
+          "id": "GP-08-005",
+          "style": "true-false",
+          "prompt": "Are the speech marks in the right place? \"Go away! said the troll loudly.",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "The closing speech mark is missing after *away!*"
+        },
+        {
+          "id": "GP-08-006",
+          "style": "true-false",
+          "prompt": "Do speech marks go around the words that are spoken?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "Speech marks show us exactly which words were said."
+        },
+        {
+          "id": "GP-08-007",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "\"Where are you going? asked Kim.",
+            "\"Where are you going?\" asked Kim.",
+            "Where are you going?\" asked Kim."
+          ],
+          "answer": 1,
+          "why": "The question mark stays inside the speech marks."
+        },
+        {
+          "id": "GP-08-008",
+          "style": "pick-word",
+          "prompt": "Which words are spoken?",
+          "sentence": "\"Dinner is ready,\" called Dad.",
+          "options": [
+            "Dinner is ready",
+            "called",
+            "Dad"
+          ],
+          "answer": 0,
+          "why": "The speech marks show us Dad's words: *Dinner is ready*."
+        },
+        {
+          "id": "GP-08-009",
+          "style": "pick-word",
+          "prompt": "Which words are spoken?",
+          "sentence": "The wolf grumbled, \"I am hungry.\"",
+          "options": [
+            "wolf",
+            "I am hungry",
+            "grumbled"
+          ],
+          "answer": 1,
+          "why": "The speech marks show the wolf's words."
+        },
+        {
+          "id": "GP-08-010",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "Happy birthday!\" we all sang.",
+            "\"Happy birthday! we all sang.",
+            "\"Happy birthday!\" we all sang."
+          ],
+          "answer": 2,
+          "why": "The spoken words need an opening and a closing speech mark."
+        },
+        {
+          "id": "GP-08-011",
+          "style": "true-false",
+          "prompt": "Is the question mark inside the speech marks? \"What time is it?\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The question mark belongs to the spoken question."
+        },
+        {
+          "id": "GP-08-012",
+          "style": "true-false",
+          "prompt": "Are these speech marks in the right place? The \"lion roared\" loudly.",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "The whole spoken sentence should be inside the marks: \"The lion roared.\""
+        },
+        {
+          "id": "GP-08-013",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "\"I can't find my hat,\" said Max.",
+            "\"I can't find my hat, said Max.",
+            "I can't find my hat,\" said Max."
+          ],
+          "answer": 0,
+          "why": "The spoken words have an opening and a closing speech mark."
+        },
+        {
+          "id": "GP-08-014",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "\"What a goal! shouted the crowd.",
+            "\"What a goal!\" shouted the crowd.",
+            "What a goal!\" shouted the crowd."
+          ],
+          "answer": 1,
+          "why": "The shouted words need a closing speech mark too."
+        },
+        {
+          "id": "GP-08-015",
+          "style": "pick-word",
+          "prompt": "Which words are spoken?",
+          "sentence": "\"Wait for me!\" puffed the slow snail.",
+          "options": [
+            "Wait for me",
+            "puffed",
+            "snail"
+          ],
+          "answer": 0,
+          "why": "The speech marks show us the snail's words."
+        },
+        {
+          "id": "GP-08-016",
+          "style": "true-false",
+          "prompt": "Do these speech marks look right? »Hello,« said Ana.",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "English speech marks look like this: \"Hello,\""
+        },
+        {
+          "id": "GP-08-017",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "\"Thank you,\" whispered the mouse.",
+            "\"Thank you, whispered the mouse.",
+            "Thank you,\" whispered the mouse."
+          ],
+          "answer": 0,
+          "why": "The whispered words are inside two speech marks."
+        },
+        {
+          "id": "GP-08-018",
+          "style": "pick-word",
+          "prompt": "Which words are spoken?",
+          "sentence": "Grandpa said, \"It is bedtime.\"",
+          "options": [
+            "Grandpa",
+            "It is bedtime",
+            "said"
+          ],
+          "answer": 1,
+          "why": "The speech marks show us Grandpa's words."
+        },
+        {
+          "id": "GP-08-019",
+          "style": "true-false",
+          "prompt": "Should speech marks be used here? The notice said \"Quiet please.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The notice's words go inside speech marks."
+        },
+        {
+          "id": "GP-08-020",
+          "style": "true-false",
+          "prompt": "Are the speech marks in the right place? \"Be kind,\" said the teacher softly.",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The spoken words *Be kind* have marks on both sides."
+        },
+        {
+          "id": "GP-08-021",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "\"Can I play too?\" asked the small child.",
+            "\"Can I play too? asked the small child.",
+            "Can I play too?\" asked the small child."
+          ],
+          "answer": 0,
+          "why": "The question stays inside the speech marks."
+        },
+        {
+          "id": "GP-08-022",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "\"Open the gate, said the farmer.",
+            "\"Open the gate,\" said the farmer.",
+            "Open the gate,\" said the farmer."
+          ],
+          "answer": 1,
+          "why": "The spoken words need an opening and a closing speech mark."
+        },
+        {
+          "id": "GP-08-023",
+          "style": "pick-word",
+          "prompt": "Which words are spoken?",
+          "sentence": "\"Look at the stars,\" said the owl.",
+          "options": [
+            "said",
+            "owl",
+            "Look at the stars"
+          ],
+          "answer": 2,
+          "why": "The speech marks show us the owl's words."
+        },
+        {
+          "id": "GP-08-024",
+          "style": "true-false",
+          "prompt": "Is the comma in the right place? \"Yes please,\" said Sam.",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The comma goes inside the speech marks, after the spoken words."
+        },
+        {
+          "id": "GP-08-025",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "\"Hurry up!\" called my sister.",
+            "\"Hurry up! called my sister.",
+            "Hurry up!\" called my sister."
+          ],
+          "answer": 0,
+          "why": "The called words have an opening and a closing speech mark."
+        },
+        {
+          "id": "GP-08-026",
+          "style": "pick-word",
+          "prompt": "Which words are spoken?",
+          "sentence": "The baker said, \"Fresh bread today!\"",
+          "options": [
+            "baker",
+            "Fresh bread today",
+            "said"
+          ],
+          "answer": 1,
+          "why": "The speech marks show the baker's words."
+        },
+        {
+          "id": "GP-08-027",
+          "style": "true-false",
+          "prompt": "Should there be speech marks here? Mum shouted, \"Tea is ready!\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "Mum's shouted words go inside speech marks."
+        },
+        {
+          "id": "GP-08-028",
+          "style": "true-false",
+          "prompt": "Are the speech marks in the right place? \"The little fish said, Blub blub.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "The fish's words *Blub blub* need speech marks too."
+        },
+        {
+          "id": "GP-08-029",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses speech marks correctly?",
+          "options": [
+            "\"It's too hot,\" said the penguin.",
+            "\"It's too hot, said the penguin.",
+            "It's too hot,\" said the penguin."
+          ],
+          "answer": 0,
+          "why": "The spoken words have an opening and a closing speech mark."
+        },
+        {
+          "id": "GP-08-030",
+          "style": "pick-word",
+          "prompt": "Which words are spoken?",
+          "sentence": "\"Good night,\" whispered the moon.",
+          "options": [
+            "moon",
+            "Good night",
+            "whispered"
+          ],
+          "answer": 1,
+          "why": "The speech marks show us the moon's words."
+        }
+      ]
+    },
+    {
+      "level": "GP-09",
+      "year": 3,
+      "title": "Present perfect; conjunctions and adverbs for time and cause",
+      "questions": [
+        {
+          "id": "GP-09-001",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "I ___ finished my homework.",
+          "options": [
+            "have",
+            "has"
+          ],
+          "answer": 0,
+          "why": "We say *I have*, not *I has*."
+        },
+        {
+          "id": "GP-09-002",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "She ___ lost her pencil again.",
+          "options": [
+            "have",
+            "has"
+          ],
+          "answer": 1,
+          "why": "We say *she has* with one person."
+        },
+        {
+          "id": "GP-09-003",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "They ___ eaten all the biscuits.",
+          "options": [
+            "have",
+            "has"
+          ],
+          "answer": 0,
+          "why": "We say *they have* with more than one."
+        },
+        {
+          "id": "GP-09-004",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "He ___ been to the seaside twice.",
+          "options": [
+            "have",
+            "has"
+          ],
+          "answer": 1,
+          "why": "We say *he has* with one person."
+        },
+        {
+          "id": "GP-09-005",
+          "style": "true-false",
+          "prompt": "Is this in the present perfect? \"We have visited the zoo.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Have visited* is the present perfect."
+        },
+        {
+          "id": "GP-09-006",
+          "style": "true-false",
+          "prompt": "Is this in the present perfect? \"They has gone home.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "It should be *they have gone*."
+        },
+        {
+          "id": "GP-09-007",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is in the present perfect?",
+          "options": [
+            "I have lived here for six years.",
+            "I lived here for six years.",
+            "I am living here for six years."
+          ],
+          "answer": 0,
+          "why": "*Have lived* links the past to now."
+        },
+        {
+          "id": "GP-09-008",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "She have broken her arm.",
+            "She breaks her arm.",
+            "She has broken her arm."
+          ],
+          "answer": 2,
+          "why": "We say *she has* with one person."
+        },
+        {
+          "id": "GP-09-009",
+          "style": "pick-word",
+          "prompt": "Which word helps make the present perfect?",
+          "sentence": "We have waited for an hour.",
+          "options": [
+            "have",
+            "waited",
+            "hour"
+          ],
+          "answer": 0,
+          "why": "*Have* plus a past word makes the present perfect."
+        },
+        {
+          "id": "GP-09-010",
+          "style": "pick-word",
+          "prompt": "Which word helps make the present perfect?",
+          "sentence": "He has grown taller this year.",
+          "options": [
+            "grown",
+            "has",
+            "taller"
+          ],
+          "answer": 1,
+          "why": "*Has* plus *grown* makes the present perfect."
+        },
+        {
+          "id": "GP-09-011",
+          "style": "fill-gap",
+          "prompt": "Choose the best word.",
+          "sentence": "We went home ___ it got dark.",
+          "options": [
+            "when",
+            "or"
+          ],
+          "answer": 0,
+          "why": "*When* tells us the time."
+        },
+        {
+          "id": "GP-09-012",
+          "style": "fill-gap",
+          "prompt": "Choose the best word.",
+          "sentence": "I stayed in ___ I felt poorly.",
+          "options": [
+            "but",
+            "because"
+          ],
+          "answer": 1,
+          "why": "*Because* tells us the reason."
+        },
+        {
+          "id": "GP-09-013",
+          "style": "fill-gap",
+          "prompt": "Choose the best word.",
+          "sentence": "She was late ___ her alarm did not go off.",
+          "options": [
+            "because",
+            "or"
+          ],
+          "answer": 0,
+          "why": "*Because* tells us the reason."
+        },
+        {
+          "id": "GP-09-014",
+          "style": "true-false",
+          "prompt": "Does 'because' show the reason here? \"I smiled because I was happy.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "Being happy is the reason for smiling."
+        },
+        {
+          "id": "GP-09-015",
+          "style": "true-false",
+          "prompt": "Does 'when' tell us the time here? \"We left when the film ended.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*When* tells us the time we left."
+        },
+        {
+          "id": "GP-09-016",
+          "style": "true-false",
+          "prompt": "Is this the present perfect written correctly? \"I have ate my tea.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "It should be *I have eaten my tea*."
+        },
+        {
+          "id": "GP-09-017",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "He has took his medicine.",
+            "He have taken his medicine.",
+            "He has taken his medicine."
+          ],
+          "answer": 2,
+          "why": "After *has*, we use *taken*."
+        },
+        {
+          "id": "GP-09-018",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "We have swam in the sea.",
+            "We have swum in the sea.",
+            "We has swum in the sea."
+          ],
+          "answer": 1,
+          "why": "After *have*, we use *swum*."
+        },
+        {
+          "id": "GP-09-019",
+          "style": "pick-word",
+          "prompt": "Which word tells us when?",
+          "sentence": "After lunch, we went to the park.",
+          "options": [
+            "After",
+            "lunch",
+            "park"
+          ],
+          "answer": 0,
+          "why": "*After lunch* tells us the time."
+        },
+        {
+          "id": "GP-09-020",
+          "style": "pick-word",
+          "prompt": "Which word tells us why?",
+          "sentence": "I wore a coat because it was cold.",
+          "options": [
+            "wore",
+            "because",
+            "cold"
+          ],
+          "answer": 1,
+          "why": "*Because* introduces the reason."
+        },
+        {
+          "id": "GP-09-021",
+          "style": "fill-gap",
+          "prompt": "Choose the best word.",
+          "sentence": "___ we arrived, the show began.",
+          "options": [
+            "When",
+            "But"
+          ],
+          "answer": 0,
+          "why": "*When* tells us the time."
+        },
+        {
+          "id": "GP-09-022",
+          "style": "fill-gap",
+          "prompt": "Choose the best word.",
+          "sentence": "She took a bus ___ the walk was too far.",
+          "options": [
+            "or",
+            "because"
+          ],
+          "answer": 1,
+          "why": "*Because* gives the reason she took a bus."
+        },
+        {
+          "id": "GP-09-023",
+          "style": "true-false",
+          "prompt": "Does 'so' show the result here? \"It rained, so we stayed in.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*So* tells us what happened as a result."
+        },
+        {
+          "id": "GP-09-024",
+          "style": "true-false",
+          "prompt": "Is this the present perfect written correctly? \"I have saw that film.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "It should be *I have seen that film*."
+        },
+        {
+          "id": "GP-09-025",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "They have found the lost dog.",
+            "They has found the lost dog.",
+            "They have finded the lost dog."
+          ],
+          "answer": 0,
+          "why": "*They have found* is the present perfect."
+        },
+        {
+          "id": "GP-09-026",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "She has wrote a letter.",
+            "She has written a letter.",
+            "She have written a letter."
+          ],
+          "answer": 1,
+          "why": "After *has*, we use *written*."
+        },
+        {
+          "id": "GP-09-027",
+          "style": "pick-word",
+          "prompt": "Which word is the past participle?",
+          "sentence": "I have eaten my tea.",
+          "options": [
+            "have",
+            "eaten",
+            "tea"
+          ],
+          "answer": 1,
+          "why": "*Eaten* is the past word that follows *have*."
+        },
+        {
+          "id": "GP-09-028",
+          "style": "pick-word",
+          "prompt": "Which word is the past participle?",
+          "sentence": "We had drunk all the juice.",
+          "options": [
+            "had",
+            "drunk",
+            "juice"
+          ],
+          "answer": 1,
+          "why": "*Drunk* is the past word that follows *had*."
+        },
+        {
+          "id": "GP-09-029",
+          "style": "fill-gap",
+          "prompt": "Choose the best word.",
+          "sentence": "I will call you ___ I get there.",
+          "options": [
+            "when",
+            "because"
+          ],
+          "answer": 0,
+          "why": "*When* tells us the time to call."
+        },
+        {
+          "id": "GP-09-030",
+          "style": "true-false",
+          "prompt": "Does 'although' fit here? \"We played outside although it was raining.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Although* joins two surprising ideas."
+        }
+      ]
+    },
+    {
+      "level": "GP-10",
+      "year": 4,
+      "title": "Fronted adverbials + comma; expanded noun phrases",
+      "questions": [
+        {
+          "id": "GP-10-001",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the comma correctly?",
+          "options": [
+            "After the storm the sun came out.",
+            "After, the storm the sun came out.",
+            "After the storm, the sun came out."
+          ],
+          "answer": 2,
+          "why": "A comma separates the fronted adverbial from the rest."
+        },
+        {
+          "id": "GP-10-002",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the comma correctly?",
+          "options": [
+            "In the morning I eat my breakfast.",
+            "In, the morning I eat my breakfast.",
+            "In the morning, I eat my breakfast."
+          ],
+          "answer": 2,
+          "why": "A comma separates the fronted adverbial from the rest."
+        },
+        {
+          "id": "GP-10-003",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the comma correctly?",
+          "options": [
+            "Quickly the fox, ran away.",
+            "Quickly the fox ran away.",
+            "Quickly, the fox ran away."
+          ],
+          "answer": 2,
+          "why": "A comma separates the fronted adverbial from the rest."
+        },
+        {
+          "id": "GP-10-004",
+          "style": "true-false",
+          "prompt": "Is the comma in the right place? \"In the garden, the dog barked.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The comma comes after the fronted adverbial."
+        },
+        {
+          "id": "GP-10-005",
+          "style": "true-false",
+          "prompt": "Is the comma in the right place? \"In the garden the dog, barked.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "The comma should come after *garden*, not *dog*."
+        },
+        {
+          "id": "GP-10-006",
+          "style": "true-false",
+          "prompt": "Does this sentence start with a fronted adverbial? \"Before lunch, we washed our hands.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Before lunch* tells us when, at the front of the sentence."
+        },
+        {
+          "id": "GP-10-007",
+          "style": "pick-word",
+          "prompt": "Which words tell us when?",
+          "sentence": "Later that day, we visited the old castle.",
+          "options": [
+            "visited",
+            "Later that day",
+            "castle"
+          ],
+          "answer": 1,
+          "why": "*Later that day* tells us the time."
+        },
+        {
+          "id": "GP-10-008",
+          "style": "pick-word",
+          "prompt": "Which words tell us where?",
+          "sentence": "Under the bridge, the troll was sleeping.",
+          "options": [
+            "Under the bridge",
+            "troll",
+            "sleeping"
+          ],
+          "answer": 0,
+          "why": "*Under the bridge* tells us the place."
+        },
+        {
+          "id": "GP-10-009",
+          "style": "pick-word",
+          "prompt": "Which words tell us how?",
+          "sentence": "Without a sound, the mouse crept past the cat.",
+          "options": [
+            "mouse",
+            "Without a sound",
+            "crept"
+          ],
+          "answer": 1,
+          "why": "*Without a sound* tells us how the mouse crept."
+        },
+        {
+          "id": "GP-10-010",
+          "style": "pick-sentence",
+          "prompt": "Which sentence has an expanded noun phrase?",
+          "options": [
+            "The dog rolled over.",
+            "The dog, rolled over.",
+            "The enormous, fluffy dog rolled over."
+          ],
+          "answer": 2,
+          "why": "*The enormous, fluffy dog* is an expanded noun phrase."
+        },
+        {
+          "id": "GP-10-011",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the comma correctly?",
+          "options": [
+            "Silently the children, crept upstairs.",
+            "Silently, the children crept, upstairs.",
+            "Silently, the children crept upstairs."
+          ],
+          "answer": 2,
+          "why": "One comma, after the fronted adverbial, is all we need."
+        },
+        {
+          "id": "GP-10-012",
+          "style": "pick-mark",
+          "prompt": "Which mark goes in the gap?",
+          "sentence": "At the zoo ___ we saw penguins.",
+          "options": [
+            ",",
+            "."
+          ],
+          "answer": 0,
+          "why": "A comma separates the fronted adverbial from the rest."
+        },
+        {
+          "id": "GP-10-013",
+          "style": "pick-mark",
+          "prompt": "Which mark goes in the gap?",
+          "sentence": "Without warning ___ the lights went out.",
+          "options": [
+            ".",
+            ","
+          ],
+          "answer": 1,
+          "why": "A comma separates the fronted adverbial from the rest."
+        },
+        {
+          "id": "GP-10-014",
+          "style": "pick-sentence",
+          "prompt": "Which sentence has an expanded noun phrase?",
+          "options": [
+            "A tower stood in the city.",
+            "A tall glass, tower stood in the city.",
+            "A tall, glass tower stood in the city."
+          ],
+          "answer": 2,
+          "why": "*A tall, glass tower* is an expanded noun phrase."
+        },
+        {
+          "id": "GP-10-015",
+          "style": "true-false",
+          "prompt": "Is the comma in the right place? \"Suddenly, the lights went out.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The comma comes after the fronted adverbial *suddenly*."
+        },
+        {
+          "id": "GP-10-016",
+          "style": "true-false",
+          "prompt": "Is the comma in the right place? \"Suddenly the lights, went out.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "The comma should come after *suddenly*, not *lights*."
+        },
+        {
+          "id": "GP-10-017",
+          "style": "pick-word",
+          "prompt": "Which words are the fronted adverbial?",
+          "sentence": "In the distance, we heard a ship's horn.",
+          "options": [
+            "In the distance",
+            "heard",
+            "horn"
+          ],
+          "answer": 0,
+          "why": "*In the distance* tells us where, at the front."
+        },
+        {
+          "id": "GP-10-018",
+          "style": "pick-word",
+          "prompt": "Which words are the fronted adverbial?",
+          "sentence": "With a loud crash, the plate fell to the floor.",
+          "options": [
+            "plate",
+            "With a loud crash",
+            "fell"
+          ],
+          "answer": 1,
+          "why": "*With a loud crash* tells us how, at the front."
+        },
+        {
+          "id": "GP-10-019",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "Every Saturday, we visit the market.",
+            "Every Saturday we, visit the market.",
+            "Every, Saturday we visit the market."
+          ],
+          "answer": 0,
+          "why": "A comma separates the fronted adverbial from the rest."
+        },
+        {
+          "id": "GP-10-020",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the comma correctly?",
+          "options": [
+            "At midnight the clock, chimed.",
+            "At midnight, the clock chimed.",
+            "At, midnight the clock chimed."
+          ],
+          "answer": 1,
+          "why": "A comma separates the fronted adverbial from the rest."
+        },
+        {
+          "id": "GP-10-021",
+          "style": "true-false",
+          "prompt": "Does this sentence have an expanded noun phrase? \"The old, wooden gate creaked open.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*The old, wooden gate* is an expanded noun phrase."
+        },
+        {
+          "id": "GP-10-022",
+          "style": "true-false",
+          "prompt": "Is the comma in the right place? \"Under the bed, my shoes waited.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The comma comes after the fronted adverbial."
+        },
+        {
+          "id": "GP-10-023",
+          "style": "pick-mark",
+          "prompt": "Which mark goes in the gap?",
+          "sentence": "In autumn ___ the leaves turn brown.",
+          "options": [
+            ",",
+            "'"
+          ],
+          "answer": 0,
+          "why": "A comma separates the fronted adverbial from the rest."
+        },
+        {
+          "id": "GP-10-024",
+          "style": "fill-gap",
+          "prompt": "Which words expand the noun phrase?",
+          "sentence": "The ___ moon glowed in the dark sky.",
+          "options": [
+            "brightly silver",
+            "bright silver"
+          ],
+          "answer": 1,
+          "why": "Describing words like *bright silver* expand the noun phrase."
+        },
+        {
+          "id": "GP-10-025",
+          "style": "pick-sentence",
+          "prompt": "Which sentence has an expanded noun phrase?",
+          "options": [
+            "The enormous cake won first prize.",
+            "The cake won first prize.",
+            "The enormous cake, won first prize."
+          ],
+          "answer": 0,
+          "why": "*The enormous cake* is an expanded noun phrase."
+        },
+        {
+          "id": "GP-10-026",
+          "style": "true-false",
+          "prompt": "Is the comma in the right place? \"Before long, we were home.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The comma comes after the fronted adverbial."
+        },
+        {
+          "id": "GP-10-027",
+          "style": "pick-word",
+          "prompt": "Which words tell us when?",
+          "sentence": "On Saturday morning, Dad made some pancakes.",
+          "options": [
+            "On Saturday morning",
+            "Dad",
+            "pancakes"
+          ],
+          "answer": 0,
+          "why": "*On Saturday morning* tells us the time."
+        },
+        {
+          "id": "GP-10-028",
+          "style": "pick-mark",
+          "prompt": "Which mark goes in the gap?",
+          "sentence": "Without delay ___ the fire crew set off.",
+          "options": [
+            ".",
+            ","
+          ],
+          "answer": 1,
+          "why": "A comma separates the fronted adverbial from the rest."
+        },
+        {
+          "id": "GP-10-029",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the comma correctly?",
+          "options": [
+            "After a while, the rain stopped.",
+            "After a while the rain, stopped.",
+            "After, a while the rain stopped."
+          ],
+          "answer": 0,
+          "why": "A comma separates the fronted adverbial from the rest."
+        },
+        {
+          "id": "GP-10-030",
+          "style": "true-false",
+          "prompt": "Is the comma in the right place? \"Luckily, nobody was hurt.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The comma comes after the fronted adverbial *luckily*."
+        }
+      ]
+    },
+    {
+      "level": "GP-11",
+      "year": 4,
+      "title": "Plural possession; pronouns vs nouns",
+      "questions": [
+        {
+          "id": "GP-11-001",
+          "style": "pick-sentence",
+          "prompt": "Which sentence shows more than one owner?",
+          "options": [
+            "The girl's coats were wet.",
+            "The girls coats were wet.",
+            "The girls' coats were wet."
+          ],
+          "answer": 2,
+          "why": "*Girls'* with the apostrophe after the s means the coats belong to more than one girl."
+        },
+        {
+          "id": "GP-11-002",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the apostrophe correctly?",
+          "options": [
+            "The babys' toys were everywhere.",
+            "The babies' toys were everywhere.",
+            "The babies toy's were everywhere."
+          ],
+          "answer": 1,
+          "why": "*Babies* ends in s, and the toys belong to more than one baby."
+        },
+        {
+          "id": "GP-11-003",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the apostrophe correctly?",
+          "options": [
+            "The two dogs bowls were full.",
+            "The two dog's bowls were full.",
+            "The two dogs' bowls were full."
+          ],
+          "answer": 2,
+          "why": "Two dogs own the bowls, so the apostrophe goes after the s."
+        },
+        {
+          "id": "GP-11-004",
+          "style": "true-false",
+          "prompt": "Does the apostrophe show more than one owner in 'the players' shirts'?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "More than one player owns a shirt, so the apostrophe goes after the s."
+        },
+        {
+          "id": "GP-11-005",
+          "style": "true-false",
+          "prompt": "Does the apostrophe show more than one owner in 'the player's shirt'?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Player's* with the apostrophe before the s means one player."
+        },
+        {
+          "id": "GP-11-006",
+          "style": "pick-word",
+          "prompt": "Which word is a pronoun?",
+          "sentence": "She gave him the ball.",
+          "options": [
+            "gave",
+            "She",
+            "ball"
+          ],
+          "answer": 1,
+          "why": "A pronoun stands in place of a noun: *she*."
+        },
+        {
+          "id": "GP-11-007",
+          "style": "pick-word",
+          "prompt": "Which word is a pronoun?",
+          "sentence": "They ran after it.",
+          "options": [
+            "They",
+            "ran",
+            "after"
+          ],
+          "answer": 0,
+          "why": "*They* stands in place of a noun."
+        },
+        {
+          "id": "GP-11-008",
+          "style": "pick-word",
+          "prompt": "Which word is a pronoun?",
+          "sentence": "We saw a deer in the field.",
+          "options": [
+            "deer",
+            "We",
+            "field"
+          ],
+          "answer": 1,
+          "why": "*We* stands in place of naming the people."
+        },
+        {
+          "id": "GP-11-009",
+          "style": "true-false",
+          "prompt": "Is 'they' a pronoun?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*They* stands in place of a noun."
+        },
+        {
+          "id": "GP-11-010",
+          "style": "true-false",
+          "prompt": "Is 'table' a pronoun?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*Table* names a thing. It is a noun."
+        },
+        {
+          "id": "GP-11-011",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "The ___ books were old.",
+          "options": [
+            "children's",
+            "childrens"
+          ],
+          "answer": 0,
+          "why": "*Children* does not end in s, so we add *'s*."
+        },
+        {
+          "id": "GP-11-012",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "___ coats are on the floor.",
+          "options": [
+            "Girl's",
+            "Girls'"
+          ],
+          "answer": 1,
+          "why": "More than one girl owns the coats, so the apostrophe goes after the s."
+        },
+        {
+          "id": "GP-11-013",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "The ___ cages needed cleaning.",
+          "options": [
+            "rabbits'",
+            "rabbit's"
+          ],
+          "answer": 0,
+          "why": "More than one rabbit lives here, so the apostrophe goes after the s."
+        },
+        {
+          "id": "GP-11-014",
+          "style": "true-false",
+          "prompt": "Is this written correctly? \"the boys' football\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "The football belongs to more than one boy, so the apostrophe goes after the s."
+        },
+        {
+          "id": "GP-11-015",
+          "style": "true-false",
+          "prompt": "Is this written correctly? \"the boys football\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "It needs an apostrophe after the s: *the boys' football*."
+        },
+        {
+          "id": "GP-11-016",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "Both girls bikes were new.",
+            "Both girl's bikes were new.",
+            "Both girls' bikes were new."
+          ],
+          "answer": 2,
+          "why": "*Both* tells us more than one girl owns the bikes."
+        },
+        {
+          "id": "GP-11-017",
+          "style": "pick-word",
+          "prompt": "Which word is a pronoun?",
+          "sentence": "I gave the book to her.",
+          "options": [
+            "her",
+            "gave",
+            "book"
+          ],
+          "answer": 0,
+          "why": "*Her* stands in place of a name."
+        },
+        {
+          "id": "GP-11-018",
+          "style": "pick-word",
+          "prompt": "Which word is a pronoun?",
+          "sentence": "He washed the blue car.",
+          "options": [
+            "washed",
+            "He",
+            "car"
+          ],
+          "answer": 1,
+          "why": "*He* stands in place of a name."
+        },
+        {
+          "id": "GP-11-019",
+          "style": "pick-sentence",
+          "prompt": "Which sentence uses the apostrophe correctly?",
+          "options": [
+            "The twins bikes were matching.",
+            "The twin's bikes were matching.",
+            "The twins' bikes were matching."
+          ],
+          "answer": 2,
+          "why": "Twins means two people, so the apostrophe goes after the s."
+        },
+        {
+          "id": "GP-11-020",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "The ___ shoes were lined up in rows.",
+          "options": [
+            "dancers'",
+            "dancer's"
+          ],
+          "answer": 0,
+          "why": "More than one dancer owns the shoes."
+        },
+        {
+          "id": "GP-11-021",
+          "style": "true-false",
+          "prompt": "Is 'us' a pronoun?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Us* stands in place of naming the people."
+        },
+        {
+          "id": "GP-11-022",
+          "style": "true-false",
+          "prompt": "Is 'London' a pronoun?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "*London* names a place. It is a noun."
+        },
+        {
+          "id": "GP-11-023",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "The ___ tractors were parked in the barn.",
+          "options": [
+            "farmers'",
+            "farmers"
+          ],
+          "answer": 0,
+          "why": "The tractors belong to the farmers, so we need an apostrophe."
+        },
+        {
+          "id": "GP-11-024",
+          "style": "true-false",
+          "prompt": "Does the apostrophe come after the s when more than one person owns something?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "More than one owner: add s, then the apostrophe."
+        },
+        {
+          "id": "GP-11-025",
+          "style": "pick-word",
+          "prompt": "Which word is a pronoun?",
+          "sentence": "It was hidden under the mat.",
+          "options": [
+            "It",
+            "hidden",
+            "mat"
+          ],
+          "answer": 0,
+          "why": "*It* stands in place of naming the thing."
+        },
+        {
+          "id": "GP-11-026",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "All three witches hats were pointy.",
+            "All three witches' hats were pointy.",
+            "All three witch's hats were pointy."
+          ],
+          "answer": 1,
+          "why": "Three witches own the hats, so the apostrophe goes after the s."
+        },
+        {
+          "id": "GP-11-027",
+          "style": "pick-word",
+          "prompt": "Which word is a noun (a naming word)?",
+          "sentence": "He gave me a hug.",
+          "options": [
+            "He",
+            "me",
+            "hug"
+          ],
+          "answer": 2,
+          "why": "*Hug* names a thing. *He* and *me* are pronouns."
+        },
+        {
+          "id": "GP-11-028",
+          "style": "true-false",
+          "prompt": "Is 'them' a pronoun?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Them* stands in place of a noun."
+        },
+        {
+          "id": "GP-11-029",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is written correctly?",
+          "options": [
+            "Both dogs' leads were hanging up.",
+            "Both dogs leads were hanging up.",
+            "Both dog's leads were hanging up."
+          ],
+          "answer": 0,
+          "why": "Both dogs own leads, so the apostrophe goes after the s."
+        },
+        {
+          "id": "GP-11-030",
+          "style": "true-false",
+          "prompt": "Is 'we' a pronoun?",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*We* stands in place of naming the people."
+        }
+      ]
+    },
+    {
+      "level": "GP-12",
+      "year": 4,
+      "title": "Standard English",
+      "questions": [
+        {
+          "id": "GP-12-001",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "We ___ late for school.",
+          "options": [
+            "were",
+            "was"
+          ],
+          "answer": 0,
+          "why": "We say *we were*, not *we was*."
+        },
+        {
+          "id": "GP-12-002",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "I ___ not scared of the dark.",
+          "options": [
+            "were",
+            "was"
+          ],
+          "answer": 1,
+          "why": "We say *I was*, not *I were*."
+        },
+        {
+          "id": "GP-12-003",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "You ___ right after all.",
+          "options": [
+            "were",
+            "was"
+          ],
+          "answer": 0,
+          "why": "We say *you were*, not *you was*."
+        },
+        {
+          "id": "GP-12-004",
+          "style": "true-false",
+          "prompt": "Is this standard English? \"We was going home.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "We say *we were going home*."
+        },
+        {
+          "id": "GP-12-005",
+          "style": "true-false",
+          "prompt": "Is this standard English? \"They were happy.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*They were* is standard English."
+        },
+        {
+          "id": "GP-12-006",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is standard English?",
+          "options": [
+            "We is going to the shops.",
+            "We was going to the shops.",
+            "We were going to the shops."
+          ],
+          "answer": 2,
+          "why": "*We were* is the standard English way."
+        },
+        {
+          "id": "GP-12-007",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is standard English?",
+          "options": [
+            "I done my homework.",
+            "I have did my homework.",
+            "I did my homework."
+          ],
+          "answer": 2,
+          "why": "*I did* is standard English."
+        },
+        {
+          "id": "GP-12-008",
+          "style": "pick-word",
+          "prompt": "Which word is not standard English?",
+          "sentence": "We was late for the bus.",
+          "options": [
+            "was",
+            "We",
+            "late"
+          ],
+          "answer": 0,
+          "why": "We say *we were late*."
+        },
+        {
+          "id": "GP-12-009",
+          "style": "pick-word",
+          "prompt": "Which word is not standard English?",
+          "sentence": "I seen a shooting star.",
+          "options": [
+            "seen",
+            "I",
+            "star"
+          ],
+          "answer": 0,
+          "why": "We say *I saw* or *I have seen*."
+        },
+        {
+          "id": "GP-12-010",
+          "style": "true-false",
+          "prompt": "Is this standard English? \"I have ate all my tea.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "We say *I have eaten*."
+        },
+        {
+          "id": "GP-12-011",
+          "style": "true-false",
+          "prompt": "Is this standard English? \"She has done her best.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*She has done* is standard English."
+        },
+        {
+          "id": "GP-12-012",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "He ___ like peas.",
+          "options": [
+            "don't",
+            "doesn't"
+          ],
+          "answer": 1,
+          "why": "We say *he doesn't*, not *he don't*."
+        },
+        {
+          "id": "GP-12-013",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "We ___ not know the answer.",
+          "options": [
+            "did",
+            "done"
+          ],
+          "answer": 0,
+          "why": "We say *we did*, not *we done*."
+        },
+        {
+          "id": "GP-12-014",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is standard English?",
+          "options": [
+            "She don't want any.",
+            "She doesn't want any.",
+            "She do not wants any."
+          ],
+          "answer": 1,
+          "why": "*She doesn't* is the standard English way."
+        },
+        {
+          "id": "GP-12-015",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is standard English?",
+          "options": [
+            "We haven't got no milk.",
+            "We ain't got any milk.",
+            "We haven't got any milk."
+          ],
+          "answer": 2,
+          "why": "In standard English we avoid double negatives like *haven't got no*."
+        },
+        {
+          "id": "GP-12-016",
+          "style": "true-false",
+          "prompt": "Is this standard English? \"He hasn't done nothing.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "Standard English says *he hasn't done anything*."
+        },
+        {
+          "id": "GP-12-017",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "I ___ my best at sports day.",
+          "options": [
+            "did",
+            "done"
+          ],
+          "answer": 0,
+          "why": "We say *I did my best*."
+        },
+        {
+          "id": "GP-12-018",
+          "style": "pick-word",
+          "prompt": "Which word is not standard English?",
+          "sentence": "Them biscuits were tasty.",
+          "options": [
+            "biscuits",
+            "Them",
+            "tasty"
+          ],
+          "answer": 1,
+          "why": "Standard English says *those biscuits*."
+        },
+        {
+          "id": "GP-12-019",
+          "style": "true-false",
+          "prompt": "Is this standard English? \"Those biscuits were tasty.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*Those biscuits* is standard English."
+        },
+        {
+          "id": "GP-12-020",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is standard English?",
+          "options": [
+            "I didn't see nothing.",
+            "I didn't see anything.",
+            "I ain't seen anything."
+          ],
+          "answer": 1,
+          "why": "*I didn't see anything* is the standard English way."
+        },
+        {
+          "id": "GP-12-021",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "It ___ them who rang the bell.",
+          "options": [
+            "was",
+            "were"
+          ],
+          "answer": 0,
+          "why": "We say *it was them*."
+        },
+        {
+          "id": "GP-12-022",
+          "style": "true-false",
+          "prompt": "Is this standard English? \"You was kind to help.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "We say *you were kind to help*."
+        },
+        {
+          "id": "GP-12-023",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "We ___ to the library on Friday.",
+          "options": [
+            "went",
+            "gone"
+          ],
+          "answer": 0,
+          "why": "We say *we went*, not *we gone*."
+        },
+        {
+          "id": "GP-12-024",
+          "style": "true-false",
+          "prompt": "Is this standard English? \"She has went home.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 1,
+          "why": "We say *she has gone home*."
+        },
+        {
+          "id": "GP-12-025",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is standard English?",
+          "options": [
+            "I is going now.",
+            "I are going now.",
+            "I am going now."
+          ],
+          "answer": 2,
+          "why": "We say *I am*, not *I is* or *I are*."
+        },
+        {
+          "id": "GP-12-026",
+          "style": "true-false",
+          "prompt": "Is this standard English? \"We were playing nicely.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*We were playing* is standard English."
+        },
+        {
+          "id": "GP-12-027",
+          "style": "fill-gap",
+          "prompt": "Which word is correct?",
+          "sentence": "There ___ ten children in the team.",
+          "options": [
+            "were",
+            "was"
+          ],
+          "answer": 0,
+          "why": "*Ten children* is more than one, so we say *there were*."
+        },
+        {
+          "id": "GP-12-028",
+          "style": "pick-word",
+          "prompt": "Which word is not standard English?",
+          "sentence": "He brung his umbrella.",
+          "options": [
+            "brung",
+            "He",
+            "umbrella"
+          ],
+          "answer": 0,
+          "why": "The standard English past tense is *brought*."
+        },
+        {
+          "id": "GP-12-029",
+          "style": "true-false",
+          "prompt": "Is this standard English? \"I have never been there.\"",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "answer": 0,
+          "why": "*I have never been* is standard English."
+        },
+        {
+          "id": "GP-12-030",
+          "style": "pick-sentence",
+          "prompt": "Which sentence is standard English?",
+          "options": [
+            "She has wrote to us.",
+            "She has written to us.",
+            "She have written to us."
+          ],
+          "answer": 1,
+          "why": "After *has*, we use *written*."
+        }
+      ]
+    }
+  ]
+}
