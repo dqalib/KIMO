@@ -18,6 +18,10 @@ Task briefs for Kimi. One file per task: `NNN-short-name.md`. Claude (lead) writ
 | 001 | [Phonics word lists](001-phonics-word-lists.md) | done — reviewed, PR #1 |
 | 002 | [Spelling word lists](002-spelling-word-lists.md) | done — reviewed, PR #2 |
 | 003 | [Tap, listen and sound-button components](003-choice-and-audio-components.md) | done — reviewed, PR #3 |
+| 004 | [Grammar & punctuation questions](004-grammar-questions.md) | ready |
+| 005 | [Addition & subtraction generator](005-addition-subtraction-generator.md) | ready |
+
+004 and 005 are independent — do them in any order, or in parallel. Pull `main` first: phonics and spelling screens were added since 003.
 
 
 **Work only in your own clone: `C:\Users\Dayib.Qalib\Downloads\AI-Project\KIMO-kimi`. Never in the `KIMO` folder.**
