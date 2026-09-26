@@ -1,3 +1,2788 @@
 {
-  "passages": []
+  "passages": [
+    {
+      "id": "RC-01-001",
+      "level": "RC-01",
+      "title": "The Red Hen",
+      "kind": "fiction",
+      "theme": "animals",
+      "text": "The hen is red. She sits on the nest. The hen has ten eggs. The eggs are in the hay.",
+      "wordCount": 20,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What colour is the hen?",
+          "options": [
+            "red",
+            "black",
+            "white"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Where are the eggs?",
+          "options": [
+            "in a box",
+            "in the hay",
+            "in the van"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "How many eggs does the hen have?",
+          "options": [
+            "six",
+            "two",
+            "ten"
+          ],
+          "answer": 2
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-01-002",
+      "level": "RC-01",
+      "title": "Mum's Big Pot",
+      "kind": "fiction",
+      "theme": "family",
+      "text": "Mum has a big pot. Dad chops the red peppers. Sam fills the pot with water. We all eat soup at six.",
+      "wordCount": 22,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Who chops the peppers?",
+          "options": [
+            "Sam",
+            "Dad",
+            "Mum"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What do they eat?",
+          "options": [
+            "fish",
+            "rice",
+            "soup"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "When do they eat?",
+          "options": [
+            "at six",
+            "at ten",
+            "at noon"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-01-003",
+      "level": "RC-01",
+      "title": "The Pens",
+      "kind": "fiction",
+      "theme": "school",
+      "text": "Miss Hill gives out pens. Ben gets a blue pen. Kim gets a red pen. The class writes a list.",
+      "wordCount": 20,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Who gives out the pens?",
+          "options": [
+            "Ben",
+            "Kim",
+            "Miss Hill"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What colour is Ben's pen?",
+          "options": [
+            "blue",
+            "red",
+            "green"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What does the class write?",
+          "options": [
+            "a list",
+            "a card",
+            "a song"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-01-004",
+      "level": "RC-01",
+      "title": "The Jam Bun",
+      "kind": "fiction",
+      "theme": "food",
+      "text": "Gran bakes big buns. She puts red jam in them. Tim picks the big bun. Jam drips on his chin.",
+      "wordCount": 20,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Who bakes the buns?",
+          "options": [
+            "Gran",
+            "Tim",
+            "Dad"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What is in the buns?",
+          "options": [
+            "eggs",
+            "nuts",
+            "jam"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What drips on Tim's chin?",
+          "options": [
+            "soup",
+            "jam",
+            "milk"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-01-005",
+      "level": "RC-01",
+      "title": "The Big Box",
+      "kind": "fiction",
+      "theme": "play",
+      "text": "Dad brings home a big box. Meg and Finn hop in. The box is a boat. They sail to a far land.",
+      "wordCount": 22,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What does Dad bring home?",
+          "options": [
+            "a long boat",
+            "a big box",
+            "a red bus"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who hops in the box?",
+          "options": [
+            "Meg and Finn",
+            "Mum and Dad",
+            "two cats"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What is the box?",
+          "options": [
+            "a car",
+            "a tent",
+            "a boat"
+          ],
+          "answer": 2
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-01-006",
+      "level": "RC-01",
+      "title": "Dad's Shed",
+      "kind": "fiction",
+      "theme": "home",
+      "text": "Dad has a shed. He keeps his tools in it. One day the shed door jams. Dad oils the hinge, and it swings free.",
+      "wordCount": 24,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Where does Dad keep his tools?",
+          "options": [
+            "in the loft",
+            "in the car",
+            "in the shed"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What jams?",
+          "options": [
+            "the gate",
+            "the shed door",
+            "the tap"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What makes the door swing free?",
+          "options": [
+            "oil",
+            "sand",
+            "soap"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-01-007",
+      "level": "RC-01",
+      "title": "The Bus Trip",
+      "kind": "fiction",
+      "theme": "transport",
+      "text": "The bus is red. It has two decks. We sit on the top deck. We can see the farm and the mill.",
+      "wordCount": 22,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What colour is the bus?",
+          "options": [
+            "red",
+            "blue",
+            "grey"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "How many decks does the bus have?",
+          "options": [
+            "one",
+            "two",
+            "three"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What can they see?",
+          "options": [
+            "a farm and a mill",
+            "a zoo and a shop",
+            "a hill and a lake"
+          ],
+          "answer": 2
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-01-008",
+      "level": "RC-01",
+      "title": "The Fair",
+      "kind": "fiction",
+      "theme": "day out",
+      "text": "The fair is in the park this weekend. Dad wins a gold fish. We ride the big wheel. The lights spin past in the dark.",
+      "wordCount": 25,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "When is the fair?",
+          "options": [
+            "on Monday",
+            "this weekend",
+            "in the rain"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What does Dad win?",
+          "options": [
+            "a kite",
+            "a cup",
+            "a gold fish"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What do they ride?",
+          "options": [
+            "the big wheel",
+            "the train",
+            "the tram"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-02-001",
+      "level": "RC-02",
+      "title": "Pip and the Stick",
+      "kind": "fiction",
+      "theme": "animals",
+      "text": "Pip is a small dog with soft brown fur. Every morning he walks to the park with his owner, Jo. One day Pip finds a long stick under the big oak tree. He picks it up and runs in circles. Jo laughs and claps her hands. Then Pip drops the stick at her feet. He wags his tail and barks once. Jo picks up the stick and throws it far across the grass. Pip runs as fast as he can and brings it back. They play until the sun goes down.",
+      "wordCount": 91,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What does Pip find under the oak tree?",
+          "options": [
+            "a long stick",
+            "a red ball",
+            "a small cat"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "sequence",
+          "prompt": "What does Pip do right after he picks up the stick?",
+          "options": [
+            "He buries it",
+            "He runs in circles",
+            "He takes a nap"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who is Pip's owner?",
+          "options": [
+            "Sam",
+            "Ben",
+            "Jo"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "sequence",
+          "prompt": "What does Jo do when Pip drops the stick?",
+          "options": [
+            "She throws it",
+            "She hides it",
+            "She breaks it"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-02-002",
+      "level": "RC-02",
+      "title": "The Rainy Afternoon",
+      "kind": "fiction",
+      "theme": "weather",
+      "text": "The rain starts just as school ends. Amy has no coat, so she waits in the doorway with her friend Omar. They watch the puddles grow on the path. Omar has a big red umbrella. He offers to share it, and they walk home together, taking tiny steps so their shoes stay dry. At the corner, they see Omar's mum with a spare coat. Amy puts it on and says thank you. The rain is still falling, but now it sounds like music on the umbrella. By the time Amy gets home, the clouds are already getting lighter.",
+      "wordCount": 98,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Where does Amy wait when the rain starts?",
+          "options": [
+            "on the bus",
+            "in the school doorway",
+            "under a tree"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "sequence",
+          "prompt": "What do Amy and Omar do so their shoes stay dry?",
+          "options": [
+            "They run fast",
+            "They take their shoes off",
+            "They take tiny steps"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who brings a spare coat?",
+          "options": [
+            "Omar's mum",
+            "Amy's dad",
+            "a teacher"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "sequence",
+          "prompt": "What do the children hear on the umbrella at the end?",
+          "options": [
+            "music",
+            "thunder",
+            "birds"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-02-003",
+      "level": "RC-02",
+      "title": "Ben's New Bike",
+      "kind": "fiction",
+      "theme": "friends",
+      "text": "Ben gets a new bike for his birthday. It is blue with silver wheels. He wants to show his best friend, Callum, so he rides to Callum's house after tea. Callum comes out with his old bike, and the two friends ride to the field. They take turns riding down the small hill. Ben goes first. He wobbles at the top but then zooms down, laughing. Callum follows on his slower bike. When they finish, they sit in the grass and share a drink. 'Your bike is fast,' says Callum. 'You can borrow it any time,' says Ben.",
+      "wordCount": 98,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What colour is Ben's new bike?",
+          "options": [
+            "red",
+            "green",
+            "blue"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "sequence",
+          "prompt": "Who rides down the hill first?",
+          "options": [
+            "Ben",
+            "Callum",
+            "Ben's dad"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Where do the friends ride to?",
+          "options": [
+            "the field",
+            "the pool",
+            "the woods"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "sequence",
+          "prompt": "What do the friends do when they finish riding?",
+          "options": [
+            "they race home",
+            "they go to the shop",
+            "they sit in the grass"
+          ],
+          "answer": 2
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-02-004",
+      "level": "RC-02",
+      "title": "Grandad's Garden",
+      "kind": "fiction",
+      "theme": "garden",
+      "text": "Every Saturday, Maya helps her grandad in his garden. First, they water the tomatoes. Then they pull out the weeds that creep between the carrots. Grandad lets Maya plant seeds in a row of their own. She chooses sunflowers because they grow tall. 'Pat the soil down gently,' says Grandad. Maya presses the soil with her hands. Then she waters the row and puts little sticks in the ground. 'Now we wait,' says Grandad. Every week Maya checks the row. One morning she sees a green shoot. By summer it is taller than she is.",
+      "wordCount": 95,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What does Maya choose to plant?",
+          "options": [
+            "sunflowers",
+            "roses",
+            "beans"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "sequence",
+          "prompt": "What do Maya and Grandad do first in the garden?",
+          "options": [
+            "plant seeds",
+            "water the tomatoes",
+            "cut the grass"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Why does Maya pick sunflowers?",
+          "options": [
+            "They smell sweet",
+            "They are easy to pull up",
+            "They grow tall"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "sequence",
+          "prompt": "What does Maya see one morning?",
+          "options": [
+            "a green shoot",
+            "a red flower",
+            "a big bird"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-02-005",
+      "level": "RC-02",
+      "title": "The Big Match",
+      "kind": "fiction",
+      "theme": "sport",
+      "text": "It is the last game of the season for the school football team. The score is nil-nil with five minutes left. Rosa runs down the wing with the ball. She passes it to Leon. Leon kicks, but the goalie catches it. The other team attacks, but the defenders pass the ball back to the goalie. Then the whistle blows for a corner. Rosa takes it. The ball flies into the box and Leon heads it into the goal. The final whistle blows. The team lifts Leon up, and everyone cheers.",
+      "wordCount": 90,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What is the score with five minutes left?",
+          "options": [
+            "two-one",
+            "nil-nil",
+            "one-nil"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "sequence",
+          "prompt": "Who catches Leon's first kick?",
+          "options": [
+            "a defender",
+            "Rosa",
+            "the goalie"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "How does Leon score?",
+          "options": [
+            "with his head",
+            "with a free kick",
+            "from a penalty"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "sequence",
+          "prompt": "What happens right after Leon scores?",
+          "options": [
+            "the team lifts him up",
+            "they take another corner",
+            "the game restarts"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-02-006",
+      "level": "RC-02",
+      "title": "A Trip to the Shops",
+      "kind": "fiction",
+      "theme": "day out",
+      "text": "Dad and Zara walk to the shops on Saturday morning. First they go to the bakery, where Dad buys a loaf and Zara picks a bun with raisins. Next they visit the greengrocer to choose apples and potatoes. Zara carries the apples in a small bag, and Dad carries everything else. On the way home they stop at the library to change Zara's books. She picks two story books and one book about stars. At home they put the shopping away. 'Best bun ever,' says Zara, taking a big bite.",
+      "wordCount": 90,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What does Zara pick at the bakery?",
+          "options": [
+            "a loaf",
+            "a cake",
+            "a bun with raisins"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "sequence",
+          "prompt": "Where do Dad and Zara go first?",
+          "options": [
+            "the bakery",
+            "the library",
+            "the greengrocer"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What does Zara carry in her bag?",
+          "options": [
+            "the potatoes",
+            "the apples",
+            "the books"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "sequence",
+          "prompt": "Which shop do they visit on the way home?",
+          "options": [
+            "the bakery",
+            "the library",
+            "the toy shop"
+          ],
+          "answer": 2
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-02-007",
+      "level": "RC-02",
+      "title": "The Lost Scarf",
+      "kind": "fiction",
+      "theme": "family",
+      "text": "Ella's granny knits her a scarf for winter. It is yellow with pink spots, and Ella loves it. On Monday she wears it to school. At break time she takes it off to climb the frame, and when the bell rings she runs inside without it. That evening she notices it is gone. Mum phones the school. The caretaker has found the scarf on the bench and hung it in the office. Ella hugs it tight. 'I will keep it in my coat sleeve from now on,' she says. Granny smiles and sews a label with Ella's name inside.",
+      "wordCount": 99,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Who knits the scarf for Ella?",
+          "options": [
+            "her granny",
+            "her mum",
+            "her teacher"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "sequence",
+          "prompt": "When does Ella notice the scarf is gone?",
+          "options": [
+            "at break time",
+            "that evening",
+            "on the way to school"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Where does the caretaker hang the scarf?",
+          "options": [
+            "on the bench",
+            "in the classroom",
+            "in the office"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "sequence",
+          "prompt": "What does Granny sew into the scarf?",
+          "options": [
+            "a label",
+            "a button",
+            "a bow"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-02-008",
+      "level": "RC-02",
+      "title": "The Sleepover",
+      "kind": "fiction",
+      "theme": "play",
+      "text": "Tia is sleeping at her cousin Ana's house. After dinner they build a den with blankets and chairs and eat popcorn inside it. Then they get into their sleeping bags and Ana's mum reads them a story. The cousins whisper about the fun they will have at the beach in the summer until their eyes feel heavy. In the morning they help make pancakes. Ana flips one too high and it lands on the floor, and they laugh so hard their sides hurt. 'Best sleepover ever,' says Tia, and Ana agrees.",
+      "wordCount": 91,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What do the cousins eat inside the den?",
+          "options": [
+            "sweets",
+            "popcorn",
+            "cake"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "sequence",
+          "prompt": "Who reads the cousins a story?",
+          "options": [
+            "Tia",
+            "Ana's dad",
+            "Ana's mum"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What happens right after the cousins get into their sleeping bags?",
+          "options": [
+            "a story is read to them",
+            "they eat popcorn",
+            "they build the den"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "sequence",
+          "prompt": "What does Ana flip too high?",
+          "options": [
+            "a coin",
+            "a pancake",
+            "a cushion"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-03-001",
+      "level": "RC-03",
+      "title": "The Clever Beaver",
+      "kind": "non-fiction",
+      "theme": "animals",
+      "text": "Beavers are clever builders. They live beside rivers and streams, where they cut down small trees with their strong front teeth. They use the branches to build a dam across the water. The dam makes a calm pool, and inside the pool the beaver family builds its home, called a lodge. The lodge has an underwater door, so the beavers can swim in safely. In winter they eat the bark of sticks they stored in the mud near the lodge. A beaver's flat tail works like a paddle when it swims and like a drum when it slaps the water to warn its friends.",
+      "wordCount": 104,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What do beavers use to cut down trees?",
+          "options": [
+            "their strong front teeth",
+            "their flat tails",
+            "their sharp claws"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'lodge' mean?",
+          "options": [
+            "the beaver's home",
+            "the beaver's tail",
+            "a kind of fish"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What do beavers eat in winter?",
+          "options": [
+            "leaves",
+            "river plants",
+            "bark of sticks"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'stored' mean?",
+          "options": [
+            "kept for later",
+            "grown in the sun",
+            "given away"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-03-002",
+      "level": "RC-03",
+      "title": "The Windy Walk",
+      "kind": "fiction",
+      "theme": "weather",
+      "text": "On the way home from school, the wind begins to blow. It tugs at Leo's hood and snatches the leaf he is holding. Leo's sister, Nina, laughs as her scarf flaps like a flag. They lean into the wind and march up the hill together. At the top, Nina has an idea. They stretch out their arms and pretend to be aeroplanes, zooming down the hill. The wind pushes them faster and faster. At the bottom they are breathless and giggling. 'That was the best walk ever,' says Leo. 'Same time tomorrow?' says Nina, and the wind whistles as if it agrees.",
+      "wordCount": 102,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What does the wind snatch from Leo?",
+          "options": [
+            "his hat",
+            "the leaf he is holding",
+            "his school bag"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'tugs' mean?",
+          "options": [
+            "paints",
+            "warms",
+            "pulls hard"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What do the children pretend to be on the hill?",
+          "options": [
+            "birds",
+            "trains",
+            "aeroplanes"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'breathless' mean?",
+          "options": [
+            "too tired to stand",
+            "out of breath",
+            "cold all over"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-03-003",
+      "level": "RC-03",
+      "title": "At the Seaside",
+      "kind": "fiction",
+      "theme": "seaside",
+      "text": "The family arrives at the seaside early in the morning. Mum spreads towels on the sand while Dad and Sal race to the water's edge. The sea is cold, and Sal squeals as the waves tickle her toes. Later, they build a sandcastle with a moat. Dad fetches buckets of water, and Sal decorates the castle with shells. When it is time for lunch, they eat sandwiches and watch a boat sail past. In the afternoon, the tide comes in and fills the moat. 'The sea wants our castle,' laughs Sal, as the water swirls around the walls. Dad digs a channel to help the water in, and the castle slowly melts back into the beach. On the walk home, Sal already plans next year's castle, and this time it will have two towers and a taller moat.",
+      "wordCount": 138,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What makes Sal squeal?",
+          "options": [
+            "the hot sand",
+            "the shells",
+            "the cold sea"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'moat' mean?",
+          "options": [
+            "the ditch around the castle",
+            "the tower of the castle",
+            "a kind of shell"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What does Dad fetch for the castle?",
+          "options": [
+            "sand",
+            "buckets of water",
+            "shells"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "The passage says the waves 'tickle' Sal's toes. What does this mean?",
+          "options": [
+            "touch lightly so it makes you laugh",
+            "push you over",
+            "make a loud noise"
+          ],
+          "answer": 2
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-03-004",
+      "level": "RC-03",
+      "title": "Baking Bread",
+      "kind": "non-fiction",
+      "theme": "food",
+      "text": "Bread is made from just a few simple things: flour, water, yeast, and a little salt. First the flour, yeast, and salt are mixed with warm water to make a soft dough. Kneading means pushing and folding the dough with your hands. This makes it smooth and stretchy. Then the dough rests in a warm place. The yeast, which is a tiny living thing, makes gas bubbles that puff the dough up like a balloon. The bread is then baked in a hot oven until the outside is golden and the inside is cooked. When it comes out, the crust crackles as it cools. That is the sound of fresh bread.",
+      "wordCount": 111,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What is mixed with warm water to make dough?",
+          "options": [
+            "flour, yeast, and salt",
+            "flour, sugar, and eggs",
+            "water, butter, and salt"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'kneading' mean?",
+          "options": [
+            "pushing and folding the dough",
+            "cutting the dough into slices",
+            "cooling the dough down"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What makes the dough puff up?",
+          "options": [
+            "the warm oven",
+            "the salt",
+            "the gas bubbles"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'crust' mean?",
+          "options": [
+            "the outside of the bread",
+            "the yeast inside the bread",
+            "the tin the bread is baked in"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-03-005",
+      "level": "RC-03",
+      "title": "The Planets",
+      "kind": "non-fiction",
+      "theme": "space",
+      "text": "Our Sun is a star, and eight planets travel around it. The planet closest to the Sun is Mercury, and it is small and very hot. Earth is the third planet from the Sun, and it is the only planet known to have living things on it. Jupiter is the biggest planet of all. It is so big that all the other planets could fit inside it. Saturn is famous for the beautiful rings of ice and rock that circle it. Beyond Neptune, there are dwarf planets like Pluto. Scientists use telescopes to learn more about these faraway worlds, and they are still making discoveries today.",
+      "wordCount": 106,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Which planet is closest to the Sun?",
+          "options": [
+            "Earth",
+            "Mercury",
+            "Jupiter"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'dwarf' mean in 'dwarf planets'?",
+          "options": [
+            "small",
+            "far away",
+            "very bright"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What do scientists use to learn about faraway worlds?",
+          "options": [
+            "telescopes",
+            "rockets",
+            "submarines"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'discoveries' mean?",
+          "options": [
+            "new things found out",
+            "long journeys",
+            "bright stars"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-03-006",
+      "level": "RC-03",
+      "title": "A New Baby",
+      "kind": "fiction",
+      "theme": "family",
+      "text": "When baby Mila comes home, everything in the house feels different. She is tiny, and she cries loudly when she is hungry. Dad is tired because Mila wakes up at night. June, her big sister, feels a little left out. Everyone is busy looking after the baby. One morning, Mila is lying in her basket, and she grips June's finger with her small hand. June feels proud and important. After that, June helps in small ways. She brings clean nappies and sings her made-up songs, and Mila stares up at her with wide eyes. 'She likes me best,' June tells Dad, and Dad ruffles her hair.",
+      "wordCount": 106,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Why is Dad tired?",
+          "options": [
+            "He works late",
+            "He is poorly",
+            "The baby wakes at night"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'left out' mean?",
+          "options": [
+            "feeling forgotten because others are busy",
+            "playing outside the house",
+            "losing a game"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What does Mila grip in the morning?",
+          "options": [
+            "her blanket",
+            "June's finger",
+            "a toy"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'made-up' mean?",
+          "options": [
+            "songs from the radio",
+            "old songs",
+            "invented, not real"
+          ],
+          "answer": 2
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-03-007",
+      "level": "RC-03",
+      "title": "The Noisy Class",
+      "kind": "fiction",
+      "theme": "school",
+      "text": "Class 2B is supposed to be quiet while Miss Ade writes on the board. But today something rustles in the reading corner. It is a mouse, nibbling a fallen biscuit. The children gasp. Miss Ade turns around just as the mouse darts under the cupboard. 'Well,' she says, 'I think our visitor has finished its snack.' The class giggles. After lunch, the caretaker sets a kind trap and carries the mouse to the field at the end of the playground. The class waves from the window. From then on, 2B keeps its corners tidy and its biscuits in lunchboxes, just in case.",
+      "wordCount": 102,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What is the mouse nibbling?",
+          "options": [
+            "a fallen biscuit",
+            "a sandwich",
+            "a pencil"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'darts' mean?",
+          "options": [
+            "jumps high",
+            "runs quickly and suddenly",
+            "crawls slowly"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who carries the mouse to the field?",
+          "options": [
+            "Miss Ade",
+            "a child",
+            "the caretaker"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "The class 'giggles'. What does this mean?",
+          "options": [
+            "laughs in a quiet, silly way",
+            "shouts angrily",
+            "sings together"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-03-008",
+      "level": "RC-03",
+      "title": "Football Fun",
+      "kind": "non-fiction",
+      "theme": "sport",
+      "text": "Football is the most popular game in the world. Millions of people play it in parks, streets, and huge stadiums. A football team has eleven players, and only the goalkeeper may touch the ball with their hands. The other players use their feet, heads, and chests to move the ball. A match lasts ninety minutes, split into two halves. When the whole ball crosses the goal line between the posts, a goal is scored. At the World Cup, teams from many countries play against each other. The first World Cup was held in 1930. Today, the trophy is watched by billions of fans on television.",
+      "wordCount": 105,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "How many players are in a football team?",
+          "options": [
+            "nine",
+            "eleven",
+            "thirteen"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what does 'halves' mean?",
+          "options": [
+            "two teams",
+            "two goals",
+            "two parts of the game"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who may touch the ball with their hands?",
+          "options": [
+            "the goalkeeper",
+            "any player",
+            "the referee"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "vocabulary",
+          "prompt": "In this passage, what are the 'posts'?",
+          "options": [
+            "the players at the back",
+            "the two upright bars of the goal",
+            "the flags on the corners"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-04-001",
+      "level": "RC-04",
+      "title": "The Lighthouse Dog",
+      "kind": "fiction",
+      "theme": "seaside",
+      "text": "Every evening, Tom climbs the one hundred steps of the old lighthouse to polish the great lamp. His dog, Bramble, climbs with him, nails clicking on the stone. When the light begins to turn, Bramble settles beside the brass railing and watches the sea. One grey evening, Tom notices Bramble is not at his usual place. He is standing at the top of the stairs, whining. 'What is it, boy?' Tom asks. Bramble presses against the railing and stares down at the rocks below. Tom leans over and sees a small boat with its sail tangled around the buoy. Tom rings the old warning bell and radios the harbour. Within minutes, the lifeboat is on its way. Tom keeps the lamp turning all night. When the boat is safe, he hugs Bramble tight. 'You have better eyes than me,' he says. Bramble wags his tail, glad to be back beside the warm lamp.",
+      "wordCount": 153,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Where does Bramble usually settle when the lamp turns?",
+          "options": [
+            "beside the brass railing",
+            "at the bottom of the stairs",
+            "on the rocks below"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "inference",
+          "prompt": "What does Bramble do to show Tom something is wrong?",
+          "options": [
+            "He barks loudly",
+            "He whines and presses against the railing",
+            "He runs down the stairs"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What does Tom see on the rocks below?",
+          "options": [
+            "a swimmer in the water",
+            "a broken buoy",
+            "a small boat with a tangled sail"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "How does Tom feel when the boat is safe?",
+          "options": [
+            "proud of Bramble",
+            "angry with the sailors",
+            "sorry for the coastguard"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who does Tom radio?",
+          "options": [
+            "the coastguard",
+            "the harbour",
+            "the sailors"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-04-002",
+      "level": "RC-04",
+      "title": "The New Girl",
+      "kind": "fiction",
+      "theme": "school",
+      "text": "A new girl joins Class 3 halfway through the year. Her name is Priya, and she stands at the front holding her lunchbox so tightly that her knuckles are white. The teacher asks who will show her where to hang her coat. Nobody moves. Sam looks down at his shoes. Then Tessa puts up her hand. 'I will.' At break time, Priya stands by the wall, watching the skipping game. Tessa invites her to hold the rope. Priya smiles for the first time and turns the rope so well that the whole line claps. Even the children who were too shy to say hello join in the rhyme, copying Priya's claps. By Friday, Priya is teaching the class a clapping rhyme from her old school, and the skipping rope never stops moving. Sam wishes he had put his hand up first. 'Next time someone new comes,' he thinks, 'I will.' And when the next new pupil arrives in the spring, Sam is the first hand in the air.",
+      "wordCount": 168,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What does Priya hold tightly at the front of the class?",
+          "options": [
+            "her coat",
+            "her rope",
+            "her lunchbox"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "How does Priya feel on her first morning?",
+          "options": [
+            "nervous",
+            "excited",
+            "angry"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who first invites Priya to join the game?",
+          "options": [
+            "Sam",
+            "Tessa",
+            "the teacher"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Sam wish he had put his hand up first?",
+          "options": [
+            "He wants to hold the skipping rope",
+            "He wants the teacher to praise him",
+            "He wants to be kind to new pupils next time"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What does Priya teach the class by Friday?",
+          "options": [
+            "a clapping rhyme",
+            "a skipping song",
+            "a number game"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-04-003",
+      "level": "RC-04",
+      "title": "A Stormy Night",
+      "kind": "fiction",
+      "theme": "weather",
+      "text": "The forecast says a storm is coming, so Ana and her dad bring the garden chairs inside and tape the recycling boxes shut. As darkness falls, the wind picks up. It hums in the chimney and rattles the windows. Ana is supposed to be in bed, but she pads downstairs in her dressing gown and finds Dad in the kitchen making hot chocolate. 'Just checking the doors,' he says, which is what he always says. Ana knows this means the chocolate is for sharing. Thunder rolls over the rooftops, and the lights flicker. Ana squeezes her mug with both hands. The dog, who hates storms, hides under the table, and Ana slips one hand down to pat his head. Dad tells her about counting the gap between the flash and the bang to tell how far away the storm is. By the last mugful, Ana is doing the counting herself. She falls asleep to the sound of rain drumming the porch, dreaming of a sky full of slow, flashing sums.",
+      "wordCount": 170,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What do Ana and Dad tape shut?",
+          "options": [
+            "the garden chairs",
+            "the recycling boxes",
+            "the windows"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Dad say he is in the kitchen?",
+          "options": [
+            "He is making a phone call",
+            "He is hiding from the storm",
+            "He is checking the doors"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "What does counting the gap between the flash and the bang tell you?",
+          "options": [
+            "how far away the storm is",
+            "when the rain will stop",
+            "how long the storm will last"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What is Ana doing by the last mugful?",
+          "options": [
+            "making the chocolate",
+            "counting the gap herself",
+            "checking the doors"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "How does Ana feel at the end of the story?",
+          "options": [
+            "more frightened than ever",
+            "angry with the storm",
+            "calmer than at the start"
+          ],
+          "answer": 2
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-04-004",
+      "level": "RC-04",
+      "title": "The Broken Wing",
+      "kind": "fiction",
+      "theme": "animals",
+      "text": "Nabil finds the sparrow on the path behind the flats. It flaps in a panic but cannot fly, and one wing hangs crooked. Mum fetches a shoebox and lines it with a soft tea towel. They phone the animal shelter, and a kind volunteer explains how to keep the bird warm and quiet until morning. Nabil names the sparrow Pip and checks on it every hour, though Mum says the less it sees of them, the better. At dinner he can talk of nothing else, and he draws a picture of Pip to take to school the next day. At the shelter, the vet sets the wing with a tiny splint. Nabil is allowed to watch through the door, holding his breath. Weeks later, a postcard arrives with a photo of Pip flying free. Nabil pins it above his desk. 'Being scared is not the same as being helpless,' he tells his little brother. 'You just need the right kind of help.'",
+      "wordCount": 162,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Where does Nabil find the sparrow?",
+          "options": [
+            "on the path behind the flats",
+            "in the school playground",
+            "under a bush in the park"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Mum say the bird should see less of them?",
+          "options": [
+            "So it stays calm and does not panic",
+            "So it learns to find its own food",
+            "So it will not make a mess"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who sets the wing?",
+          "options": [
+            "the volunteer",
+            "Nabil",
+            "the vet"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "How does Nabil feel when the postcard arrives?",
+          "options": [
+            "happy that Pip can fly again",
+            "sad that Pip has gone",
+            "proud of his drawing"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What do Nabil and Mum line the box with?",
+          "options": [
+            "some newspaper",
+            "a soft tea towel",
+            "an old jumper"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-04-005",
+      "level": "RC-04",
+      "title": "The Piano Lesson",
+      "kind": "fiction",
+      "theme": "music",
+      "text": "Every Thursday, Sofia walks past the bakery to Mrs Okafor's house for her piano lesson. Today her hands feel cold and clumsy, and the first scale comes out wobbly. Mrs Okafor does not frown. She plays a recording of a great pianist. 'Even they played slowly at first,' she says. 'Slow is how the hands learn.' Sofia writes that down too, because it sounds like something worth keeping. Sofia takes a breath and plays the scale again, saying the note names softly as she goes. Her fingers find the path like feet on a familiar staircase. Mrs Okafor nods along, just once, which from her is applause. By the end of the lesson, the wobble is almost gone. At home she writes 'SLOW' on a sticky note and sticks it above the piano keys. Next Thursday, the bakery smells of warm bread as usual, and so does the music. Sofia decides that slow might be her new favourite speed.",
+      "wordCount": 159,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Where does Sofia go every Thursday?",
+          "options": [
+            "to the school hall",
+            "to the bakery",
+            "to Mrs Okafor's house"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "How does Sofia feel about her playing at the start?",
+          "options": [
+            "worried",
+            "pleased",
+            "proud"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What does Mrs Okafor play for Sofia?",
+          "options": [
+            "a slow scale herself",
+            "a recording of a great pianist",
+            "a song on the radio"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Sofia write SLOW on a sticky note?",
+          "options": [
+            "to make Mrs Okafor laugh",
+            "to label the piano keys",
+            "to remind herself how to practise"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What does Sofia say softly as she plays?",
+          "options": [
+            "the note names",
+            "the song words",
+            "her times tables"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-04-006",
+      "level": "RC-04",
+      "title": "Moving House",
+      "kind": "fiction",
+      "theme": "family",
+      "text": "Everything in Rafi's bedroom is in boxes, and the walls are bare except for the outline where his shelves used to be. Tomorrow the family moves across town. Rafi keeps opening the last box to add his favourite things, and Dad keeps taping it shut again. His football poster comes off the wall last of all, and he rolls it up slowly, like the final curtain at a theatre. In the afternoon, the doorbell rings. It is his best friend Imani with a going-away present: a photo of the two of them on their scooters, in a homemade frame. Rafi sticks it in the box marked KEEP WITH ME. That evening they ride around the block one last time, until the street lamps come on. 'It is not goodbye,' says Imani. 'It is a longer bike ride between visits.' Rafi laughs, and the new house suddenly feels less far away. That night he sleeps with the photo on his pillow, ready for the new beginning.",
+      "wordCount": 165,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Which box does Rafi put the photo in?",
+          "options": [
+            "the last box",
+            "KEEP WITH ME",
+            "the kitchen box"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "How can you tell Rafi will miss his home?",
+          "options": [
+            "He packs very quickly",
+            "He hides his things from Dad",
+            "He keeps opening the last box and rides around the block a last time"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who makes the photo frame?",
+          "options": [
+            "Imani",
+            "Rafi",
+            "Dad"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "inference",
+          "prompt": "What does Imani mean by 'a longer bike ride between visits'?",
+          "options": [
+            "they will still see each other",
+            "they will stop being friends",
+            "Rafi should ride back every day"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "When do they finish riding?",
+          "options": [
+            "when it starts raining",
+            "when Mum calls them for tea",
+            "when the street lamps come on"
+          ],
+          "answer": 2
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-04-007",
+      "level": "RC-04",
+      "title": "The Race",
+      "kind": "fiction",
+      "theme": "friends",
+      "text": "The school sports day race is only one lap of the field, but to Amara it feels like a mile. Her friend Luis is the fastest runner in the class, and he has won every year. On the day, Luis kneels to tie his shoe just as the whistle blows. Amara could sprint ahead. Instead she slows down, jogs back, and taps his shoulder. 'Go!' she shouts, and the crowd cheers at the pair of them. They run side by side for half the lap. Then Luis speeds up, and Amara speeds up too, and they cross the line together, laughing too hard to hear who won. They lean on each other, still giggling, while the judges argue over the photograph. The teacher says the photo finish shows Amara by an inch. 'You could have won by a mile,' Luis pants. 'Maybe,' says Amara, 'but this was more fun.' The teacher writes both their names on the sports day board, one above the other, and draws a little trophy beside each.",
+      "wordCount": 171,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What does Luis do as the whistle blows?",
+          "options": [
+            "ties his shoe",
+            "sprints ahead",
+            "drops his baton"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Amara slow down and go back?",
+          "options": [
+            "so Luis is not left behind",
+            "so she can tie her own shoe",
+            "so she can rest her legs"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who wins the photo finish?",
+          "options": [
+            "Luis",
+            "they tie exactly",
+            "Amara"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "How does Amara feel about the result?",
+          "options": [
+            "pleased with the fun they had",
+            "angry she did not win by more",
+            "sorry for Luis"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "How many laps is the race?",
+          "options": [
+            "two",
+            "one",
+            "three"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-04-008",
+      "level": "RC-04",
+      "title": "The Secret Den",
+      "kind": "fiction",
+      "theme": "nature",
+      "text": "Hassan and Dot know a gap in the fence at the far end of the park, and beyond it a tangle of brambles hides a hollow just big enough for two. They spend the summer turning it into a den: a flat stone for a table, an old crate for a seat, and pine cones lined up like sentries. By August the den has a roof of bracken, a tin cup for rainwater, and a rulebook written in pencil on a page ripped from an exercise book. They agree the den is a secret, but when Dot's little sister follows her one afternoon, she stands at the gap, not crossing the line of pine cones, holding out a jam sandwich as a peace offering. Hassan looks at Dot. Dot sighs, moves one pine cone aside, and makes the smallest space a sister could fit through. From that day on, the den has a third sentry, and she is the loudest one. The rulebook gains a new rule that afternoon: 'Rule nine. Sisters welcome if they bring jam.'",
+      "wordCount": 177,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What do the children use for a table?",
+          "options": [
+            "an old crate",
+            "a wooden plank",
+            "a flat stone"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Dot move a pine cone aside?",
+          "options": [
+            "to let her sister into the den",
+            "to count the sentries",
+            "to show Hassan the exit"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who follows Dot to the den?",
+          "options": [
+            "her little sister",
+            "Hassan's brother",
+            "the park keeper"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does the sister hold out the sandwich?",
+          "options": [
+            "to trade for the den",
+            "because she is hungry",
+            "as a way to be invited in kindly"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Where is the gap in the fence?",
+          "options": [
+            "at the far end of the park",
+            "behind the school",
+            "next to the pond"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-05-001",
+      "level": "RC-05",
+      "title": "The Library Card",
+      "kind": "fiction",
+      "theme": "school",
+      "text": "On Monday morning, Zainab's class lines up outside the town library for their first ever visit. Everyone is getting a library card, but Zainab is not sure she wants one. Books at home mean her cousins arguing over the funny pages and her baby brother chewing the corners. The librarian, Mr Finch, shows them the children's room. It has a boat-shaped bookshelf, a rug like a giant map, and a wall of new books with their covers facing out. Each child fills in a card and chooses a book. Zainab picks a book about a girl who builds a machine out of spare parts, because the girl on the cover looks determined, just like Zainab's auntie who fixes motors. At the desk, Mr Finch stamps her card with a satisfying thump and says, 'First book of many.' Zainab reads the first chapter on the bus home and the next one under the blanket with a torch. When her brother reaches for the cover, she does not shout. Instead she shows him the picture of the machine, and he pats it with one careful finger. On Friday she is back at the library before it opens, standing on the step with her card in her pocket, planning which shelf to visit first. The doors open, and she is the first one through.",
+      "wordCount": 221,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Why is Zainab unsure about a library card at first?",
+          "options": [
+            "books at home get argued over and chewed",
+            "she does not like the library building",
+            "she cannot read yet"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Zainab choose the machine book?",
+          "options": [
+            "it is the shortest book",
+            "the girl on the cover reminds her of her auntie",
+            "Mr Finch tells her to"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What does the library children's room have?",
+          "options": [
+            "a swimming pool",
+            "a toy shop",
+            "a boat-shaped bookshelf"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "prediction",
+          "prompt": "What will Zainab probably do next Friday?",
+          "options": [
+            "borrow another book",
+            "buy the library",
+            "teach Mr Finch to stamp"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "inference",
+          "prompt": "How does Zainab change towards her brother by the end?",
+          "options": [
+            "she hides the book from him",
+            "she shares the book kindly",
+            "she gives him her library card"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-05-002",
+      "level": "RC-05",
+      "title": "Grandma's Recipe",
+      "kind": "fiction",
+      "theme": "food",
+      "text": "Asha's grandma keeps her special biscuit recipe in her head, and every time she makes the biscuits they taste slightly different. 'A pinch more ginger if it is raining,' she says, as if that explains everything. When Grandma's wrist is sore, Asha offers to do the mixing. Grandma sits on a kitchen chair like a captain on a ship, calling out instructions. Asha writes everything down in a notebook with a star on the cover. She measures the flour carefully, presses the butter between her fingertips, and tastes the dough the way Grandma does, from the very tip of a spoon. Grandma corrects the angle of her wrist, taps the side of the bowl twice for luck, and tells her about the time her own grandmother let her bake bread in a tin too big for the oven. The first batch spreads into flat, brown puddles. The second batch is better. By the third, Asha can tell by the smell when they are done. That evening the whole family eats warm biscuits, and Grandma taps the notebook. 'Now it is your recipe too,' she says. 'But do not write down the weather. Some things you just know.' Asha thinks about that as she licks melted butter off her thumb, and writes on the last page: 'Rain means extra ginger.'",
+      "wordCount": 219,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Why does Asha offer to do the mixing?",
+          "options": [
+            "she wants to eat dough",
+            "the shop is shut",
+            "Grandma's wrist is sore"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "What does Grandma mean by 'do not write down the weather'?",
+          "options": [
+            "some things are learned by doing, not writing",
+            "weather has nothing to do with cooking",
+            "recipes should never be changed"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What happens to the first batch?",
+          "options": [
+            "they burn black",
+            "they spread into flat puddles",
+            "they rise too high"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "prediction",
+          "prompt": "What will Asha probably do the next time it rains?",
+          "options": [
+            "stay out of the kitchen",
+            "bake three batches at once",
+            "add extra ginger"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "How does Grandma feel about Asha learning the recipe?",
+          "options": [
+            "pleased and proud",
+            "annoyed at the questions",
+            "worried the biscuits will change"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-05-003",
+      "level": "RC-05",
+      "title": "The Night Train",
+      "kind": "fiction",
+      "theme": "transport",
+      "text": "The train leaves the station at nine o'clock at night, and Leo has never travelled so late. He presses his forehead to the window as the platform slides away and the town turns into strings of orange lights. Dad has packed a bag of snacks and two pairs of headphones, but Leo finds he does not need music. The map on the table shows the whole journey, but the window shows it better. In the dark window, the train's reflection rides along on top of the real fields, and for a while it looks like two trains racing, one made of light. At the first stop, a woman with a violin case gets on and sits opposite. She winks at Leo and lets him guess what is inside the case. 'A tennis racket,' he says. 'A dragon,' he says. She laughs and shows him the violin. When the ticket inspector comes, she plays a quiet tune to make the punch in his ticket feel like a drumroll. Leo falls asleep somewhere after midnight and wakes as the train slows into Grandma's station, where she is waiting on the platform with a thermos and two cups. 'Did you see anything good?' she asks. 'Everything,' says Leo, and it almost feels true.",
+      "wordCount": 210,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What does Leo see in the dark window?",
+          "options": [
+            "a dragon in the clouds",
+            "the train riding on top of the fields",
+            "his grandma on the platform"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Leo say he does not need the headphones?",
+          "options": [
+            "the headphones are broken",
+            "Dad asked him not to",
+            "watching the night is interesting enough"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What does the woman show Leo from the case?",
+          "options": [
+            "a violin",
+            "a tennis racket",
+            "a dragon"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "prediction",
+          "prompt": "What will Grandma probably do next?",
+          "options": [
+            "buy a ticket",
+            "pour a warm drink from the thermos",
+            "play the violin"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Leo say he saw 'everything'?",
+          "options": [
+            "he stayed awake all night",
+            "he saw a real dragon",
+            "the whole trip felt special and exciting"
+          ],
+          "answer": 2
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-05-004",
+      "level": "RC-05",
+      "title": "The Winning Goal",
+      "kind": "fiction",
+      "theme": "sport",
+      "text": "Chloe's team has not scored a single goal all season, and today is the last match. The parents on the touchline have stopped shouting 'shoot' and started shouting 'well done' for every pass, which is what the coach asked them to do. Chloe plays in goal, and she has spent most of the season watching the ball at the other end of the pitch. Today is different. In the second half, the wind picks up behind her team. The other side kicks the ball high, and the wind brings it back down like a dropped parcel, right at Chloe's feet. Everyone shouts for her to kick it long. Instead she rolls it out to Priya, the smallest player on the pitch, who has been waiting all season for the ball to come to her. Priya runs. The wind pushes at her back. Chloe has never seen anyone run that fast, and from the far end it looks like Priya is outrunning the wind itself. The shot bounces off the post and in. The final whistle goes a minute later, and the score is one-nil to Chloe's team. The parents' 'well done' turns into the loudest cheering of the year. Chloe's glove smells of grass for days, and every time she catches it, she smiles.",
+      "wordCount": 214,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What position does Chloe play?",
+          "options": [
+            "goalkeeper",
+            "striker",
+            "coach"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why do the parents shout 'well done' for every pass?",
+          "options": [
+            "they want to finish the match quickly",
+            "the coach asked them to encourage the team",
+            "they are giving up on goals"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Who scores the goal?",
+          "options": [
+            "Chloe",
+            "the wind",
+            "Priya"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "prediction",
+          "prompt": "What will Chloe's team probably do at the end-of-season party?",
+          "options": [
+            "celebrate their first win",
+            "quit football",
+            "train in goalkeeping"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Chloe smile when she smells grass on her glove?",
+          "options": [
+            "grass smells like food",
+            "it reminds her of the special match",
+            "she forgot to wash them"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-05-005",
+      "level": "RC-05",
+      "title": "How Bees Make Honey",
+      "kind": "non-fiction",
+      "theme": "animals",
+      "text": "Honey begins with flowers. A bee visits a flower to drink its nectar, a sweet liquid hidden deep inside the bloom. The bee stores the nectar in a special stomach and carries it back to the hive. There, hive bees pass the nectar to one another and add special substances that start to change it. Then they put the nectar into the small wax cells of the honeycomb and fan it with their wings. The fanning dries the nectar out until it becomes thick, golden honey. A honeycomb cell is capped with a wax lid, sealing the honey in like a jar. Inside, the hive stays warm all winter, which keeps the colony safe and busy. A single bee makes only about one twelfth of a teaspoon of honey in its whole life, so every jar in the shop is the work of thousands of bees. Bees make honey to feed the colony through the winter, when there are no flowers to visit. Beekeepers collect only some of the honey, leaving the rest for the bees. That is why a spoonful of honey on your toast is such a remarkable thing: it is flower nectar, carried home drop by drop, and turned into treasure by wings.",
+      "wordCount": 206,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Where does a bee store nectar on the way home?",
+          "options": [
+            "in its wings",
+            "in the honeycomb",
+            "in a special stomach"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "What do hive bees use to dry the nectar?",
+          "options": [
+            "their wings",
+            "the sun",
+            "a warm oven"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why do bees cap the honey cell with wax?",
+          "options": [
+            "to mark the cell empty",
+            "to seal the honey inside",
+            "to weigh the comb down"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why is a spoonful of honey called 'remarkable' in the passage?",
+          "options": [
+            "because it is the sweetest food in the world",
+            "because it never goes in tea",
+            "because so many bees worked so hard to make it"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "prediction",
+          "prompt": "What will the bees probably do when the flowers die back in winter?",
+          "options": [
+            "eat the stored honey",
+            "make new honeycomb",
+            "move to a new hive"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-05-006",
+      "level": "RC-05",
+      "title": "The Water Cycle",
+      "kind": "non-fiction",
+      "theme": "nature",
+      "text": "The water in your glass has been on Earth for billions of years, travelling in a great loop called the water cycle. It starts when the Sun warms water in seas, lakes, and puddles. Some of that water turns into an invisible gas called water vapour, rising into the sky like a slow, silent elevator. High up, where the air is cold, the vapour cools and gathers into millions of tiny droplets, forming clouds. When the droplets bump into each other and grow too heavy to float, they fall as rain, hail, or snow. The water soaks into soil, flows into streams and rivers, and makes its way back to the sea, where the whole journey begins again. Some of the rain that falls today may have fallen on dinosaurs, watered ancient farms, or been sipped by a polar bear. Even the puddle outside your school and the ice in your drink are travellers on the same long road. Scientists say there is no new water being made on Earth, which means every drop is recycled. So the water you drink really has been around the world, and now it is passing through you on its next trip around the loop. So when you pour a glass, try to imagine its journey so far, and where it might go next.",
+      "wordCount": 220,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "What is the invisible gas called?",
+          "options": [
+            "oxygen",
+            "water vapour",
+            "steam"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "When do the droplets fall as rain?",
+          "options": [
+            "when the Sun comes out",
+            "when rivers fill up",
+            "when they grow too heavy to float"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does the passage say rain may have fallen on dinosaurs?",
+          "options": [
+            "to show how long water has been recycling",
+            "because it rains on animals every day",
+            "to prove rain is old-fashioned"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "inference",
+          "prompt": "What does the water cycle need to keep going, according to the passage?",
+          "options": [
+            "new water from space",
+            "energy from the Sun",
+            "bigger clouds"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "prediction",
+          "prompt": "What will probably happen to the water in a puddle on a sunny day?",
+          "options": [
+            "it will freeze solid",
+            "it will flow uphill",
+            "it will warm and rise as vapour"
+          ],
+          "answer": 2
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-05-007",
+      "level": "RC-05",
+      "title": "Roman Roads",
+      "kind": "non-fiction",
+      "theme": "history",
+      "text": "About two thousand years ago, Roman soldiers and engineers built a huge network of roads across their empire so that armies could march quickly and messages could travel fast. Roman roads were built to last. First, workers dug a trench and filled it with big stones for a strong base. Then came layers of smaller stones, pebbles, and sand, all packed down firmly. The top was paved with flat stones, often sloping slightly so rain would run off into ditches at the sides. Many Roman roads were so straight that some are still used as roads today, and you can walk on original Roman paving in places like Britain, Italy, and Spain. Some modern roads still follow the old Roman routes, because the straightest way across a valley is often still the straightest way. The Romans even used stones called milestones that marked the distance to the nearest town, so travellers always knew how far they had to go. When Roman rule ended, the roads remained, and later travellers, farmers, and builders used the same routes for centuries. Ruts worn by Roman cart wheels can still be seen in places, deep grooves pressed into the stone. Next time you are on a long, straight road, remember: it might be following a path first stamped out by Roman boots.",
+      "wordCount": 218,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Why did the Romans build their road network?",
+          "options": [
+            "so armies and messages could travel fast",
+            "to stop people leaving towns",
+            "to hold races on"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "How did the top of the road help in the rain?",
+          "options": [
+            "it soaked up the rain",
+            "it sloped so rain ran into ditches",
+            "it froze the rain solid"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why were milestones useful to travellers?",
+          "options": [
+            "they glowed in the dark",
+            "they marked where to rest horses",
+            "they showed the distance to the nearest town"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "What does the writer want you to think about at the end?",
+          "options": [
+            "that modern roads may follow very old routes",
+            "that Roman roads were badly built",
+            "that walking is faster than driving"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "prediction",
+          "prompt": "A city grows along an old Roman road. What will the road probably do?",
+          "options": [
+            "sink into the ground",
+            "keep carrying people and goods through the city",
+            "turn back into a trench"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-05-008",
+      "level": "RC-05",
+      "title": "Living in Space",
+      "kind": "non-fiction",
+      "theme": "space",
+      "text": "Living on the International Space Station means floating. Because the station orbits Earth in a constant state of free fall, everything inside floats, from water drops to sleeping astronauts. Astronauts must strap themselves into sleeping bags attached to the walls, or they would drift away. There is no up or down, so the walls, floor, and ceiling can all be used, and some astronauts sleep on the ceiling just for fun. First-time visitors often bump their heads for days until their brains learn the new rules. Water is precious in space. Every drop, including the moisture astronauts breathe out, is cleaned and reused. A famous saying on the station is that yesterday's coffee becomes tomorrow's coffee. Meals come in packets, and salt and pepper are kept as liquid, because floating grains would get into the equipment. Astronauts exercise for about two hours every day on special machines, because without gravity their muscles and bones grow weaker. Even with all the hard work, astronauts say the best part is looking out of the window. From the station, Earth has no borders, no cities you can name, and no sound at all. It just glows, wrapped in its thin blue line of air, and every ninety minutes there is a brand new sunrise.",
+      "wordCount": 211,
+      "questions": [
+        {
+          "skill": "retrieval",
+          "prompt": "Why do astronauts strap themselves into sleeping bags?",
+          "options": [
+            "to keep warm",
+            "because there are no beds",
+            "so they do not drift away"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "retrieval",
+          "prompt": "Why is salt kept as a liquid in space?",
+          "options": [
+            "so grains do not float into the equipment",
+            "because it tastes stronger",
+            "to save weight"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "inference",
+          "prompt": "What does 'yesterday's coffee becomes tomorrow's coffee' mean?",
+          "options": [
+            "coffee plants grow on the station",
+            "water is cleaned and used again",
+            "astronauts drink very old coffee"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why do astronauts exercise for two hours a day?",
+          "options": [
+            "to pass the time",
+            "to move the station forward",
+            "to stop their muscles and bones getting weak"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does the writer say Earth has 'no borders' from space?",
+          "options": [
+            "because countries cannot be seen from so far up",
+            "because maps are banned in space",
+            "because the borders have been erased"
+          ],
+          "answer": 0
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-06-001",
+      "level": "RC-06",
+      "title": "The Lighthouse Keeper's Cat",
+      "kind": "fiction",
+      "theme": "seaside",
+      "text": "Old Marlow keeps the light on Seal Rock, and his cat, Biscuit, keeps Marlow. That is what Marlow tells the supply boat, and Biscuit does not argue. Every evening, when the lamp begins its slow turn, Biscuit climbs the one hundred and three spiral stairs to the lamp room, sits on the brass ledge, and watches the sea through the glass. Marlow polishes the great lens and pretends he is not talking to her. 'Fishermen out there,' he says, 'would trade their boots for your eyes.' Biscuit blinks. Her eyes are the colour of harbour water.\n\nOne evening in November, the weather turns wild before the forecast has finished saying it might. Waves shoulder the rocks, and the wind throws salt against the tower like handfuls of gravel. Marlow lights the lamp early and makes his last round of the railings. That is when he misses a step and comes down hard on his wrist. He hears the small click of something not right, and the wrist swells like rising dough. The radio hisses. The supply boat will not come until morning, and the lamp must be wound every four hours, or it stops.\n\nBiscuit watches him sit down on the stair with his face the colour of porridge. Then she does something she has never done. She climbs down all one hundred and three stairs, pushes through the draught door, and wails at the dark. Out in the storm, a fishing boat is beating its way home. The crew see two lights: the great lamp, and a small, fierce shape at the tower door, glowing yellow in the beam as it cries. They radio the coastguard, and the lifeboat crew know Biscuit's voice of old.\n\nMarlow winds the lamp that night with one hand and Biscuit's considerable help. In the morning, his wrist is set at the clinic on the mainland, and he is back before the next storm. On the supply boat's manifest, in the box marked 'reason for visit', the skipper writes: 'cat.'\n\nFrom then on, Marlow winds the lamp early, keeps his boots by the door, and never once says cats are no use at sea. Biscuit, for her part, keeps the ledge warm, and the lighthouse keeps its two keepers: one with a torch, one with a tail.",
+      "wordCount": 383,
+      "questions": [
+        {
+          "skill": "inference",
+          "prompt": "What does Marlow mean when he says the fishermen would trade their boots for Biscuit's eyes?",
+          "options": [
+            "Biscuit has very sharp eyesight",
+            "Biscuit has new boots",
+            "the fishermen have cold feet",
+            "Biscuit likes the sea"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "The passage says the waves 'shoulder' the rocks. What does this word tell us?",
+          "options": [
+            "the waves turn the rocks white",
+            "the waves hit the rocks hard and steadily",
+            "the waves are too tired to move",
+            "the rocks are soft"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Biscuit wail at the dark?",
+          "options": [
+            "to warn the fishing boat",
+            "because she dislikes storms",
+            "to get help for Marlow",
+            "to scare the waves away"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "summary",
+          "prompt": "Which sentence best sums up what happens in the middle of the story?",
+          "options": [
+            "Biscuit climbs the stairs one hundred times",
+            "the supply boat brings a new radio",
+            "Marlow moves to the mainland",
+            "Marlow hurts his wrist, and Biscuit fetches help"
+          ],
+          "answer": 3
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "Why does the writer say Marlow's face was 'the colour of porridge'?",
+          "options": [
+            "to show he looked pale and unwell",
+            "to show he had been eating",
+            "to show he was warm and sleepy",
+            "to show he liked porridge"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "summary",
+          "prompt": "What is this story mostly about?",
+          "options": [
+            "a supply boat that is late",
+            "a cat who helps save a lighthouse keeper",
+            "a storm that stops the lamp",
+            "a vet who visits Seal Rock"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-06-002",
+      "level": "RC-06",
+      "title": "The Time Capsule",
+      "kind": "fiction",
+      "theme": "history",
+      "text": "Under the floorboards of Number 9, behind a pile of rubble that smells of forgotten summers, Tayo finds a biscuit tin. Inside, wrapped in a scarf that has gone the colour of weak tea, are objects arranged like a small museum: a marble, a tram ticket, a photograph of a street party with flags strung across the road, and a letter in careful handwriting that begins, 'Whoever finds this, hello from 1953.'\n\nThe letter is from a boy called Albert, who writes that he has included his best marble because the future probably has better ones, and he wants the finder to know what mattered to him. Tayo reads it three times on the stairs. Then he does what any sensible person would do. He takes the tin to school, where his class is exactly halfway through a project about how people lived in the past, and his teacher, Miss Adeyemi, goes very quiet, which for Miss Adeyemi is the loudest possible reaction.\n\nThe class visits the local history room at the library, where a white-haired volunteer reads Albert's letter through spectacles that slip down her nose. 'Albert Matravers,' she says at last. 'He sat in the seat by the window. He lost that marble every single week.' She shows them the street in the photograph, and the children count the changes: the bakery has become a bank, the cinema has become flats, and Number 9's door is exactly the same red.\n\nMiss Adeyemi has an idea, and the idea becomes a plan, and the plan becomes a hole in the school garden, lined with a plastic box. Every child adds one object and a letter. Tayo contributes a pen drive and a letter that begins, 'Whoever finds this, hello from now. We found Albert. Here is what mattered to him.'\n\nYears are long when you are ten, but the box has a date on it that is safely far away, and that night Tayo thinks about Albert pressing his marble into the dark and trusting a stranger to be curious. Being curious, Tayo decides, is a kind of thank-you. He falls asleep wondering whose hands will unwrap his pen drive, and whether they will think it is marvellous or ridiculous, and hoping, fiercely, for both.",
+      "wordCount": 376,
+      "questions": [
+        {
+          "skill": "inference",
+          "prompt": "Why does Tayo read the letter three times?",
+          "options": [
+            "he cannot read the handwriting",
+            "he is looking for money in it",
+            "he is amazed and wants to take it all in",
+            "he wants to copy the spelling"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "The passage says the tin is arranged 'like a small museum'. What does this suggest?",
+          "options": [
+            "the tin is very large",
+            "the objects are all broken",
+            "the tin is made of glass",
+            "the objects were kept carefully and meant something"
+          ],
+          "answer": 3
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does the writer say Miss Adeyemi going quiet is 'the loudest possible reaction'?",
+          "options": [
+            "because her silence shows great surprise",
+            "because the classroom is noisy",
+            "because she had lost her voice",
+            "because she dislikes old tins"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "summary",
+          "prompt": "What happens in the middle of this story?",
+          "options": [
+            "Tayo loses the marble in the playground",
+            "the class finds out about Albert's life and buries their own time capsule",
+            "the library is knocked down",
+            "Albert comes back for his marble"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "What does Tayo hope the finder of his pen drive will feel?",
+          "options": [
+            "fear and confusion",
+            "nothing at all",
+            "both wonder and amusement",
+            "hunger and thirst"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "summary",
+          "prompt": "Which sentence best sums up the whole story?",
+          "options": [
+            "A boy loses his best marble down the stairs",
+            "A class visits a library and finds it boring",
+            "A granny knits a scarf for winter",
+            "A found letter from the past inspires a gift to the future"
+          ],
+          "answer": 3
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-06-003",
+      "level": "RC-06",
+      "title": "The Marathon",
+      "kind": "fiction",
+      "theme": "sport",
+      "text": "On race morning, Dee stands at the start line with eight thousand other runners and tries to remember why this seemed like a good idea. The answer is pinned to her vest in the form of a paper number, and underneath the number is a photo of her grandad, who ran this marathon fifty years ago in boots that were too small, according to family legend, 'for the glory of it.'\n\nDee's trainers cost more than Grandad's first car, and she has trained for six months, and still the first mile is a surprise. It is crowded and slow and joyful. Children hold out oranges. A brass band plays something fast at the wrong moment. At mile eight, a man in a tomato costume passes her like she is standing still, and Dee laughs so much she nearly forgets to run.\n\nThe hard part comes later, as the hard part does. At mile twenty, Dee's legs begin to argue with the plan, and the crowd's noise turns to soup. She thinks about stopping. Then she sees her family at the side of the road, holding a sign that says 'GO GRANDAD'S BOOTS,' and something in her chest stands up straight. She picks a runner ahead with a bright yellow hat and makes a deal: reach the yellow hat, then find a new one.\n\nThe last mile bends toward the finish, and Dee hears her own name coming over the loudspeaker, badly pronounced and entirely wonderful. She crosses the line one hour and fifty-two minutes faster than Grandad's boots ever managed, though she notes the boots did it without energy drinks or a brass band. The medal goes straight into an envelope addressed to him, with a note: 'Same race. Same glory. Better shoes.'\n\nThat winter, the photo of Grandad crosses the finish line in Dee's frame, boots and all, hung at the exact height where neither of them has to look up or down to see it.",
+      "wordCount": 327,
+      "questions": [
+        {
+          "skill": "inference",
+          "prompt": "Why does Dee pin her grandad's photo to her vest?",
+          "options": [
+            "to feel connected to him during the race",
+            "so he can get a medal too",
+            "to make her vest lighter",
+            "so people will cheer for him"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "The passage says the crowd's noise 'turns to soup'. What does this mean?",
+          "options": [
+            "the crowd starts cooking",
+            "the sounds blur together and stop making sense",
+            "Dee becomes very hungry",
+            "it begins to rain"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Dee pick runners with yellow hats?",
+          "options": [
+            "because she likes the colour yellow",
+            "to find her family",
+            "to give herself small goals to reach",
+            "to keep warm"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "summary",
+          "prompt": "Which sentence best describes the middle of the story?",
+          "options": [
+            "Dee buys new trainers before the race",
+            "Dee wins the marathon",
+            "Dee rides the bus home",
+            "Dee struggles at mile twenty but keeps going with the crowd's help"
+          ],
+          "answer": 3
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why does Dee send her medal to her grandad?",
+          "options": [
+            "to share her achievement with him",
+            "because the medal is too heavy",
+            "because he collects race numbers",
+            "to ask for new shoes"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "summary",
+          "prompt": "What is this story mostly about?",
+          "options": [
+            "learning to cook soup",
+            "running a race to honour a family memory",
+            "buying the right trainers",
+            "her grandad's first car"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-06-004",
+      "level": "RC-06",
+      "title": "The Lost Notebook",
+      "kind": "fiction",
+      "theme": "school",
+      "text": "Mr Alvarez gives out the science notebooks on Monday, and by Friday afternoon, Mari's is missing. She has looked in her tray, her bag, the lost property box, and once, in a moment of madness, the boys' cloakroom. The notebook matters more than most. Inside it are six weeks of experiment notes, one pressed flower from a habitat survey, and the first draft of her project on how plants drink, which is due after the weekend.\n\nMari retraces her week like a detective. The last definite sighting, according to her lab partner Sam, is Thursday's fieldwork, when Mari knelt in the long grass by the pond and the notebook was under her knee. After that: nothing. On Saturday morning she goes back to the pond with her mum, telling herself she is only walking the dog, who has no idea he is part of a search party.\n\nThe pond is Friday-night still. Mari works along the bank, parting grass with her hands, while the dog patrols importantly. Near the willow, something blue peeks through the reeds. It is her notebook, damp at the corners but complete, held down by a flat grey stone as if someone meant to keep it from blowing away. Tucked inside the cover is a note in joined-up writing: 'Found this Thursday. Did not know whose it was. Left it where it fell. Good luck with the plants. From a fellow scientist.'\n\nMari takes the notebook home and dries the pages one by one. She never finds out who the fellow scientist is, though she narrows it to three suspects: the jogger with the red hat, the man who feeds the ducks, or the keeper who locks the gates. Her project gets a gold star and a comment: 'Excellent observations. Also, excellent pressing.'\n\nOn the last page of her notebook, Mari copies out the stranger's note, and underneath writes: 'Kindness is a method. Results may vary.' It becomes the motto of every project she does for the rest of the year, and several that she does not.",
+      "wordCount": 341,
+      "questions": [
+        {
+          "skill": "inference",
+          "prompt": "Why does the notebook matter so much to Mari?",
+          "options": [
+            "it is the only notebook allowed at school",
+            "Mr Alvarez gave it to her personally",
+            "it has all her project work inside",
+            "it is brand new"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "The passage says Mari retraces her week 'like a detective'. What does this suggest?",
+          "options": [
+            "she works for the police",
+            "she reads a lot of mystery books",
+            "she wants to be a scientist",
+            "she investigates carefully and looks for clues"
+          ],
+          "answer": 3
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why did the stranger leave the notebook under the stone?",
+          "options": [
+            "to stop it blowing away before its owner returned",
+            "to hide it from joggers",
+            "to keep it as a present",
+            "to weigh down the reeds"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "summary",
+          "prompt": "What is the main problem in this story?",
+          "options": [
+            "Mari forgets her science project",
+            "Mari loses her important notebook and searches for it",
+            "the pond floods the field",
+            "Sam takes the notebook"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "Mari writes that 'kindness is a method'. What does she mean?",
+          "options": [
+            "kindness works like a careful, planned action",
+            "kindness should be measured in a lab",
+            "kindness is part of the science syllabus",
+            "kindness is a kind of plant"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "summary",
+          "prompt": "Which sentence best sums up the ending?",
+          "options": [
+            "Mari finds out the stranger was the gatekeeper",
+            "Mari stops doing science projects",
+            "the notebook is ruined by the rain",
+            "Mari values the stranger's kindness and remembers it all year"
+          ],
+          "answer": 3
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-06-005",
+      "level": "RC-06",
+      "title": "The Orchestra",
+      "kind": "non-fiction",
+      "theme": "music",
+      "text": "An orchestra is a team of musicians who play together under a leader called the conductor. A full symphony orchestra can have around one hundred players, and every one of them has a seat in a plan, laid out so the sound reaches the audience in balance. The strings sit at the front: dozens of violins, violas, cellos, and deep, rumbling double basses. Behind them come the woodwind, instruments like flutes, clarinets, and oboes, whose players blow across or through reeds to make their sound. The brass section, with trumpets, trombones, and tubas, can play so loudly that composers sometimes give them the tune in the grandest moments. At the very back sit the percussionists, who play the drums, cymbals, and timpani, and beside them, the pianist or harpist if the music needs them.\n\nEvery section speaks a slightly different language. Strings can swoop and whisper, woodwind can chirp and sigh, brass can blaze, and percussion can mark time like a heartbeat or explode like thunder. The conductor's job is to listen to all of this at once and shape it. With a wave of the baton, the conductor sets the speed, shows the loud and soft, and reminds dozens of musicians to come in at exactly the right moment. Players watch the conductor constantly, but they also listen to each other, because a great orchestra is really one instrument with a hundred voices.\n\nYou do not have to be grown up to play in one. Youth orchestras welcome young players every year, and the youngest might start with just three notes and a rattle. The first time all the sections play together, children say, the feeling is like being lifted off the chair. Music teachers say it is also very good for you: reading music, counting, watching, listening, and breathing all at once. Perhaps that is the secret of the orchestra. It is not just a hundred people playing instruments. It is a hundred people learning to be one.",
+      "wordCount": 330,
+      "questions": [
+        {
+          "skill": "inference",
+          "prompt": "What is the conductor's job in the orchestra?",
+          "options": [
+            "to shape the speed and sound of the music",
+            "to repair the instruments",
+            "to write new music for the players",
+            "to sell the tickets"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "The passage says the brass section can 'blaze'. Why does the writer choose this word?",
+          "options": [
+            "to suggest the instruments are on fire",
+            "to suggest a bright, powerful sound",
+            "to suggest the players are fast runners",
+            "to suggest the music is quiet"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why do players watch the conductor constantly?",
+          "options": [
+            "because the conductor pays them",
+            "because the music is written on the baton",
+            "because the seats face the front",
+            "because the conductor controls speed and timing for everyone"
+          ],
+          "answer": 3
+        },
+        {
+          "skill": "summary",
+          "prompt": "Which sentence best sums up the last paragraph?",
+          "options": [
+            "Youth orchestras only take three players",
+            "Music teachers dislike orchestras",
+            "The youngest players must play three notes",
+            "Playing in an orchestra teaches many skills and suits young people too"
+          ],
+          "answer": 3
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "The author groups flutes, clarinets, and oboes into the 'woodwind' section. What does this name tell us?",
+          "options": [
+            "they make their sound by blowing",
+            "they are all made of metal",
+            "they are the quietest section",
+            "they are played with a bow"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "summary",
+          "prompt": "What is this passage mostly about?",
+          "options": [
+            "how to make a violin",
+            "how the sections of an orchestra work together",
+            "the history of the first orchestra",
+            "why conductors wear black"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-06-006",
+      "level": "RC-06",
+      "title": "Wild Weather",
+      "kind": "non-fiction",
+      "theme": "weather",
+      "text": "Weather is the conversation between the Sun, the air, and the water on Earth, and sometimes that conversation gets loud. A thunderstorm begins when warm, moist air rises quickly and meets colder air high above. Inside the cloud, water droplets and ice bump into each other and swap tiny electric charges, until the cloud is like a battery storing up energy. When the difference grows too great, it releases as a bolt of lightning that heats the air around it so fast that the air cracks apart, making thunder. Because light travels faster than sound, we see the flash before we hear the bang, and counting the seconds between them tells you roughly how far away the storm is. Every three seconds between flash and bang means the storm is about a kilometre away.\n\nSnow is the quieter member of the family. It forms when water vapour freezes high in the sky into ice crystals that stick together as they fall. No two snowflakes are exactly alike, scientists tell us, and each flake is a pattern made of frozen water with air trapped inside, which is why fresh snow squeaks underfoot. A single snowflake is feather-light, yet a whole storm of them can close roads, snap branches, and build drifts taller than a door.\n\nThe strangest weather of all may be the dust devil, a spinning column of air that skitters across dry ground on hot days, picking up dust and leaves. Unlike a tornado, it forms on clear days and is usually small and short-lived, though it can still tip a wheelie bin or scatter a picnic. Whether storm, snow, or spinning dust, all of it is the same Earthly engine at work: the Sun pouring energy down, and the air and water passing that energy along. Wild weather is not wild at all, really. It is physics, wearing a very dramatic coat.",
+      "wordCount": 314,
+      "questions": [
+        {
+          "skill": "inference",
+          "prompt": "According to the passage, what causes the sound of thunder?",
+          "options": [
+            "clouds bumping together",
+            "rain hitting the roof",
+            "air cracking apart as lightning heats it",
+            "wind shaking windows"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "The passage calls the cloud 'like a battery'. What does this comparison tell us?",
+          "options": [
+            "the cloud is made of metal",
+            "the cloud needs recharging every night",
+            "the cloud only ever stores rain",
+            "the cloud stores up energy before releasing it"
+          ],
+          "answer": 3
+        },
+        {
+          "skill": "inference",
+          "prompt": "Why do we see lightning before we hear thunder?",
+          "options": [
+            "light travels faster than sound",
+            "thunder is quieter than lightning",
+            "our eyes work quicker than our ears",
+            "storms are far away"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "summary",
+          "prompt": "Which paragraph tells us how snow forms?",
+          "options": [
+            "the first paragraph",
+            "the second paragraph",
+            "the fourth paragraph",
+            "the third paragraph"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "The passage says a dust devil is 'short-lived'. What does this mean?",
+          "options": [
+            "it cannot move",
+            "it lives underground",
+            "it does not last long",
+            "it is very tall"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "summary",
+          "prompt": "What is the main idea of this passage?",
+          "options": [
+            "weather is too dangerous to study",
+            "snowflakes are all identical",
+            "dust devils are the strangest weather",
+            "wild weather is caused by natural physics in action"
+          ],
+          "answer": 3
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-06-007",
+      "level": "RC-06",
+      "title": "The Solar System",
+      "kind": "non-fiction",
+      "theme": "space",
+      "text": "Everything you have ever touched, everyone you have ever met, and every mountain and ocean on Earth is part of one family called the solar system. At the centre sits the Sun, an ordinary middle-aged star that holds the whole system together with its gravity. It is so massive that more than a million Earths could fit inside it, and it makes up more than 99 percent of all the mass in the solar system.\n\nTravelling outward from the Sun, eight planets ride their looping orbits. The four inner planets are rocky worlds like Earth: Mercury, the speedy one, races around the Sun in just 88 days; Venus hides under thick clouds; Earth is the only world known to have oceans and life; and Mars, the red one, hosts the tallest volcano in the system, a mountain called Olympus Mons. Beyond Mars stretches the asteroid belt, a ring of rocky leftovers, some as small as pebbles and one, Ceres, big enough to be called a dwarf planet.\n\nThe outer four planets are giants. Jupiter's Great Red Spot is a storm wider than Earth that has been raging for centuries. Saturn's rings are made of countless pieces of ice, some as small as grains of sand. Uranus rolls around the Sun on its side, and Neptune, the farthest planet, takes 165 Earth years to complete a single trip. Beyond them lie icy comets and more dwarf planets, including Pluto, in a dark, cold region called the Kuiper Belt.\n\nThe solar system is big in a way that is hard to imagine. If the Sun were the size of a football on a playing field, Earth would be a peppercorn about twenty-five metres away, and Neptune would be a blueberry near the edge of the field, nearly eight hundred paces from the ball. Yet this whole enormous neighbourhood is just one tiny corner of the Milky Way, which itself is one galaxy among billions. Small, it turns out, is a matter of where you stand.",
+      "wordCount": 333,
+      "questions": [
+        {
+          "skill": "inference",
+          "prompt": "What keeps the planets travelling around the Sun?",
+          "options": [
+            "the Sun's gravity",
+            "Earth's oceans",
+            "the asteroid belt",
+            "the Kuiper Belt"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "The passage says Mercury is 'the speedy one'. Why does the writer call it this?",
+          "options": [
+            "it is the hottest planet",
+            "it orbits the Sun faster than any other planet",
+            "it spins the slowest",
+            "it is the smallest planet"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "inference",
+          "prompt": "What does the scale model with the football show us?",
+          "options": [
+            "football is played in space",
+            "planets are made of food",
+            "the Sun is very small",
+            "the solar system is mostly empty space"
+          ],
+          "answer": 3
+        },
+        {
+          "skill": "summary",
+          "prompt": "Which sentence best sums up the whole passage?",
+          "options": [
+            "there are nine big planets",
+            "the Sun is the smallest star",
+            "planets never move",
+            "our solar system is vast, organised, and only a tiny part of space"
+          ],
+          "answer": 3
+        },
+        {
+          "skill": "inference",
+          "prompt": "According to the passage, what is the Great Red Spot?",
+          "options": [
+            "a giant storm on Jupiter",
+            "a volcano on Mars",
+            "a crater on the Moon",
+            "a ring around Saturn"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "What does the last sentence of the passage mean?",
+          "options": [
+            "you should always stand on a hill",
+            "size depends on your point of view",
+            "the Milky Way is smaller than Earth",
+            "stars are bigger than galaxies"
+          ],
+          "answer": 1
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "RC-06-008",
+      "level": "RC-06",
+      "title": "From Wheat to Bread",
+      "kind": "non-fiction",
+      "theme": "food",
+      "text": "Long before your loaf reaches the kitchen, it begins in a field of wheat, standing taller than your knee and rippling like a golden sea in the wind. Wheat is a grass that farmers have grown for more than ten thousand years, and it is one of the most important crops in the world. In early summer the crop turns from green to gold, and when the grains are hard and dry, a combine harvester moves through the field, cutting the stalks and separating the grain from the straw in one enormous pass. The straw is left behind in neat rows, and many farmers gather it up to use as bedding for animals or to mix back into the soil.\n\nThe grain then travels to a mill, where rollers crush it in stages until it becomes flour. White flour is sieved to remove the brown outer layers, while wholemeal flour keeps everything the grain contains. Meanwhile, at the bakery, flour meets water, salt, and yeast. The dough is kneaded, rested so the yeast can fill it with bubbles, shaped into tins or rolls, and baked in an oven hot enough to turn the outside golden and crisp. Steam inside the loaf makes the inside soft, and the smell that drifts from a bakery vent is a mixture of toasted grain, warm yeast, and sugar that the heat has browned.\n\nBread is eaten in some form all over the planet, from flatbreads cooked on hot stones to tall loaves baked in tins, and for thousands of years it has been called the staff of life, meaning something people cannot do without. So the next time you hold a slice, follow its journey backwards: from plate, to bakery, to mill, to harvester, to a green shoot in a winter field. Simple food is rarely simple. It is a story, and you are holding the last page.",
+      "wordCount": 314,
+      "questions": [
+        {
+          "skill": "inference",
+          "prompt": "How do farmers know the wheat is ready to harvest?",
+          "options": [
+            "the crop is green",
+            "the bread is baked",
+            "the grains are hard and dry",
+            "it starts to rain"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "The passage says the field ripples 'like a golden sea'. What does this comparison tell us?",
+          "options": [
+            "the field is full of water",
+            "the wheat is made of salt",
+            "the field is on fire",
+            "the wheat moves in waves and looks golden"
+          ],
+          "answer": 3
+        },
+        {
+          "skill": "inference",
+          "prompt": "What is the difference between white and wholemeal flour?",
+          "options": [
+            "wholemeal keeps all parts of the grain",
+            "white flour has more yeast",
+            "wholemeal is made from rice",
+            "white flour is always fresh"
+          ],
+          "answer": 0
+        },
+        {
+          "skill": "summary",
+          "prompt": "What does the second paragraph mainly describe?",
+          "options": [
+            "how to grow wheat at home",
+            "how grain is milled and turned into bread",
+            "why bread smells sweet",
+            "how to bake a cake"
+          ],
+          "answer": 1
+        },
+        {
+          "skill": "word-choice",
+          "prompt": "The passage says bread is called 'the staff of life'. What does this mean?",
+          "options": [
+            "it is shaped like a stick",
+            "it helps you walk",
+            "people everywhere depend on it",
+            "it is always toasted"
+          ],
+          "answer": 2
+        },
+        {
+          "skill": "summary",
+          "prompt": "What is the main idea of the last paragraph?",
+          "options": [
+            "bread should be eaten quickly",
+            "bakeries are the best shops",
+            "wheat grows in winter",
+            "every slice of bread has a long story behind it"
+          ],
+          "answer": 3
+        }
+      ],
+      "status": "draft"
+    }
+  ]
 }
