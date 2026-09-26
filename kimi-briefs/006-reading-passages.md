@@ -1,6 +1,6 @@
 # 006 — Reading comprehension passages (RC-01 → RC-06)
 
-Status: ready
+Status: done — PR #6
 Owner: Kimi · Reviewer: Claude, then **DQ approves each passage** before the children see it
 
 ## Goal
@@ -76,4 +76,9 @@ The reading screen and DQ's approve/reject panel are already built (`src/lib/rea
 - PR from `kimi/006-reading-passages`, listing titles per level in the PR description.
 
 ## Notes from Kimi
-(write here when done)
+- `status: "draft"` is stored in the JSON per this brief, but the `Passage` type in `src/lib/reading.ts` has no `status` field — the data carries it ahead of the type. Suggest adding `status?: "draft"` there if the review screen reads it.
+- RC-06 skills restricted to inference / summary / word-choice exactly as the level table lists; the factual questions in the four non-fiction passages are phrased as word-choice or inference rather than retrieval so the allowed set holds.
+- RC-01 passages are 3-5 short sentences (~20-25 words) built from PH-01..PH-09 style words plus common tricky words; all RC-01 questions are retrieval with 3 options.
+- Answer positions were rotated deliberately while authoring (RC-06 uses 4 options throughout so positions balance at 12 each); the test enforces no position over 50% of a level either way.
+- Word counting is whitespace-split (`text.split(/\s+/).filter(Boolean).length`); `wordCount` was computed with the same rule, so data and test always agree.
+- Non-fiction facts kept to simple, certainly-true facts only (water cycle, bees, Roman roads, space station, solar system, bread); no brands, no real places smaller than a country, no curly quotes or non-hyphen dashes anywhere (title, text, prompts, options).
