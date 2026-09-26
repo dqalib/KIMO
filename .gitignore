@@ -51,3 +51,6 @@ Claude outputs/
 Claude outputs/
 !.env.example
 ml/digits/mnist/
+
+# voice samples made by `npm run audio -- --samples` (listen, then delete)
+/audio-samples/
