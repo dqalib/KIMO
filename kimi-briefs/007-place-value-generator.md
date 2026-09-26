@@ -1,6 +1,6 @@
 # 007 — Number & place value question generator (NP-01 → NP-09)
 
-Status: ready
+Status: done — PR #7
 Owner: Kimi · Reviewer: Claude, then DQ
 
 ## Goal
@@ -64,4 +64,11 @@ export function generateNPSet(level: NPLevel, tricky?: Record<string, number>, r
 - PR from `kimi/007-place-value-generator` with 2 example sets per level in the PR description.
 
 ## Notes from Kimi
-(write here when done)
+- Architecture reuses `as.ts` verbatim in spirit: `take` (used-aware pool top-up) + `push` + fixed opening slots; tricky keys weighted `1 + 2·min(count,3)`.
+- Keys are self-describing so tests recompute answers independently without touching the generator's working: `after:13`, `cmp:63:36`, `m10:395`, `hto:5:0:8`, `2s:4:1` (step, start index, blank slot), `r100:250`, `digit:7:7204`, `roman:XIV`, `toroman:29`, `neg:3:1`.
+- Opening slots guarantee the per-set rules: NP-02 boundary crossing (…9 → next ten, …0 → prev ten), NP-06 boundary crossing with 10 and 100, NP-07 thousands rollover (kept ≤ 10,000), NP-08 halfway cases (n ending 5 / 50 / 500, UK half-up), an `=` compare at NP-04/06/07, and all three NP-09 shapes every set.
+- Roman options: `roman:` (numeral → number) options are close numbers (14 → `16, 12`); `toroman:` (number → numeral) options are believable numerals — neighbours plus the additive no-subtractive form a child might write (14 → `XVI, XIII, XIIII`).
+- NP-07 `digit:` questions only use digits that appear once in the number, so "What is the 7 worth in 7,204?" is never ambiguous.
+- NP-05/03 sequences: 4 terms, blank in any position (not only last), start index usually above 0; the test asserts all four blank positions occur and most sequences do not start at 0.
+- Numbers ≥ 1,000 get a comma in `text` only (`4,350`); `answer` is always comma-free, and options follow `String(answer)`.
+- Scope tests beyond the list: NP-01/02/03 answers ≤ 100, NP-04 ≤ 100, NP-07 answers ≤ 10,000, NP-09 negatives in −20..−1 and Roman round-trip 1↔100 checked in the test with an independent parser.
