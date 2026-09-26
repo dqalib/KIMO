@@ -6,7 +6,8 @@ import PassageReview from "@/components/PassageReview";
 import SyncPanel from "@/components/SyncPanel";
 import { currentLetter, lettersMastered } from "@/lib/hw";
 import { accuracy } from "@/lib/mastery";
-import { exportJson, getInputMode, removeChild, setCurrentLevel, setInputMode, setStrandLevel, strandProgress, strandStarted, useAppState } from "@/lib/store";
+import { exportJson, getInputMode, removeChild, setCurrentLevel, setDailyGoal, setInputMode, setStrandLevel, strandProgress, strandStarted, useAppState } from "@/lib/store";
+import { dailyGoal, dayStreak, subjectOf, trickyItems, weekSummary } from "@/lib/report";
 import { STRANDS } from "@/lib/strands";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
 
@@ -57,13 +58,10 @@ function Dashboard() {
         const tt = state.tt[c.id];
         const lvl = tt && getLevel(tt.current);
         const attempts = state.attempts.filter((a) => a.childId === c.id).slice(-8).reverse();
-        const weak = Object.entries(state.weakFacts[c.id] ?? {})
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 6);
-        const week = state.attempts.filter(
-          (a) => a.childId === c.id && Date.now() - new Date(a.finishedAt).getTime() < 7 * 864e5,
-        );
-        const minutes = Math.round(week.reduce((s, a) => s + a.durationMs, 0) / 60000);
+        const week = weekSummary(state, c.id);
+        const tricky = trickyItems(state, c.id);
+        const goal = dailyGoal(state, c.id);
+        const streak = dayStreak(state.attempts, c.id);
 
         return (
           <section key={c.id} className="bg-card rounded-3xl border-2 border-line p-5 flex flex-col gap-4">
@@ -72,13 +70,69 @@ function Dashboard() {
               <div>
                 <h2 className="text-2xl font-extrabold">{c.name}</h2>
                 <p className="text-muted">
-                  Year {c.schoolYear} · {week.length} set{week.length === 1 ? "" : "s"} ·{" "}
-                  {week.length === 0 ? "none" : minutes < 1 ? "under 1 min" : `~${minutes} min`} this week
+                  Year {c.schoolYear}
+                  {streak > 0 && ` · 🔥 ${streak} day${streak === 1 ? "" : "s"} in a row`}
                 </p>
               </div>
               {tt?.flagged && (
                 <span className="ml-auto px-3 py-1 rounded-full bg-warn/15 text-warn font-bold">Needs help</span>
               )}
+            </div>
+
+            <div className="rounded-2xl bg-bg p-4 flex flex-col gap-3">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                <span className="font-extrabold">Last 7 days</span>
+                <span>
+                  <b>{week.sets}</b> set{week.sets === 1 ? "" : "s"}
+                </span>
+                <span>
+                  <b>{week.sets === 0 ? 0 : Math.max(1, week.minutes)}</b> min
+                </span>
+                <span>
+                  <b>{week.levelsPassed.length}</b> level{week.levelsPassed.length === 1 ? "" : "s"} passed
+                  {week.levelsPassed.length > 0 && <span className="text-muted"> ({week.levelsPassed.join(", ")})</span>}
+                </span>
+              </div>
+              <div className="flex gap-2" aria-label="Sets per day this week">
+                {week.days.map((d) => (
+                  <div key={d.date.toISOString()} className="flex flex-col items-center gap-1 flex-1">
+                    <span
+                      className={`w-full h-10 rounded-lg flex items-center justify-center font-black tabular-nums ${
+                        d.goalMet ? "bg-good text-white" : d.sets > 0 ? "bg-warn/25 text-ink" : "bg-card border-2 border-line text-muted"
+                      }`}
+                      title={`${d.sets} set${d.sets === 1 ? "" : "s"}`}
+                    >
+                      {d.sets || ""}
+                    </span>
+                    <span className="text-xs text-muted font-bold">{d.date.toLocaleDateString("en-GB", { weekday: "short" })}</span>
+                  </div>
+                ))}
+              </div>
+              {week.bySubject.length > 0 && (
+                <div className="flex flex-wrap gap-2 text-sm">
+                  {week.bySubject.map((b) => (
+                    <span key={b.subject} className="px-3 py-1 rounded-full bg-card border-2 border-line">
+                      {b.subject}: {b.sets} set{b.sets === 1 ? "" : "s"} · {Math.round(b.accuracy * 100)}% right first time
+                    </span>
+                  ))}
+                </div>
+              )}
+              <label className="flex items-center gap-3 font-bold text-sm">
+                Daily goal
+                <select
+                  className="p-2 rounded-xl border-2 border-line bg-card font-normal"
+                  value={goal}
+                  onChange={(e) => setDailyGoal(c.id, Number(e.target.value))}
+                  aria-label={`${c.name}'s daily goal`}
+                >
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <option key={n} value={n}>
+                      {n} set{n === 1 ? "" : "s"} a day
+                    </option>
+                  ))}
+                </select>
+                <span className="font-normal text-muted">(green days = goal met)</span>
+              </label>
             </div>
 
             {tt && lvl && (
@@ -158,11 +212,17 @@ function Dashboard() {
               </p>
             )}
 
-            {weak.length > 0 && (
-              <p className="text-sm">
-                <span className="font-bold">Tricky facts: </span>
-                {weak.map(([k, n]) => `${k.replace("x", "×")} (${n})`).join(", ")}
-              </p>
+            {tricky.length > 0 && (
+              <div className="text-sm">
+                <p className="font-bold">Keeps tripping up on</p>
+                <ul className="flex flex-wrap gap-2 mt-1">
+                  {tricky.map((t) => (
+                    <li key={`${t.subject}-${t.label}`} className="px-3 py-1 rounded-full bg-warn/15">
+                      <span className="text-muted">{t.subject}:</span> {t.label} <span className="text-muted">×{t.count}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
 
             {attempts.length > 0 ? (
@@ -170,6 +230,7 @@ function Dashboard() {
                 <thead className="text-muted">
                   <tr>
                     <th className="py-1">When</th>
+                    <th>Subject</th>
                     <th>Level</th>
                     <th>Score</th>
                     <th>Time</th>
@@ -186,6 +247,7 @@ function Dashboard() {
                           minute: "2-digit",
                         })}
                       </td>
+                      <td>{subjectOf(a.levelId)}</td>
                       <td>{a.levelId}</td>
                       <td>
                         {a.correctFirstTime}/{a.total} ({Math.round(accuracy(a) * 100)}%)

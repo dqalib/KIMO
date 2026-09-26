@@ -392,3 +392,10 @@ export function finishPlacement(strand: PlacementStrand, childId: string, levelI
   const s = load();
   save({ ...s, placed: { ...(s.placed ?? {}), [childId]: { ...(s.placed?.[childId] ?? {}), [strand]: now() } } });
 }
+
+// ---- daily goal ---------------------------------------------------------------
+
+export function setDailyGoal(childId: string, sets: number) {
+  const s = load();
+  save({ ...s, dailyGoal: { ...(s.dailyGoal ?? {}), [childId]: { sets, at: now() } } });
+}

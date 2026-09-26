@@ -58,5 +58,6 @@ export interface AppState {
   rcUpdatedAt?: Record<string, string>;
   rcTricky?: Record<string, Record<string, number>>; // child id -> passage id -> times below the pass mark
   rcReview?: Record<string, { status: "approved" | "rejected"; at: string }>; // passage id -> grown-up's decision
+  dailyGoal?: Record<string, { sets: number; at: string }>; // child id -> sets per day the parent asked for
   placed?: Record<string, Record<string, string>>; // child id -> strand ("tt", "as"…) -> when the placement check was done or skipped
 }

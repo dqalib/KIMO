@@ -94,6 +94,14 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     for (const [k, t] of Object.entries(pa)) both[k] = both[k] && both[k] < t ? both[k] : t;
     if (Object.keys(both).length) placed[c.id] = both;
   }
+  // Daily goal: the most recent change wins.
+  const dailyGoal: NonNullable<AppState["dailyGoal"]> = {};
+  for (const c of liveChildren) {
+    const ga = a.dailyGoal?.[c.id];
+    const gb = b.dailyGoal?.[c.id];
+    const g = !ga ? gb : !gb ? ga : ga.at >= gb.at ? ga : gb;
+    if (g) dailyGoal[c.id] = g;
+  }
 
   const pinFrom = later(a.pinUpdatedAt, b.pinUpdatedAt) === "a" ? a : b;
   const parentPinHash = pinFrom.parentPinHash ?? a.parentPinHash ?? b.parentPinHash;
@@ -118,6 +126,7 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     ...(Object.keys(rc.progress).length ? { rc: rc.progress, rcUpdatedAt: rc.updatedAt, rcTricky: rc.tricky } : {}),
     ...(Object.keys(rcReview).length ? { rcReview } : {}),
     ...(Object.keys(placed).length ? { placed } : {}),
+    ...(Object.keys(dailyGoal).length ? { dailyGoal } : {}),
   };
 }
 

@@ -126,4 +126,11 @@ describe("mergeStates", () => {
     expect(m.rcReview!.p1.status).toBe("approved");
     expect(m.placed!.y).toEqual({ tt: "2026-09-26T08:00:00Z", gp: "2026-09-26T09:30:00Z" });
   });
+
+  it("keeps the most recent daily goal", () => {
+    const a = { ...base(), children: [child("y")], dailyGoal: { y: { sets: 3, at: "2026-09-26T09:00:00Z" } } };
+    const b = { ...base(), children: [child("y")], dailyGoal: { y: { sets: 1, at: "2026-09-26T08:00:00Z" } } };
+    expect(mergeStates(b, a).dailyGoal!.y.sets).toBe(3);
+    expect(mergeStates(a, b).dailyGoal!.y.sets).toBe(3);
+  });
 });

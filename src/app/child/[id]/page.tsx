@@ -6,6 +6,7 @@ import { currentLetter, lettersMastered } from "@/lib/hw";
 import { FAMILIES } from "@/lib/letters";
 import { getInputMode, letterProgress, PENCIL_EXTRA_SECONDS, needsPlacement, strandProgress, strandStarted, useAppState, type PlacementStrand } from "@/lib/store";
 import { approvedPassages } from "@/lib/reading";
+import { dailyGoal, dayStreak } from "@/lib/report";
 import { STRANDS } from "@/lib/strands";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
 
@@ -30,7 +31,8 @@ export default function ChildHome() {
   const hwFamily = hwLetter ? FAMILIES.find((f) => f.id === hwLetter.family) : undefined;
   // First time in a strand with a placement check: go to the check instead.
   const checkFirst = (strand: PlacementStrand) => PLACEMENT_STRANDS.includes(strand) && needsPlacement(state, strand, id);
-  const streak = dayStreak(state.attempts.filter((a) => a.childId === id).map((a) => a.finishedAt));
+  const streak = dayStreak(state.attempts, id);
+  const goal = dailyGoal(state, id);
 
   return (
     <main className="flex-1 p-6 max-w-3xl mx-auto w-full flex flex-col gap-6">
@@ -50,9 +52,23 @@ export default function ChildHome() {
         <div>
           <h1 className="text-4xl font-black">Hi {child.name}!</h1>
           <p className="text-muted text-lg font-semibold">
-            {doneToday === 0 ? "Ready for today's practice?" : `${doneToday} set${doneToday === 1 ? "" : "s"} done today — brilliant!`}
+            {doneToday === 0 ? "Ready for today's practice?" : doneToday >= goal ? "Today's goal done — brilliant! 🎉" : "Keep going — you're doing great!"}
           </p>
         </div>
+      </div>
+
+      <div className="rounded-3xl bg-card border-2 border-line px-5 py-4 flex items-center gap-4" aria-label={`Today: ${doneToday} of ${goal} sets`}>
+        <span className="font-extrabold text-lg">Today</span>
+        <div className="flex gap-1 text-4xl">
+          {Array.from({ length: Math.max(goal, doneToday) }, (_, k) => (
+            <span key={k} className={k < doneToday ? "" : "grayscale opacity-25"}>
+              ⭐
+            </span>
+          ))}
+        </div>
+        <span className="ml-auto text-muted font-bold tabular-nums">
+          {Math.min(doneToday, goal)} of {goal} sets
+        </span>
       </div>
 
       {STRANDS.filter((st) => st.shownFor(child.schoolYear) || strandStarted(state, st.key, id)).map((st) => {
@@ -160,18 +176,6 @@ export default function ChildHome() {
       </section>
     </main>
   );
-}
-
-function dayStreak(isoDates: string[]): number {
-  const days = new Set(isoDates.map((d) => new Date(d).toDateString()));
-  let n = 0;
-  const d = new Date();
-  if (!days.has(d.toDateString())) d.setDate(d.getDate() - 1); // today not done yet — count from yesterday
-  while (days.has(d.toDateString())) {
-    n++;
-    d.setDate(d.getDate() - 1);
-  }
-  return n;
 }
 
 function NotFound() {
