@@ -6,7 +6,8 @@ Task briefs for Kimi. One file per task: `NNN-short-name.md`. Claude (lead) writ
 1. Read `../PROJECT_BRIEF.md`, `../docs/skill-map.md` and `../README.md` first. Next.js 16 — read `../AGENTS.md` before touching framework code.
 2. Work on a branch named `kimi/NNN-short-name` and open a pull request to `main`. Never push to `main` directly.
 3. **Only touch the files the brief lists.** Do not edit these (Claude owns them, and is changing them now):
-   `src/lib/store.ts`, `src/lib/store-types.ts`, `src/lib/merge.ts`, `src/lib/sync.ts`, `src/lib/mastery.ts`, `src/lib/tt.ts`, `src/app/layout.tsx`, `src/app/child/**`, `src/app/parent/**`, `src/app/setup/**`, `src/components/Sync*.tsx`, `supabase/**`.
+   `src/lib/store.ts`, `src/lib/store-types.ts`, `src/lib/merge.ts`, `src/lib/sync.ts`, `src/lib/mastery.ts`, `src/lib/tt.ts`, `src/lib/strands.ts`, `src/app/layout.tsx`, `src/app/child/**`, `src/app/parent/**`, `src/app/setup/**`, `src/components/**` (ask first), `supabase/**`.
+   Content and generators you wrote before (`src/content/**`, `src/lib/as.ts`) have review fixes on `main` — pull before starting.
 4. Before opening the PR: `npm run lint`, `npm test` and `npm run build` must all pass.
 5. All content must be original or from Crown-copyright National Curriculum documents (Open Government Licence). Nothing copied from Kumon, Little Wandle, Read Write Inc. or any commercial scheme.
 6. Content is for children aged 5–9: everyday, kind, UK English (colour, mum, maths). No names of real people, brands, violence, scary or rude words — including in nonsense words.
@@ -20,8 +21,10 @@ Task briefs for Kimi. One file per task: `NNN-short-name.md`. Claude (lead) writ
 | 003 | [Tap, listen and sound-button components](003-choice-and-audio-components.md) | done — reviewed, PR #3 |
 | 004 | [Grammar & punctuation questions](004-grammar-questions.md) | done — reviewed, PR #4 |
 | 005 | [Addition & subtraction generator](005-addition-subtraction-generator.md) | done — reviewed, PR #5 |
+| 006 | [Reading comprehension passages](006-reading-passages.md) | ready |
+| 007 | [Number & place value generator](007-place-value-generator.md) | ready |
 
-No open briefs — next ones coming.
+006 and 007 are independent — do them in any order, or in parallel. Pull `main` first.
 
 
 **Work only in your own clone: `C:\Users\Dayib.Qalib\Downloads\AI-Project\KIMO-kimi`. Never in the `KIMO` folder.**

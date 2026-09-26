@@ -6,11 +6,13 @@
 // - Times tables progress: per child, the most recently changed copy wins.
 // - Attempts: union by id (append-only history), newest 2,000 kept.
 // - Tricky facts: per fact, the higher count wins.
-// - Phonics, spelling, grammar, addition/subtraction: most recently changed progress wins per child; tricky-word counts take the higher.
+// - Reading passage reviews: newest decision per passage wins. Placement checks: done on either device = done.
+// - Phonics, spelling, grammar, addition/subtraction, reading: most recently changed progress wins per child; tricky-word counts take the higher.
 // - Handwriting: per letter, the further stage wins (then the longer streak).
 // - Answer input (keypad/Pencil) per child: the most recently changed copy wins.
 // - Parent PIN: the most recently changed copy wins.
 
+import { mergeReviews } from "./reading";
 import type { AppState, LetterProgress } from "./store-types";
 
 const MAX_ATTEMPTS = 2000;
@@ -81,6 +83,17 @@ export function mergeStates(a: AppState, b: AppState): AppState {
   const sp = mergeWordStrand(liveChildren, a.sp, b.sp, a.spUpdatedAt, b.spUpdatedAt, a.spTricky, b.spTricky);
   const gp = mergeWordStrand(liveChildren, a.gp, b.gp, a.gpUpdatedAt, b.gpUpdatedAt, a.gpTricky, b.gpTricky);
   const as = mergeWordStrand(liveChildren, a.as, b.as, a.asUpdatedAt, b.asUpdatedAt, a.asTricky, b.asTricky);
+  const rc = mergeWordStrand(liveChildren, a.rc, b.rc, a.rcUpdatedAt, b.rcUpdatedAt, a.rcTricky, b.rcTricky);
+  const rcReview = mergeReviews(a.rcReview, b.rcReview);
+  // Placement: a strand counts as placed if either device placed it (keep the earlier time).
+  const placed: NonNullable<AppState["placed"]> = {};
+  for (const c of liveChildren) {
+    const pa = a.placed?.[c.id] ?? {};
+    const pb = b.placed?.[c.id] ?? {};
+    const both: Record<string, string> = { ...pb };
+    for (const [k, t] of Object.entries(pa)) both[k] = both[k] && both[k] < t ? both[k] : t;
+    if (Object.keys(both).length) placed[c.id] = both;
+  }
 
   const pinFrom = later(a.pinUpdatedAt, b.pinUpdatedAt) === "a" ? a : b;
   const parentPinHash = pinFrom.parentPinHash ?? a.parentPinHash ?? b.parentPinHash;
@@ -102,6 +115,9 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     ...(Object.keys(sp.progress).length ? { sp: sp.progress, spUpdatedAt: sp.updatedAt, spTricky: sp.tricky } : {}),
     ...(Object.keys(gp.progress).length ? { gp: gp.progress, gpUpdatedAt: gp.updatedAt, gpTricky: gp.tricky } : {}),
     ...(Object.keys(as.progress).length ? { as: as.progress, asUpdatedAt: as.updatedAt, asTricky: as.tricky } : {}),
+    ...(Object.keys(rc.progress).length ? { rc: rc.progress, rcUpdatedAt: rc.updatedAt, rcTricky: rc.tricky } : {}),
+    ...(Object.keys(rcReview).length ? { rcReview } : {}),
+    ...(Object.keys(placed).length ? { placed } : {}),
   };
 }
 

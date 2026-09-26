@@ -41,6 +41,8 @@ npm run build
 | `src/lib/grammar.ts`, `src/app/child/[id]/grammar/page.tsx` | Grammar & punctuation sets (uses `src/content/grammar`, Kimi 004) and practice screen |
 | `src/lib/as.ts`, `src/app/child/[id]/maths/page.tsx` | Adding & taking away generator (Kimi 005) and practice screen |
 | `src/components/NumberPractice.tsx` | Shared keypad/Pencil practice screen (times tables, adding & taking away) |
+| `src/lib/reading.ts`, `src/app/child/[id]/reading/page.tsx`, `src/components/PassageReview.tsx` | Reading comprehension: approved-story picker, reading screen, parent approve/reject panel (stories from `src/content/reading`, Kimi 006) |
+| `src/lib/placement.ts`, `src/app/child/[id]/check/[strand]/page.tsx` | Placement check (first visit to TT / AS / SP / GP) |
 | `src/lib/strands.ts` | Which level strands show for which school year; drives home-page cards and parent level pickers |
 | `src/components/ChoiceGrid.tsx`, `SpeakButton.tsx`, `SoundButtons.tsx`, `src/lib/speech.ts` | Tap-to-answer, text-to-speech and sound-button components (Kimi, brief 003) |
 | `src/app/` | Screens: `/` picker, `/setup`, `/child/[id]`, `/child/[id]/practice`, `/parent` |

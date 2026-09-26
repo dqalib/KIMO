@@ -19,6 +19,7 @@ export interface Attempt {
   secondsPerQuestion: number;
   outcome: Outcome;
   wrong: string[]; // prompts answered wrong first time
+  item?: string; // what was practised, when it's one thing (e.g. a reading passage id)
 }
 
 /** Handwriting progress for one letter. stage 1 = trace, 2 = trace faint guide, 3 = write alone, 4 = mastered. */
@@ -53,4 +54,9 @@ export interface AppState {
   as?: Record<string, LevelProgress>; // addition & subtraction progress by child id
   asUpdatedAt?: Record<string, string>;
   asTricky?: Record<string, Record<string, number>>; // child id -> fact key -> times wrong
+  rc?: Record<string, LevelProgress>; // reading comprehension progress by child id
+  rcUpdatedAt?: Record<string, string>;
+  rcTricky?: Record<string, Record<string, number>>; // child id -> passage id -> times below the pass mark
+  rcReview?: Record<string, { status: "approved" | "rejected"; at: string }>; // passage id -> grown-up's decision
+  placed?: Record<string, Record<string, string>>; // child id -> strand ("tt", "as"…) -> when the placement check was done or skipped
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import ParentGate from "@/components/ParentGate";
+import PassageReview from "@/components/PassageReview";
 import SyncPanel from "@/components/SyncPanel";
 import { currentLetter, lettersMastered } from "@/lib/hw";
 import { accuracy } from "@/lib/mastery";
@@ -49,6 +50,8 @@ function Dashboard() {
       </header>
 
       <SyncPanel />
+
+      <PassageReview reviews={state.rcReview ?? {}} />
 
       {state.children.map((c) => {
         const tt = state.tt[c.id];

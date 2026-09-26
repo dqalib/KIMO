@@ -118,4 +118,12 @@ describe("mergeStates", () => {
     expect(m.as!.s.current).toBe("AS-02");
     expect(m.asTricky!.s).toEqual({ "3+7": 2 });
   });
+
+  it("merges reading reviews and placement checks", () => {
+    const a = { ...base(), children: [child("y")], rcReview: { p1: { status: "approved" as const, at: "2026-09-26T09:00:00Z" } }, placed: { y: { tt: "2026-09-26T08:00:00Z" } } };
+    const b = { ...base(), children: [child("y")], rcReview: { p1: { status: "rejected" as const, at: "2026-09-26T07:00:00Z" } }, placed: { y: { tt: "2026-09-26T09:00:00Z", gp: "2026-09-26T09:30:00Z" } } };
+    const m = mergeStates(b, a);
+    expect(m.rcReview!.p1.status).toBe("approved");
+    expect(m.placed!.y).toEqual({ tt: "2026-09-26T08:00:00Z", gp: "2026-09-26T09:30:00Z" });
+  });
 });

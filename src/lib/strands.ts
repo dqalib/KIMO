@@ -4,6 +4,7 @@
 import { AS_LEVELS } from "./as";
 import { GP_LEVELS } from "./grammar";
 import { PH_LEVELS } from "./phonics";
+import { RC_LEVELS } from "./reading";
 import { SP_LEVELS } from "./spelling";
 import type { Strand } from "./store";
 
@@ -61,5 +62,16 @@ export const STRANDS: StrandInfo[] = [
     levels: GP_LEVELS,
     shownFor: (y) => y >= 2,
     hiddenNote: "starts in Year 2",
+  },
+  {
+    key: "rc",
+    name: "Reading",
+    path: "reading",
+    icon: "📚",
+    button: "Read ▶",
+    levels: RC_LEVELS,
+    // Shown to everyone — but a child only sees the card once a grown-up has approved stories for their level.
+    shownFor: () => true,
+    hiddenNote: "",
   },
 ];

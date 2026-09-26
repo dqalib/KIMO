@@ -4,9 +4,13 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { currentLetter, lettersMastered } from "@/lib/hw";
 import { FAMILIES } from "@/lib/letters";
-import { getInputMode, letterProgress, PENCIL_EXTRA_SECONDS, strandProgress, strandStarted, useAppState } from "@/lib/store";
+import { getInputMode, letterProgress, PENCIL_EXTRA_SECONDS, needsPlacement, strandProgress, strandStarted, useAppState, type PlacementStrand } from "@/lib/store";
+import { approvedPassages } from "@/lib/reading";
 import { STRANDS } from "@/lib/strands";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
+
+// Strands with a placement check (phonics starts at the beginning; reading needs approved stories).
+const PLACEMENT_STRANDS: PlacementStrand[] = ["tt", "as", "sp", "gp"];
 
 export default function ChildHome() {
   const { id } = useParams<{ id: string }>();
@@ -24,6 +28,8 @@ export default function ChildHome() {
   const hwLetter = currentLetter(state, id);
   const hwStage = hwLetter ? letterProgress(state, id, hwLetter.char).stage : 4;
   const hwFamily = hwLetter ? FAMILIES.find((f) => f.id === hwLetter.family) : undefined;
+  // First time in a strand with a placement check: go to the check instead.
+  const checkFirst = (strand: PlacementStrand) => PLACEMENT_STRANDS.includes(strand) && needsPlacement(state, strand, id);
   const streak = dayStreak(state.attempts.filter((a) => a.childId === id).map((a) => a.finishedAt));
 
   return (
@@ -53,6 +59,7 @@ export default function ChildHome() {
         const current = strandProgress(state, st.key, id).current;
         const lvl = st.levels.find((l) => l.id === current);
         if (!lvl) return null;
+        if (st.key === "rc" && approvedPassages(current, state.rcReview).length === 0) return null;
         return (
           <section key={st.key} className="rounded-3xl p-6 bg-card border-4 flex items-center gap-6" style={{ borderColor: child.color }}>
             <div
@@ -70,11 +77,11 @@ export default function ChildHome() {
               {lvl.grownUp && <p className="text-muted font-semibold">Needs a grown-up to listen</p>}
             </div>
             <Link
-              href={`/child/${id}/${st.path}`}
+              href={checkFirst(st.key) ? `/child/${id}/check/${st.key}` : `/child/${id}/${st.path}`}
               className="h-16 px-8 rounded-2xl text-white text-2xl font-extrabold flex items-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
               style={{ background: child.color }}
             >
-              {st.button}
+              {checkFirst(st.key) ? "Let's go ▶" : st.button}
             </Link>
           </section>
         );
@@ -122,10 +129,10 @@ export default function ChildHome() {
           {tt.passStreak > 0 && " · 1 more great set to pass!"}
         </p>
         <Link
-          href={`/child/${id}/practice`}
+          href={checkFirst("tt") ? `/child/${id}/check/tt` : `/child/${id}/practice`}
           className="self-start mt-2 h-16 px-10 rounded-2xl bg-white text-ink text-2xl font-extrabold flex items-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
         >
-          Start ▶
+          {checkFirst("tt") ? "Let's go ▶" : "Start ▶"}
         </Link>
       </section>
 

@@ -8,6 +8,7 @@ import type { LevelProgress, Outcome, SetResult } from "./mastery";
 import { applySet } from "./mastery";
 import { defaultASStart } from "./as";
 import { defaultGpStart } from "./grammar";
+import { defaultRcStart, type ReviewStatus } from "./reading";
 import { defaultSpStart } from "./spelling";
 import { defaultStartLevel, nextLevel, prevLevel } from "./tt";
 
@@ -165,6 +166,8 @@ export function setCurrentLevel(childId: string, levelId: string) {
     ...s,
     tt: { ...s.tt, [childId]: { ...p, current: levelId, passStreak: 0, failStreak: 0, flagged: false } },
     progressUpdatedAt: touched(s, childId),
+    // Choosing a level by hand replaces the placement check.
+    placed: { ...(s.placed ?? {}), [childId]: { ...(s.placed?.[childId] ?? {}), tt: s.placed?.[childId]?.tt ?? now() } },
   });
 }
 
@@ -268,13 +271,14 @@ export function setInputMode(childId: string, mode: InputMode) {
 // Each strand keeps, per child: level progress, when it last changed (for sync),
 // and a "tricky" count per word / question / fact the child got wrong.
 
-export type Strand = "ph" | "sp" | "gp" | "as";
+export type Strand = "ph" | "sp" | "gp" | "as" | "rc";
 
 const START: Record<Strand, (schoolYear: number) => string> = {
   ph: () => "PH-01",
   sp: defaultSpStart,
   gp: defaultGpStart,
   as: defaultASStart,
+  rc: defaultRcStart,
 };
 
 export function strandProgress(s: AppState, strand: Strand, childId: string): LevelProgress {
@@ -302,6 +306,7 @@ export function recordStrandSet(
   next?: string,
   prev?: string,
   wrongLabels: string[] = wrongKeys,
+  item?: string,
 ): Outcome {
   const s = load();
   const { progress, outcome } = applySet(strandProgress(s, strand, childId), levelId, result, next, prev);
@@ -315,6 +320,7 @@ export function recordStrandSet(
     ...result,
     outcome,
     wrong: wrongLabels,
+    ...(item ? { item } : {}),
   };
   save({
     ...s,
@@ -345,3 +351,44 @@ export const recordPhSet = (childId: string, levelId: string, r: SetResult, wron
   recordStrandSet("ph", childId, levelId, r, wrong, next, prev);
 export const recordSpSet = (childId: string, levelId: string, r: SetResult, wrong: string[], next?: string, prev?: string) =>
   recordStrandSet("sp", childId, levelId, r, wrong, next, prev);
+
+// ---- reading: grown-up review of passages ---------------------------------------
+
+export function reviewPassage(passageId: string, status: ReviewStatus | null) {
+  const s = load();
+  const rcReview = { ...(s.rcReview ?? {}) };
+  if (status) rcReview[passageId] = { status, at: now() };
+  else delete rcReview[passageId];
+  save({ ...s, rcReview });
+}
+
+/** How many times each passage has been read by this child. */
+export function passageReadCounts(s: AppState, childId: string): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const a of s.attempts) if (a.childId === childId && a.item && a.levelId.startsWith("RC-")) out[a.item] = (out[a.item] ?? 0) + 1;
+  return out;
+}
+
+// ---- placement checks -----------------------------------------------------------
+
+export type PlacementStrand = "tt" | Strand;
+
+/**
+ * Should this strand open with the placement check? Only the first time:
+ * not yet placed, never practised, and the parent hasn't picked a level.
+ */
+export function needsPlacement(s: AppState, strand: PlacementStrand, childId: string): boolean {
+  if (s.placed?.[childId]?.[strand]) return false;
+  if (strand === "tt") return !s.attempts.some((a) => a.childId === childId && a.levelId.startsWith("TT-"));
+  return !strandStarted(s, strand, childId);
+}
+
+/** Save the level a placement check chose (or mark it skipped when levelId is omitted). */
+export function finishPlacement(strand: PlacementStrand, childId: string, levelId?: string) {
+  if (levelId) {
+    if (strand === "tt") setCurrentLevel(childId, levelId);
+    else setStrandLevel(strand, childId, levelId);
+  }
+  const s = load();
+  save({ ...s, placed: { ...(s.placed ?? {}), [childId]: { ...(s.placed?.[childId] ?? {}), [strand]: now() } } });
+}
