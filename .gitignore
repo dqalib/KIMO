@@ -56,5 +56,8 @@ ml/digits/mnist/
 /audio-samples/
 
 # API keys — never commit
+GOOGLE_API
 GOOGLE_API.txt
+ELEVENLABS_API
+ELEVENLABS_API.txt
 *.key
