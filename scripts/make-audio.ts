@@ -7,7 +7,8 @@
 //   npm run audio -- --voice en-GB-Chirp3-HD-Leda --force   switch voice and remake all
 //   npm run audio -- --prune        also delete recordings nothing uses any more
 //
-// Needs GOOGLE_TTS_API_KEY — set it in .env.local (never committed) or the shell.
+// Needs a Google API key: GOOGLE_TTS_API_KEY in .env.local or the shell, or the key
+// pasted into GOOGLE_API.txt in the KIMO folder (both are git-ignored — never committed).
 // Files go to public/audio/<key>.mp3 and the list to src/content/audio-manifest.json,
 // which the app reads to know what it can play (src/lib/speech.ts).
 
@@ -46,11 +47,17 @@ const option = (name: string) => {
 function loadKey(): string | undefined {
   if (process.env.GOOGLE_TTS_API_KEY) return process.env.GOOGLE_TTS_API_KEY.trim();
   const envFile = join(ROOT, ".env.local");
-  if (!existsSync(envFile)) return undefined;
-  const line = readFileSync(envFile, "utf8")
-    .split(/\r?\n/)
-    .find((l) => l.startsWith("GOOGLE_TTS_API_KEY="));
-  return line?.slice("GOOGLE_TTS_API_KEY=".length).trim().replace(/^["']|["']$/g, "");
+  if (existsSync(envFile)) {
+    const line = readFileSync(envFile, "utf8")
+      .split(/\r?\n/)
+      .find((l) => l.startsWith("GOOGLE_TTS_API_KEY="));
+    const v = line?.slice("GOOGLE_TTS_API_KEY=".length).trim().replace(/^["']|["']$/g, "");
+    if (v) return v;
+  }
+  // Or a plain text file with the key in it (git-ignored). Google API keys start "AIza".
+  const txt = join(ROOT, "GOOGLE_API.txt");
+  if (existsSync(txt)) return readFileSync(txt, "utf8").match(/AIza[0-9A-Za-z_-]{30,}/)?.[0];
+  return undefined;
 }
 
 interface Manifest {
@@ -123,7 +130,7 @@ async function main() {
 
   const apiKey = loadKey();
   if (!apiKey) {
-    console.error("\nNo GOOGLE_TTS_API_KEY found. Add a line  GOOGLE_TTS_API_KEY=your-key  to .env.local, then run again.");
+    console.error("\nNo Google API key found. Put it in GOOGLE_API.txt (or GOOGLE_TTS_API_KEY=... in .env.local), then run again.");
     process.exit(1);
   }
 

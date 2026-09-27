@@ -86,3 +86,15 @@ describe("report", () => {
     expect(t.find((x) => x.subject === "Grammar")!.label).toContain("Which word is a verb?");
   });
 });
+
+describe("numbers labels", () => {
+  it("turns question keys into readable text", async () => {
+    const { npLabel } = await import("./report");
+    expect(npLabel("r100:250")).toBe("round 250 to the nearest 100");
+    expect(npLabel("m10:395")).toBe("10 more than 395");
+    expect(npLabel("l1000:8413")).toBe("1000 less than 8413");
+    expect(npLabel("cmp:63:36")).toBe("63 ? 36");
+    expect(npLabel("2s:4:1")).toBe("counting in 2s");
+    expect(npLabel("toroman:29")).toBe("29 in Roman numerals");
+  });
+});

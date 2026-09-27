@@ -54,6 +54,9 @@ export interface AppState {
   as?: Record<string, LevelProgress>; // addition & subtraction progress by child id
   asUpdatedAt?: Record<string, string>;
   asTricky?: Record<string, Record<string, number>>; // child id -> fact key -> times wrong
+  np?: Record<string, LevelProgress>; // number & place value progress by child id
+  npUpdatedAt?: Record<string, string>;
+  npTricky?: Record<string, Record<string, number>>; // child id -> question key -> times wrong
   rc?: Record<string, LevelProgress>; // reading comprehension progress by child id
   rcUpdatedAt?: Record<string, string>;
   rcTricky?: Record<string, Record<string, number>>; // child id -> passage id -> times below the pass mark

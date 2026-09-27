@@ -54,3 +54,7 @@ ml/digits/mnist/
 
 # voice samples made by `npm run audio -- --samples` (listen, then delete)
 /audio-samples/
+
+# API keys — never commit
+GOOGLE_API.txt
+*.key

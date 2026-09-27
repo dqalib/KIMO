@@ -47,3 +47,15 @@ describe("reading", () => {
     expect(spokenPassage(p("a"))).toBe("Story a. Sam had a red hat. It blew away.");
   });
 });
+
+describe("shuffleRcOptions", () => {
+  it("keeps the right answer marked", async () => {
+    const { shuffleRcOptions, PASSAGES } = await import("./reading");
+    for (const p of PASSAGES)
+      for (const q of p.questions) {
+        const s = shuffleRcOptions(q);
+        expect(s.options[s.answer]).toBe(q.options[q.answer]);
+        expect([...s.options].sort()).toEqual([...q.options].sort());
+      }
+  });
+});

@@ -41,6 +41,7 @@ npm run build
 | `src/lib/grammar.ts`, `src/app/child/[id]/grammar/page.tsx` | Grammar & punctuation sets (uses `src/content/grammar`, Kimi 004) and practice screen |
 | `src/lib/as.ts`, `src/app/child/[id]/maths/page.tsx` | Adding & taking away generator (Kimi 005) and practice screen |
 | `src/components/NumberPractice.tsx` | Shared keypad/Pencil practice screen (times tables, adding & taking away) |
+| `src/lib/np.ts`, `src/app/child/[id]/numbers/page.tsx` | Numbers & place value generator (Kimi 007) and practice screen |
 | `src/lib/reading.ts`, `src/app/child/[id]/reading/page.tsx`, `src/components/PassageReview.tsx` | Reading comprehension: approved-story picker, reading screen, parent approve/reject panel (stories from `src/content/reading`, Kimi 006) |
 | `src/lib/placement.ts`, `src/app/child/[id]/check/[strand]/page.tsx` | Placement check (first visit to TT / AS / SP / GP) |
 | `src/lib/report.ts` | Weekly summary, daily goal, streak and tricky items (parent dashboard + child home) |

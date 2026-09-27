@@ -100,11 +100,36 @@ function asLabel(key: string): string {
   return key.replace(/([+\-=])/g, " $1 ").replace(/ - /g, " − ").replace(/\s+/g, " ").trim();
 }
 
+/** Readable version of a numbers question key (see src/lib/np.ts), e.g. "r100:250" → "round 250 to the nearest 100". */
+export function npLabel(key: string): string {
+  const [kind, ...p] = key.split(":");
+  let m: RegExpMatchArray | null;
+  if ((m = kind.match(/^([ml])(\d+)$/))) return `${m[2]} ${m[1] === "m" ? "more" : "less"} than ${p[0]}`;
+  if ((m = kind.match(/^r(\d+)$/))) return `round ${p[0]} to the nearest ${m[1]}`;
+  if ((m = kind.match(/^(\d+)s$/))) return `counting in ${m[1]}s`;
+  const named: Record<string, () => string> = {
+    after: () => `after ${p[0]}`,
+    before: () => `before ${p[0]}`,
+    between: () => `the number between ${Number(p[0]) - 1} and ${Number(p[0]) + 1}`,
+    write: () => `writing ${p[0]}`,
+    cmp: () => `${p[0]} ? ${p[1]}`,
+    to: () => `${p[0]} tens and ${p[1]} ones`,
+    hto: () => `${p[0]} hundreds, ${p[1]} tens, ${p[2]} ones`,
+    tho: () => `${p[0]} thousands, ${p[1]} hundreds, ${p[2]} tens, ${p[3]} ones`,
+    digit: () => `the ${p[0]} in ${p[1]}`,
+    neg: () => "negative numbers",
+    roman: () => `${p[0]} = ?`,
+    toroman: () => `${p[0]} in Roman numerals`,
+  };
+  return named[kind]?.() ?? key.replace(/:/g, " ");
+}
+
 /** The things each child most often gets wrong, across every subject. */
 export function trickyItems(s: AppState, childId: string, limit = 8): TrickyItem[] {
   const out: TrickyItem[] = [];
   for (const [k, n] of Object.entries(s.weakFacts[childId] ?? {})) out.push({ subject: SUBJECTS.TT, label: k.replace("x", " × ").replace("/", " ÷ "), count: n });
   for (const [k, n] of Object.entries(s.asTricky?.[childId] ?? {})) out.push({ subject: SUBJECTS.AS, label: asLabel(k), count: n });
+  for (const [k, n] of Object.entries(s.npTricky?.[childId] ?? {})) out.push({ subject: SUBJECTS.NP, label: npLabel(k), count: n });
   for (const [k, n] of Object.entries(s.spTricky?.[childId] ?? {})) out.push({ subject: SUBJECTS.SP, label: k, count: n });
   for (const [k, n] of Object.entries(s.phTricky?.[childId] ?? {})) out.push({ subject: SUBJECTS.PH, label: k, count: n });
   for (const [k, n] of Object.entries(s.gpTricky?.[childId] ?? {})) {

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import ChoiceGrid from "@/components/ChoiceGrid";
 import NumberPad from "@/components/NumberPad";
 import PencilAnswer from "@/components/PencilAnswer";
 import { accuracy, isPassingSet, timeTargetMs, type Outcome, type SetResult } from "@/lib/mastery";
@@ -21,9 +22,15 @@ export interface NumberLevel {
 
 export interface NumberQuestion {
   key: string; // stable fact key for the tricky-facts list
-  prompt: string; // shown to the child; " =" is added unless it contains "?"
-  answer: number;
+  prompt: string; // shown to the child; " =" is added to plain sums (no "?" and no words)
+  answer: number | string;
+  /** Tap-to-answer choices (e.g. "<", ">", "=", Roman numerals, negative numbers) instead of the keypad. */
+  options?: string[];
 }
+
+/** Word questions ("Round 605 to the nearest 10") get smaller text and no " =". */
+const isWordy = (prompt: string) => /[A-Za-z]{2,}/.test(prompt);
+const shownPrompt = (prompt: string) => (prompt.includes("?") || isWordy(prompt) ? prompt : `${prompt} =`);
 
 interface Props {
   child: Child;
@@ -107,7 +114,7 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
   const submitValue = useCallback((value: string) => {
     if (busy.current || !q || value === "") return;
     busy.current = true;
-    const correct = Number(value) === q.answer;
+    const correct = typeof q.answer === "number" ? Number(value) === q.answer : value === q.answer;
 
     if (phase === "main") {
       if (correct) {
@@ -163,7 +170,7 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
     return () => clearTimeout(t);
   }, [level, phase, index, markWrongMain]);
 
-  const onDigit = useCallback((d: string) => setInput((v) => (v.length < 3 ? v + d : v)), []);
+  const onDigit = useCallback((d: string) => setInput((v) => (v.length < 5 ? v + d : v)), []);
   const onBack = useCallback(() => setInput((v) => v.slice(0, -1)), []);
 
   if (phase === "ready") {
@@ -240,22 +247,38 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
           flash === "good" ? "border-good" : flash === "bad" ? "border-bad animate-shake" : "border-line"
         }`}
       >
-        <p className="text-6xl sm:text-7xl font-black tabular-nums">{q?.prompt.includes("?") ? q.prompt : `${q?.prompt} =`}</p>
         <p
-          className={`min-h-20 min-w-40 px-6 rounded-2xl border-4 border-dashed text-6xl font-black tabular-nums flex items-center justify-center ${
-            flash === "good" ? "text-good border-good" : flash === "bad" ? "text-bad border-bad" : "border-line"
+          className={`px-4 text-center font-black tabular-nums ${
+            q && isWordy(q.prompt) ? (q.prompt.length > 40 ? "text-3xl sm:text-4xl" : "text-4xl sm:text-5xl") : "text-6xl sm:text-7xl"
           }`}
         >
-          {input || " "}
+          {q && shownPrompt(q.prompt)}
         </p>
+        {!q?.options && (
+          <p
+            className={`min-h-20 min-w-40 px-6 rounded-2xl border-4 border-dashed text-6xl font-black tabular-nums flex items-center justify-center ${
+              flash === "good" ? "text-good border-good" : flash === "bad" ? "text-bad border-bad" : "border-line"
+            }`}
+          >
+            {input || " "}
+          </p>
+        )}
         {showAnswer && q && (
           <p className="text-2xl font-bold text-muted animate-pop">
-            It&apos;s <span className="text-ink">{q.answer}</span> — type it in
+            It&apos;s <span className="text-ink">{q.answer}</span> — {q.options ? "tap it" : "type it in"}
           </p>
         )}
       </div>
 
-      {mode === "pencil" ? (
+      {q?.options ? (
+        <ChoiceGrid
+          key={`${phase}-${phase === "fix" ? fixIndex : index}-${attemptNo}`}
+          options={q.options}
+          size="lg"
+          disabled={flash !== null}
+          onChoose={(option) => submitValue(option)}
+        />
+      ) : mode === "pencil" ? (
         <PencilAnswer
           key={attemptNo}
           color={child.color}
@@ -267,7 +290,7 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
       ) : (
         <NumberPad onDigit={onDigit} onBack={onBack} onSubmit={submit} disabled={flash !== null} />
       )}
-      {!level.hardLimit && (
+      {!level.hardLimit && !q?.options && (
         <button
           className="text-sm text-muted underline"
           onClick={() => {

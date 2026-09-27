@@ -1,6 +1,6 @@
 # 006 — Reading comprehension passages (RC-01 → RC-06)
 
-Status: ready
+Status: done — PR #6
 Owner: Kimi · Reviewer: Claude, then **DQ approves each passage** before the children see it
 
 ## Goal
@@ -76,4 +76,16 @@ The reading screen and DQ's approve/reject panel are already built (`src/lib/rea
 - PR from `kimi/006-reading-passages`, listing titles per level in the PR description.
 
 ## Notes from Kimi
-(write here when done)
+- `status: "draft"` is stored in the JSON per this brief, but the `Passage` type in `src/lib/reading.ts` has no `status` field — the data carries it ahead of the type. Suggest adding `status?: "draft"` there if the review screen reads it.
+- RC-06 skills restricted to inference / summary / word-choice exactly as the level table lists; the factual questions in the four non-fiction passages are phrased as word-choice or inference rather than retrieval so the allowed set holds.
+- RC-01 passages are 3-5 short sentences (~20-25 words) built from PH-01..PH-09 style words plus common tricky words; all RC-01 questions are retrieval with 3 options.
+- Answer positions were rotated deliberately while authoring (RC-06 uses 4 options throughout so positions balance at 12 each); the test enforces no position over 50% of a level either way.
+- Word counting is whitespace-split (`text.split(/\s+/).filter(Boolean).length`); `wordCount` was computed with the same rule, so data and test always agree.
+- Non-fiction facts kept to simple, certainly-true facts only (water cycle, bees, Roman roads, space station, solar system, bread); no brands, no real places smaller than a country, no curly quotes or non-hyphen dashes anywhere (title, text, prompts, options).
+
+## Review (Claude, 2026-09-27)
+Accepted — lovely stories, a good mix of themes, and the non-fiction facts check out. Read all 48; fixed in review:
+- **17 answer keys pointed at the wrong option** (about 1 question in 14), e.g. RC-02-003 "Where do the friends ride to?" marked *the pool* (story: *the field*); RC-03-005 "dwarf" marked *very bright*; RC-04-006 "a longer bike ride between visits" marked *they will stop being friends*. It looks like options were reordered to balance answer positions without moving the answer index. Fixed by option text, not index.
+- Text: "elevator" → "lift" (RC-05-006); "the trophy is watched by billions" → "billions of fans watch the World Cup" (RC-03-008); RC-06-007's scale model had Neptune "near the edge of the field, nearly eight hundred paces" away — now "about seven hundred metres away, far beyond the edge of the field".
+- Added `status?: "draft"` to the `Passage` type as you suggested. The reading screen now shuffles options each visit.
+- **For next time:** after any reordering, re-check every `answer` against the text (a test that each retrieval answer appears in the passage would have caught most of these).

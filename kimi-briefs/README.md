@@ -21,10 +21,12 @@ Task briefs for Kimi. One file per task: `NNN-short-name.md`. Claude (lead) writ
 | 003 | [Tap, listen and sound-button components](003-choice-and-audio-components.md) | done — reviewed, PR #3 |
 | 004 | [Grammar & punctuation questions](004-grammar-questions.md) | done — reviewed, PR #4 |
 | 005 | [Addition & subtraction generator](005-addition-subtraction-generator.md) | done — reviewed, PR #5 |
-| 006 | [Reading comprehension passages](006-reading-passages.md) | ready |
-| 007 | [Number & place value generator](007-place-value-generator.md) | ready |
+| 006 | [Reading comprehension passages](006-reading-passages.md) | done — reviewed, PR #6 |
+| 007 | [Number & place value generator](007-place-value-generator.md) | done — reviewed, PR #7 |
+| 008 | [Fractions generator](008-fractions-generator.md) | ready |
+| 009 | [Clock face + time questions](009-clock-and-time.md) | ready |
 
-006 and 007 are independent — do them in any order, or in parallel. Pull `main` first.
+008 and 009 are independent — do them in any order, or in parallel. Pull `main` first.
 
 
 **Work only in your own clone: `C:\Users\Dayib.Qalib\Downloads\AI-Project\KIMO-kimi`. Never in the `KIMO` folder.**

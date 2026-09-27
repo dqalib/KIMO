@@ -3,6 +3,7 @@
 
 import { AS_LEVELS } from "./as";
 import { GP_LEVELS } from "./grammar";
+import { NP_LEVELS } from "./np";
 import { PH_LEVELS } from "./phonics";
 import { RC_LEVELS } from "./reading";
 import { SP_LEVELS } from "./spelling";
@@ -42,6 +43,16 @@ export const STRANDS: StrandInfo[] = [
     levels: AS_LEVELS,
     shownFor: (y) => y <= 2,
     hiddenNote: "for Years 1–2",
+  },
+  {
+    key: "np",
+    name: "Numbers",
+    path: "numbers",
+    icon: "🔢",
+    button: "Start ▶",
+    levels: NP_LEVELS,
+    shownFor: () => true,
+    hiddenNote: "",
   },
   {
     key: "sp",

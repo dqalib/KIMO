@@ -6,11 +6,11 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ChoiceGrid from "@/components/ChoiceGrid";
 import SpeakButton from "@/components/SpeakButton";
 import { accuracy, type Outcome, type SetResult } from "@/lib/mastery";
-import { getRcLevel, nextRcLevel, pickPassage, prevRcLevel, spokenPassage, type Passage, type RcLevel, type Reviews } from "@/lib/reading";
+import { getRcLevel, nextRcLevel, pickPassage, prevRcLevel, spokenPassage, shuffleRcOptions, type Passage, type RcLevel, type Reviews } from "@/lib/reading";
 import { passageReadCounts, recordStrandSet, strandProgress, useAppState, type Child } from "@/lib/store";
 
 export default function ReadingPage() {
@@ -33,7 +33,8 @@ function Chooser({ child, level, reviews, readCounts }: { child: Child; level: R
 type Phase = "read" | "questions" | "fix" | "done";
 
 function Session({ child, level, passage }: { child: Child; level: RcLevel; passage: Passage }) {
-  const questions = passage.questions;
+  // Options in a fresh order each time, so the answer isn't always in the same place.
+  const [questions] = useState(() => passage.questions.map((q) => shuffleRcOptions(q)));
   const [phase, setPhase] = useState<Phase>("read");
   const [i, setI] = useState(0);
   const [fix, setFix] = useState<number[]>([]);
@@ -44,6 +45,11 @@ function Session({ child, level, passage }: { child: Child; level: RcLevel; pass
   const startedAt = useRef(0);
 
   const order = phase === "fix" ? fix : questions.map((_, k) => k);
+
+  // Long stories push the question below the screen on an iPad: bring it into view.
+  useEffect(() => {
+    if (phase === "questions" || phase === "fix") document.getElementById("rc-question")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [phase, i]);
   const q = questions[order[i]];
 
   const finish = useCallback(() => {
@@ -137,7 +143,7 @@ function Session({ child, level, passage }: { child: Child; level: RcLevel; pass
         </button>
       ) : (
         q && (
-          <section key={`${phase}-${i}`} className="flex flex-col items-center gap-4 animate-pop">
+          <section id="rc-question" key={`${phase}-${i}`} className="flex flex-col items-center gap-4 animate-pop">
             {phase === "fix" && <p className="text-xl font-extrabold text-warn">Look back at the story and try again ✏️</p>}
             <div className="flex items-center gap-3">
               <h2 className="text-3xl font-black text-center">{q.prompt}</h2>

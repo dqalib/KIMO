@@ -23,6 +23,14 @@ export interface Passage {
   text: string;
   wordCount: number;
   questions: RcQuestion[];
+  /** Kimi's drafts say "draft"; what counts is the grown-up's review in AppState.rcReview. */
+  status?: "draft";
+}
+
+/** Same question with its options in a random order (the answer index follows). */
+export function shuffleRcOptions(q: RcQuestion, rng: () => number = Math.random): RcQuestion {
+  const order = q.options.map((_, i) => ({ i, r: rng() })).sort((a, b) => a.r - b.r).map((x) => x.i);
+  return { ...q, options: order.map((i) => q.options[i]), answer: order.indexOf(q.answer) };
 }
 
 export type ReviewStatus = "approved" | "rejected";

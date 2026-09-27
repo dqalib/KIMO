@@ -14,6 +14,7 @@ import NumberPad from "@/components/NumberPad";
 import SpeakButton from "@/components/SpeakButton";
 import { AS_LEVELS, defaultASStart, generateASSet, getASLevel } from "@/lib/as";
 import { GP_LEVELS, defaultGpStart, generateGpSet, getGpLevel, spokenGp } from "@/lib/grammar";
+import { NP_LEVELS, defaultNPStart, generateNPSet, getNPLevel } from "@/lib/np";
 import { PER_LEVEL, recordRound, startPlacement, type PlacementState } from "@/lib/placement";
 import { speak } from "@/lib/speech";
 import { SP_LEVELS, defaultSpStart, generateSpSet, getSpLevel, isCorrectSpelling, spokenPrompt } from "@/lib/spelling";
@@ -55,6 +56,18 @@ const CHECKS: Partial<Record<PlacementStrand, StrandCheck>> = {
     levels: AS_LEVELS,
     start: defaultASStart,
     questions: (id) => pick(generateASSet(getASLevel(id)!), PER_LEVEL).map((q) => ({ kind: "number", prompt: q.text, answer: q.answer })),
+  },
+  np: {
+    name: "Numbers",
+    path: "numbers",
+    levels: NP_LEVELS,
+    start: defaultNPStart,
+    questions: (id) =>
+      pick(generateNPSet(getNPLevel(id)!), PER_LEVEL).map((q) =>
+        q.options
+          ? { kind: "choice", prompt: q.text, say: q.text, options: q.options, answer: q.options.indexOf(String(q.answer)), stack: false }
+          : { kind: "number", prompt: q.text, answer: Number(q.answer) },
+      ),
   },
   sp: {
     name: "Spelling",
@@ -143,7 +156,7 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
     if (!q || q.kind !== "spell" || !input.trim()) return;
     answer(isCorrectSpelling(input, q.word));
   }, [q, input, answer]);
-  const onDigit = useCallback((d: string) => setInput((v) => (v.length < 4 ? v + d : v)), []);
+  const onDigit = useCallback((d: string) => setInput((v) => (v.length < 5 ? v + d : v)), []);
   const onKey = useCallback((ch: string) => setInput((v) => (v.length < 16 ? v + ch : v)), []);
   const onBack = useCallback(() => setInput((v) => v.slice(0, -1)), []);
 
@@ -212,7 +225,9 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
         {q.kind === "number" && (
           <>
             <div className="w-full max-w-xl rounded-3xl bg-card border-4 border-line py-10 flex flex-col items-center gap-4">
-              <p className="text-6xl sm:text-7xl font-black tabular-nums">{q.prompt.includes("?") ? q.prompt : `${q.prompt} =`}</p>
+              <p className={`px-4 text-center font-black tabular-nums ${/[A-Za-z]{2,}/.test(q.prompt) ? "text-4xl" : "text-6xl sm:text-7xl"}`}>
+                {q.prompt.includes("?") || /[A-Za-z]{2,}/.test(q.prompt) ? q.prompt : `${q.prompt} =`}
+              </p>
               <p className="min-h-20 min-w-40 px-6 rounded-2xl border-4 border-dashed border-line text-6xl font-black tabular-nums flex items-center justify-center">
                 {input || " "}
               </p>
