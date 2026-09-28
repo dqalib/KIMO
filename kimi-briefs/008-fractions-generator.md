@@ -1,6 +1,6 @@
 # 008 — Fractions question generator (FR-02 → FR-06)
 
-Status: ready
+Status: done — PR #8
 Owner: Kimi · Reviewer: Claude, then DQ
 
 ## Goal
@@ -55,4 +55,10 @@ export function generateFRSet(level: FRLevel, tricky?: Record<string, number>, r
 `npm run lint`, `npm test`, `npm run build` pass; PR from `kimi/008-fractions-generator` with 2 example sets per level.
 
 ## Notes from Kimi
-(write here when done)
+
+- Key grammar: `of:n:d:a`, `inv:n:d:r`, `howmany:d`, `eq:n:d:x:rd` / `eq:n:d:rn:x` (blank field is `x`), `same:n:d:k`, `cmp:a:b:c:d`, `add:a:b:d`, `sub:a:b:d`, `big:a:b:c:d`, `dec:n:d`, `hund:n:d`, `todec:n:d`.
+- Exact division by construction: amounts are `d*k`, so "fraction of an amount" never has remainders; inverse questions (`1/3 of ? = 30`) are built the same way backwards.
+- Options rule in one place: required unless the answer is a whole number 0–1000 (keypad). `cmp` options are exactly `["<",">","="]` with `=` at ~1/6 plus a forced `=` starter at FR-05; `big` carries exactly its two fractions (per the brief's example); `same` confusions are `n/(d·k)` and `(n+1)/(d+1)`; `todec` slips are digit-swap, 10×, and off-by-one in the last digit.
+- Denominators per year: Y2 {2,3,4}, Y3 ≤ 10 — including equivalent-fraction questions (`k` is capped so `d·k ≤ 10`), Y4 hundredths set {2,4,5,10,20,25,50,100}. Compares and "which is bigger" use proper fractions only.
+- Starter slots pin the headline skill every set (¾ of an amount at FR-02, an `=` compare at FR-05, …), which also guarantees ≥ 3 shapes per set; pools prune used keys so no key repeats within a set.
+- Tricky weight is `1 + 2*min(count, 3)` — about 3× when unseen, mirroring np.ts.
