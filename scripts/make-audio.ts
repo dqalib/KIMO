@@ -64,6 +64,8 @@ function findKey(): { provider: Provider; key: string } | undefined {
   const candidates = [
     process.env.ELEVENLABS_API_KEY,
     envLocal("ELEVENLABS_API_KEY"),
+    tokenFrom("EL-API-Key.txt"),
+    tokenFrom("EL-API-Key"),
     tokenFrom("ELEVENLABS_API.txt"),
     tokenFrom("ELEVENLABS_API"),
     process.env.GOOGLE_TTS_API_KEY,
@@ -102,9 +104,24 @@ interface ElVoice {
   description?: string;
 }
 
+/** ElevenLabs' own British voices, used when the key isn't allowed to list voices (no voices_read). */
+const EL_BRITISH: ElVoice[] = [
+  { voice_id: "pFZP5JQG7iQjIQuC4Bku", name: "Lily", labels: { accent: "british", gender: "female", age: "middle aged" } },
+  { voice_id: "Xb7hH8MSUJpSbSDYk0k2", name: "Alice", labels: { accent: "british", gender: "female", age: "middle aged" } },
+  { voice_id: "ThT5KcBeYPX3keUQqHPh", name: "Dorothy", labels: { accent: "british", gender: "female", age: "young" } },
+  { voice_id: "JBFqnCBsd6RMkjVDRZzb", name: "George", labels: { accent: "british", gender: "male", age: "middle aged" } },
+  { voice_id: "onwK4e9ZLuTAKqWW03F9", name: "Daniel", labels: { accent: "british", gender: "male", age: "middle aged" } },
+];
+
 async function elevenVoices(key: string): Promise<ElVoice[]> {
-  const res = await retrying("ElevenLabs voices", () => fetch(`${EL}/voices`, { headers: { "xi-api-key": key } }));
-  return ((await res.json()) as { voices: ElVoice[] }).voices;
+  try {
+    const res = await retrying("ElevenLabs voices", () => fetch(`${EL}/voices`, { headers: { "xi-api-key": key } }));
+    return ((await res.json()) as { voices: ElVoice[] }).voices;
+  } catch (e) {
+    if (!String(e).includes("voices_read")) throw e;
+    console.log("(This key can't list voices — using ElevenLabs' built-in British voices instead.)");
+    return EL_BRITISH;
+  }
 }
 
 /** British-sounding voices by their labels/description. */
@@ -224,7 +241,12 @@ async function main() {
       if (!british.length) console.log("(No voices labelled British in your ElevenLabs voice list — sampling the first few. Add British voices from the Voice Library, then run again.)");
       for (const v of pick) {
         const file = `${v.name.replace(/[^A-Za-z0-9]+/g, "-")}__${v.voice_id}.mp3`;
-        writeFileSync(join(SAMPLE_DIR, file), await elevenSpeak(key, v.voice_id, SAMPLE_TEXT));
+        try {
+          writeFileSync(join(SAMPLE_DIR, file), await elevenSpeak(key, v.voice_id, SAMPLE_TEXT));
+        } catch (e) {
+          console.log(`  ✗ ${v.name}: ${String(e).slice(0, 200)}`);
+          continue;
+        }
         console.log(`  ✓ audio-samples/${file}   (${[v.labels?.accent, v.labels?.gender, v.labels?.age].filter(Boolean).join(", ")})`);
       }
       console.log("\nListen, then run:  npm.cmd run audio -- --voice <the ID after the __ in the file name>");

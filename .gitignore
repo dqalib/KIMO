@@ -60,4 +60,11 @@ GOOGLE_API
 GOOGLE_API.txt
 ELEVENLABS_API
 ELEVENLABS_API.txt
+EL-API-Key
+EL-API-Key.txt
+s.txt
 *.key
+
+# voice script helper output
+voice-log.txt
+publish-log.txt
