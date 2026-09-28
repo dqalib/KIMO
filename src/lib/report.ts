@@ -142,6 +142,12 @@ export function frLabel(key: string): string {
     dec: () => `${f(p[0], p[1])} as a decimal`,
     hund: () => `${f(p[0], p[1])} in hundredths`,
     todec: () => `${f(p[0], p[1])} as a decimal`,
+    shade: () => `which fraction of a ${p[0] === "rect" ? "rectangle" : p[0]} is shaded (1/${p[1]})`,
+    halves: () => `is a ${p[0] === "rect" ? "rectangle" : p[0]} cut into halves?`,
+    quarters: () => `is a ${p[0] === "rect" ? "rectangle" : p[0]} cut into quarters?`,
+    pick: () => `finding 1/${p[0]} of a ${p[1] === "rect" ? "rectangle" : p[1]}`,
+    half: () => `half of ${p[0]}`,
+    quarter: () => `a quarter of ${p[0]}`,
   };
   return named[kind]?.() ?? key.replace(/:/g, " ");
 }

@@ -58,7 +58,8 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
   const [mode, setMode] = useState<InputMode>(initialMode);
   const [attemptNo, setAttemptNo] = useState(0); // bumps to clear the Pencil pad
   // Writing takes a little longer than tapping, so Pencil sets get extra time per question.
-  const secondsPerQuestion = level.secondsPerQuestion + (mode === "pencil" && !level.hardLimit ? PENCIL_EXTRA_SECONDS : 0);
+  // (0 = no time target at all, e.g. Year 1 fractions — the Pencil must not add one.)
+  const secondsPerQuestion = level.secondsPerQuestion + (mode === "pencil" && !level.hardLimit && level.secondsPerQuestion > 0 ? PENCIL_EXTRA_SECONDS : 0);
   const [questions] = useState<NumberQuestion[]>(makeQuestions);
   const [phase, setPhase] = useState<Phase>("ready");
   const [index, setIndex] = useState(0);

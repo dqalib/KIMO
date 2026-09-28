@@ -1,6 +1,7 @@
-// Fractions (FR) strand, Years 2-4 — levels and question generator.
-// Source of truth: docs/skill-map.md. FR-01 (halves/quarters of shapes)
-// needs pictures and comes later.
+// Fractions (FR) strand, Years 1-4 — levels and question generator.
+// Source of truth: docs/skill-map.md. FR-01 (halves and quarters of shapes,
+// Year 1) puts shape pictures in the text as [[shape:parts:shaded]] tokens,
+// drawn by src/components/FractionText.tsx.
 // Mirrors the style and API shape of np.ts.
 
 export interface FRLevel {
@@ -20,6 +21,7 @@ export interface FRQuestion {
 }
 
 export const FR_LEVELS: FRLevel[] = [
+  { id: "FR-01", order: 1, year: 1, title: "Halves and quarters", setSize: 10, secondsPerQuestion: 0 },
   { id: "FR-02", order: 2, year: 2, title: "Fractions of amounts", setSize: 15, secondsPerQuestion: 10 },
   { id: "FR-03", order: 3, year: 3, title: "Tenths and fractions of amounts", setSize: 15, secondsPerQuestion: 12 },
   { id: "FR-04", order: 4, year: 3, title: "Equivalent fractions", setSize: 15, secondsPerQuestion: 12 },
@@ -42,7 +44,8 @@ export function prevFRLevel(id: string): FRLevel | undefined {
 }
 
 export function defaultFRStart(schoolYear: number): string {
-  if (schoolYear <= 2) return "FR-02";
+  if (schoolYear <= 1) return "FR-01";
+  if (schoolYear === 2) return "FR-02";
   if (schoolYear === 3) return "FR-03";
   return "FR-04";
 }
@@ -282,11 +285,66 @@ type Slot = (rng: Rng) => FRQuestion | undefined;
  * Keys the child has got wrong before (tricky) are 3× as likely, like np.ts.
  * No repeated key within a set; opening slots guarantee the level's rules.
  */
+// ---- FR-01: halves and quarters of shapes and amounts (Year 1) ------------------
+
+export type ShapeKind = "circle" | "square" | "rect";
+const SHAPES: ShapeKind[] = ["circle", "square", "rect"];
+const SHAPE_WORD: Record<ShapeKind, string> = { circle: "circle", square: "square", rect: "rectangle" };
+
+/** Picture token: [[circle:4:1]] = circle cut into 4 equal parts, 1 shaded; add ":u" for unequal parts. */
+export function shapeToken(shape: ShapeKind, parts: number, shaded: number, unequal = false): string {
+  return `[[${shape}:${parts}:${shaded}${unequal ? ":u" : ""}]]`;
+}
+
+function fr01Question(rng: Rng, kind: string): FRQuestion {
+  const shape = SHAPES[ri(rng, 0, SHAPES.length - 1)];
+  const n = rng() < 0.5 ? 2 : 4;
+  const word = n === 2 ? "half" : "quarter";
+  switch (kind) {
+    case "shade":
+      return q(`shade:${shape}:${n}`, `What fraction is shaded? ${shapeToken(shape, n, 1)}`, `1/${n}`, ["1/2", "1/4"]);
+    case "cut": {
+      const equal = rng() < 0.5;
+      const k = n === 2 ? "halves" : "quarters";
+      return q(`${k}:${shape}:${equal ? "e" : "u"}`, `Is this ${SHAPE_WORD[shape]} cut into ${k}? ${shapeToken(shape, n, 0, !equal)}`, equal ? "Yes" : "No", ["Yes", "No"]);
+    }
+    case "pick": {
+      const right = shapeToken(shape, n, 1);
+      const other = shapeToken(shape, n === 2 ? 4 : 2, 1);
+      const trap = shapeToken(shape, n, 1, true);
+      return q(`pick:${n}:${shape}`, `Which shows ${n === 2 ? "a half" : "a quarter"}?`, right, shuffle(rng, [right, other, trap]));
+    }
+    default: {
+      // "amount": half of an even number, or a quarter of a multiple of 4 (answers 1–10)
+      const a = n * ri(rng, 1, n === 2 ? 10 : 5);
+      return q(`${word}:${a}`, `${n === 2 ? "Half" : "A quarter"} of ${a} = ?`, a / n);
+    }
+  }
+}
+
+function generateFR01Set(level: FRLevel, tricky: Record<string, number>, rng: Rng): FRQuestion[] {
+  const kinds = ["shade", "cut", "pick", "amount"];
+  const weight = (key: string) => 1 + 2 * Math.min(tricky[key] ?? 0, 3);
+  const out: FRQuestion[] = [];
+  const used = new Set<string>();
+  for (let i = 0; out.length < level.setSize && i < 2000; i++) {
+    // one of each kind first, then a mix; tricky keys are kept more often
+    const kind = out.length < kinds.length ? kinds[out.length] : kinds[ri(rng, 0, kinds.length - 1)];
+    const cand = fr01Question(rng, kind);
+    if (used.has(cand.key)) continue;
+    if (rng() * 7 > weight(cand.key) * (7 / 3)) continue; // unseen keys kept 3/7 of the time, tricky ones always
+    used.add(cand.key);
+    out.push(cand);
+  }
+  return out;
+}
+
 export function generateFRSet(
   level: FRLevel,
   tricky: Record<string, number> = {},
   rng: Rng = Math.random,
 ): FRQuestion[] {
+  if (level.id === "FR-01") return generateFR01Set(level, tricky, rng);
   const weight = (key: string) => 1 + 2 * Math.min(tricky[key] ?? 0, 3);
 
   const used = new Set<string>();

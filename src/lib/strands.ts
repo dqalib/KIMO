@@ -62,8 +62,8 @@ export const STRANDS: StrandInfo[] = [
     icon: "½",
     button: "Start ▶",
     levels: FR_LEVELS,
-    shownFor: (y) => y >= 2,
-    hiddenNote: "starts in Year 2",
+    shownFor: () => true,
+    hiddenNote: "",
   },
   {
     key: "sp",

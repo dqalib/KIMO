@@ -44,6 +44,13 @@ function expected(q: FRQuestion): number | string {
     case "hund": return (100 * num[0]) / num[1];
     case "todec": return decString(num[0], num[1]);
     case "same": return `${num[0] * num[2]}/${num[1] * num[2]}`;
+    // FR-01 (Year 1): keys carry the shape name, so work from the raw parts
+    case "shade": return `1/${rest[1]}`;
+    case "halves":
+    case "quarters": return rest[1] === "e" ? "Yes" : "No";
+    case "pick": return `[[${rest[1]}:${rest[0]}:1]]`;
+    case "half": return num[0] / 2;
+    case "quarter": return num[0] / 4;
     default: throw new Error(`unknown key ${q.key}`);
   }
 }
@@ -73,21 +80,22 @@ function keypadAnswer(q: FRQuestion): boolean {
 }
 
 describe("FR levels", () => {
-  it("has 5 levels in order with years, sizes and time targets", () => {
-    expect(FR_LEVELS).toHaveLength(5);
-    expect(FR_LEVELS.map((l) => l.order)).toEqual([2, 3, 4, 5, 6]);
-    expect(FR_LEVELS.map((l) => l.year)).toEqual([2, 3, 3, 3, 4]);
-    expect(FR_LEVELS.map((l) => l.setSize)).toEqual(Array(5).fill(15));
-    expect(FR_LEVELS.map((l) => l.secondsPerQuestion)).toEqual([10, 12, 12, 12, 15]);
+  it("has 6 levels in order with years, sizes and time targets", () => {
+    expect(FR_LEVELS).toHaveLength(6);
+    expect(FR_LEVELS.map((l) => l.order)).toEqual([1, 2, 3, 4, 5, 6]);
+    expect(FR_LEVELS.map((l) => l.year)).toEqual([1, 2, 3, 3, 3, 4]);
+    expect(FR_LEVELS.map((l) => l.setSize)).toEqual([10, 15, 15, 15, 15, 15]);
+    expect(FR_LEVELS.map((l) => l.secondsPerQuestion)).toEqual([0, 10, 12, 12, 12, 15]);
   });
 
   it("links next/prev and picks the right default start", () => {
     expect(nextFRLevel("FR-02")!.id).toBe("FR-03");
     expect(nextFRLevel("FR-06")).toBeUndefined();
     expect(prevFRLevel("FR-05")!.id).toBe("FR-04");
-    expect(prevFRLevel("FR-02")).toBeUndefined();
+    expect(prevFRLevel("FR-02")!.id).toBe("FR-01");
+    expect(prevFRLevel("FR-01")).toBeUndefined();
     expect(getFRLevel("nope")).toBeUndefined();
-    expect(defaultFRStart(1)).toBe("FR-02");
+    expect(defaultFRStart(1)).toBe("FR-01");
     expect(defaultFRStart(2)).toBe("FR-02");
     expect(defaultFRStart(3)).toBe("FR-03");
     expect(defaultFRStart(4)).toBe("FR-04");
@@ -107,7 +115,8 @@ describe("FR sets", () => {
           const needsOptions = !keypadAnswer(q);
           expect(q.options !== undefined, `${level.id}: ${q.key} options rule`).toBe(needsOptions);
           if (q.options) {
-            const min = shapeOf(q) === "big" ? 2 : 3; // "which is bigger" offers exactly the two fractions
+            // "which is bigger" offers exactly the two fractions; Year 1 picks from ½/¼ or Yes/No
+            const min = ["big", "shade", "halves", "quarters"].includes(shapeOf(q)) ? 2 : 3;
             expect(q.options.length, q.key).toBeGreaterThanOrEqual(min);
             expect(q.options.length, q.key).toBeLessThanOrEqual(4);
             expect(new Set(q.options).size, q.key).toBe(q.options.length);
@@ -262,6 +271,28 @@ describe("comparisons are ones the curriculum teaches (review of 008)", () => {
             const ok = b === d || (a === 1 && c === 1) || (equivalent && Math.max(b, d) <= 10);
             expect(ok, q.key).toBe(true);
           }
+        }
+      }
+    }
+  });
+});
+
+describe("FR-01 halves and quarters of shapes (Year 1)", () => {
+  it("cut questions draw the parts equal exactly when the answer is Yes", () => {
+    for (const set of allSets("FR-01")) {
+      for (const q of set) {
+        if (q.key.startsWith("halves:") || q.key.startsWith("quarters:")) {
+          const unequal = q.text.includes(":u]]");
+          expect(q.answer, q.key).toBe(unequal ? "No" : "Yes");
+          expect(q.text, q.key).toContain(q.key.startsWith("halves:") ? ":2:0" : ":4:0");
+        }
+        if (q.key.startsWith("pick:")) {
+          // one right picture, one with the other fraction, one cut unequally
+          expect(q.options!.filter((o) => o.includes(":u]]")), q.key).toHaveLength(1);
+        }
+        if (q.key.startsWith("half:") || q.key.startsWith("quarter:")) {
+          expect(q.answer as number, q.key).toBeLessThanOrEqual(10);
+          expect(q.answer as number, q.key).toBeGreaterThanOrEqual(1);
         }
       }
     }
