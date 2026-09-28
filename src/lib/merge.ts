@@ -84,6 +84,7 @@ export function mergeStates(a: AppState, b: AppState): AppState {
   const gp = mergeWordStrand(liveChildren, a.gp, b.gp, a.gpUpdatedAt, b.gpUpdatedAt, a.gpTricky, b.gpTricky);
   const as = mergeWordStrand(liveChildren, a.as, b.as, a.asUpdatedAt, b.asUpdatedAt, a.asTricky, b.asTricky);
   const np = mergeWordStrand(liveChildren, a.np, b.np, a.npUpdatedAt, b.npUpdatedAt, a.npTricky, b.npTricky);
+  const fr = mergeWordStrand(liveChildren, a.fr, b.fr, a.frUpdatedAt, b.frUpdatedAt, a.frTricky, b.frTricky);
   const rc = mergeWordStrand(liveChildren, a.rc, b.rc, a.rcUpdatedAt, b.rcUpdatedAt, a.rcTricky, b.rcTricky);
   const rcReview = mergeReviews(a.rcReview, b.rcReview);
   // Placement: a strand counts as placed if either device placed it (keep the earlier time).
@@ -125,6 +126,7 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     ...(Object.keys(gp.progress).length ? { gp: gp.progress, gpUpdatedAt: gp.updatedAt, gpTricky: gp.tricky } : {}),
     ...(Object.keys(as.progress).length ? { as: as.progress, asUpdatedAt: as.updatedAt, asTricky: as.tricky } : {}),
     ...(Object.keys(np.progress).length ? { np: np.progress, npUpdatedAt: np.updatedAt, npTricky: np.tricky } : {}),
+    ...(Object.keys(fr.progress).length ? { fr: fr.progress, frUpdatedAt: fr.updatedAt, frTricky: fr.tricky } : {}),
     ...(Object.keys(rc.progress).length ? { rc: rc.progress, rcUpdatedAt: rc.updatedAt, rcTricky: rc.tricky } : {}),
     ...(Object.keys(rcReview).length ? { rcReview } : {}),
     ...(Object.keys(placed).length ? { placed } : {}),

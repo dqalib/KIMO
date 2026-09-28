@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import ChoiceGrid from "@/components/ChoiceGrid";
 import NumberPad from "@/components/NumberPad";
 import PencilAnswer from "@/components/PencilAnswer";
@@ -46,13 +46,15 @@ interface Props {
   allDoneText: string;
   /** Link for "Another set". */
   againHref: string;
+  /** Draw prompts/options differently (fractions stack 3 over 4). */
+  renderText?: (text: string) => ReactNode;
 }
 
 /**
  * Number-answer practice (keypad or Apple Pencil): used by times tables and
  * addition & subtraction. Wrong answers come back at the end to fix.
  */
-export default function NumberPractice({ child, level, makeQuestions, initialMode, record, nextTitle, prevTitle, allDoneText, againHref }: Props) {
+export default function NumberPractice({ child, level, makeQuestions, initialMode, record, nextTitle, prevTitle, allDoneText, againHref, renderText }: Props) {
   const [mode, setMode] = useState<InputMode>(initialMode);
   const [attemptNo, setAttemptNo] = useState(0); // bumps to clear the Pencil pad
   // Writing takes a little longer than tapping, so Pencil sets get extra time per question.
@@ -252,7 +254,7 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
             q && isWordy(q.prompt) ? (q.prompt.length > 40 ? "text-3xl sm:text-4xl" : "text-4xl sm:text-5xl") : "text-6xl sm:text-7xl"
           }`}
         >
-          {q && shownPrompt(q.prompt)}
+          {q && (renderText ? renderText(shownPrompt(q.prompt)) : shownPrompt(q.prompt))}
         </p>
         {!q?.options && (
           <p
@@ -265,7 +267,7 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
         )}
         {showAnswer && q && (
           <p className="text-2xl font-bold text-muted animate-pop">
-            It&apos;s <span className="text-ink">{q.answer}</span> — {q.options ? "tap it" : "type it in"}
+            It&apos;s <span className="text-ink">{renderText ? renderText(String(q.answer)) : q.answer}</span> — {q.options ? "tap it" : "type it in"}
           </p>
         )}
       </div>
@@ -275,6 +277,7 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
           key={`${phase}-${phase === "fix" ? fixIndex : index}-${attemptNo}`}
           options={q.options}
           size="lg"
+          renderOption={renderText}
           disabled={flash !== null}
           onChoose={(option) => submitValue(option)}
         />

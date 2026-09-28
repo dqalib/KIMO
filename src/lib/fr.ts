@@ -128,31 +128,50 @@ function sameQ(rng: Rng): FRQuestion {
   return q(`same:${n}:${d}:${k}`, `Which is the same as ${fr(n, d)}?`, correct, options);
 }
 
-/** a/b ? c/d with options ["<", ">", "="]; = about 1 in 6; proper fractions only. */
-function cmpQ(rng: Rng, dHi: number, eqChance = 1 / 6): FRQuestion {
-  const b = ri(rng, 2, dHi);
-  const a = ri(rng, 1, b - 1);
-  let c = 0;
-  let d = 0;
-  const pickOther = () => {
-    d = ri(rng, 2, dHi);
-    c = ri(rng, 1, d - 1);
-  };
+/**
+ * a/b ? c/d with options ["<", ">", "="]; "=" about 1 in 6.
+ * Only comparisons the curriculum teaches (DQ review of 008):
+ *  - Year 3 ("y3"): same denominator (3/7 ? 5/7), unit fractions (1/3 ? 1/5),
+ *    or an equivalent pair within tenths (2/4 ? 1/2).
+ *  - Year 4 ("y4"): tenths against hundredths (3/10 ? 29/100), hundredths against
+ *    hundredths, or a known equivalent (1/4 ? 25/100).
+ */
+function cmpQ(rng: Rng, year: "y3" | "y4", eqChance = 1 / 6): FRQuestion {
+  let [a, b, c, d] = [1, 2, 1, 2];
   if (rng() < eqChance) {
-    const kMax = Math.floor(dHi / b);
-    if (kMax >= 2) {
-      const k = ri(rng, 2, kMax); // equivalent pair, denominators stay within dHi
-      c = a * k;
-      d = b * k;
+    if (year === "y3") {
+      const base: [number, number][] = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5]];
+      const [n, m] = base[ri(rng, 0, base.length - 1)];
+      const k = ri(rng, 2, Math.max(2, Math.floor(10 / m)));
+      [a, b, c, d] = [n, m, n * k, m * k];
+      if (m * k > 10) [a, b, c, d] = [1, 2, 2, 4];
     } else {
-      pickOther();
+      const known: [number, number][] = [[1, 2], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 10], [3, 10], [7, 10], [9, 10]];
+      const [n, m] = known[ri(rng, 0, known.length - 1)];
+      [a, b, c, d] = [n, m, (n * 100) / m, 100];
+    }
+    if (rng() < 0.5) [a, b, c, d] = [c, d, a, b];
+  } else if (year === "y3") {
+    if (rng() < 0.6) {
+      d = b = ri(rng, 3, 10);
+      a = ri(rng, 1, b - 1);
+      do c = ri(rng, 1, d - 1); while (c === a);
+    } else {
+      a = c = 1;
+      b = ri(rng, 2, 10);
+      do d = ri(rng, 2, 10); while (d === b);
     }
   } else {
-    pickOther();
-  }
-  if (c / d === a / b && !(c === a && d === b)) {
-    // accidentally equivalent — fine (= is correct), but avoid identical text
-    d = d === b ? d + 1 : d;
+    if (rng() < 0.6) {
+      [a, b] = [ri(rng, 1, 9), 10];
+      [c, d] = [ri(rng, 1, 99), 100];
+      if (c === a * 10) c += rng() < 0.5 ? 1 : -1;
+    } else {
+      [a, b] = [ri(rng, 1, 99), 100];
+      do c = ri(rng, 1, 99); while (c === a);
+      d = 100;
+    }
+    if (rng() < 0.5) [a, b, c, d] = [c, d, a, b];
   }
   const left = a * d;
   const right = c * b;
@@ -176,15 +195,17 @@ function subQ(rng: Rng, dLo: number, dHi: number): FRQuestion {
   return q(`sub:${a}:${b}:${d}`, `${fr(a, d)} − ${fr(b, d)} = ?/${d}`, a - b);
 }
 
-/** Which is bigger: a/b or c/d? — options are the two fractions, answer the bigger; proper fractions only. */
-function bigQ(rng: Rng, dHi: number): FRQuestion {
-  const b = ri(rng, 2, dHi);
-  const a = ri(rng, 1, b - 1);
-  let d = ri(rng, 2, dHi);
-  let c = ri(rng, 1, d - 1);
-  for (let tries = 0; tries < 50 && a * d === c * b; tries++) {
-    d = ri(rng, 2, dHi);
-    c = ri(rng, 1, d - 1);
+/** Which is bigger: a/b or c/d? — Year 3: same denominator or two unit fractions (options are the two fractions). */
+function bigQ(rng: Rng): FRQuestion {
+  let a: number, b: number, c: number, d: number;
+  if (rng() < 0.5) {
+    b = d = ri(rng, 3, 10);
+    a = ri(rng, 1, b - 1);
+    do c = ri(rng, 1, d - 1); while (c === a);
+  } else {
+    a = c = 1;
+    b = ri(rng, 2, 10);
+    do d = ri(rng, 2, 10); while (d === b);
   }
   const first = fr(a, b);
   const second = fr(c, d);
@@ -334,12 +355,12 @@ export function generateFRSet(
     () => take("eqn", () => { const [n, d] = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [2, 5], [3, 5], [4, 5]][ri(rng, 0, 7)]; return eqNumQ(n, d, d * 2); }),
     () => take("eqd", () => { const [n, d] = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [2, 5], [3, 5], [4, 5]][ri(rng, 0, 7)]; return eqDenQ(n, d, n * 2); }),
     () => take("same", () => sameQ(rng)),
-    () => take("cmp", () => cmpQ(rng, 10)), // guarantees ≥3 shapes per set
+    () => take("cmp", () => cmpQ(rng, "y3")), // guarantees ≥3 shapes per set
   ];
   if (level.id === "FR-05") starters = [
     () => take("add", () => addQ(rng, 2, 10)),
     () => take("sub", () => subQ(rng, 2, 10)),
-    () => take("cmpe", () => cmpQ(rng, 10, 1)), // an = compare
+    () => take("cmpe", () => cmpQ(rng, "y3", 1)), // an = compare
   ];
   if (level.id === "FR-06") starters = [
     () => take("dec", () => decQ(rng)),
@@ -377,21 +398,21 @@ export function generateFRSet(
           return rng() < 0.5 ? eqNumQ(n, d, d * k) : eqDenQ(n * k, d * k, n);
         }));
         else if (r < 0.75) push(take("same", () => sameQ(rng)));
-        else push(take("cmp", () => cmpQ(rng, 10)));
+        else push(take("cmp", () => cmpQ(rng, "y3")));
         break;
       }
       case "FR-05": {
         if (r < 0.3) push(take("add", () => addQ(rng, 2, 10)));
         else if (r < 0.55) push(take("sub", () => subQ(rng, 2, 10)));
-        else if (r < 0.8) push(take("cmp", () => cmpQ(rng, 10)));
-        else push(take("big", () => bigQ(rng, 10)));
+        else if (r < 0.8) push(take("cmp", () => cmpQ(rng, "y3")));
+        else push(take("big", () => bigQ(rng)));
         break;
       }
       case "FR-06": {
         if (r < 0.3) push(take("dec", () => decQ(rng)));
         else if (r < 0.55) push(take("hund", () => hundQ(rng)));
         else if (r < 0.8) push(take("todec", () => toDecQ(rng)));
-        else push(take("cmp", () => cmpQ(rng, 100)));
+        else push(take("cmp", () => cmpQ(rng, "y4")));
         break;
       }
     }

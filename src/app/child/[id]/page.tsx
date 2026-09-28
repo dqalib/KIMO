@@ -11,7 +11,7 @@ import { STRANDS } from "@/lib/strands";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
 
 // Strands with a placement check (phonics starts at the beginning; reading needs approved stories).
-const PLACEMENT_STRANDS: PlacementStrand[] = ["tt", "as", "np", "sp", "gp"];
+const PLACEMENT_STRANDS: PlacementStrand[] = ["tt", "as", "np", "fr", "sp", "gp"];
 
 export default function ChildHome() {
   const { id } = useParams<{ id: string }>();

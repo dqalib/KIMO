@@ -9,10 +9,12 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import ChoiceGrid from "@/components/ChoiceGrid";
+import FractionText, { sayFractions } from "@/components/FractionText";
 import LetterKeyboard from "@/components/LetterKeyboard";
 import NumberPad from "@/components/NumberPad";
 import SpeakButton from "@/components/SpeakButton";
 import { AS_LEVELS, defaultASStart, generateASSet, getASLevel } from "@/lib/as";
+import { FR_LEVELS, defaultFRStart, generateFRSet, getFRLevel } from "@/lib/fr";
 import { GP_LEVELS, defaultGpStart, generateGpSet, getGpLevel, spokenGp } from "@/lib/grammar";
 import { NP_LEVELS, defaultNPStart, generateNPSet, getNPLevel } from "@/lib/np";
 import { PER_LEVEL, recordRound, startPlacement, type PlacementState } from "@/lib/placement";
@@ -66,6 +68,18 @@ const CHECKS: Partial<Record<PlacementStrand, StrandCheck>> = {
       pick(generateNPSet(getNPLevel(id)!), PER_LEVEL).map((q) =>
         q.options
           ? { kind: "choice", prompt: q.text, say: q.text, options: q.options, answer: q.options.indexOf(String(q.answer)), stack: false }
+          : { kind: "number", prompt: q.text, answer: Number(q.answer) },
+      ),
+  },
+  fr: {
+    name: "Fractions",
+    path: "fractions",
+    levels: FR_LEVELS,
+    start: defaultFRStart,
+    questions: (id) =>
+      pick(generateFRSet(getFRLevel(id)!), PER_LEVEL).map((q) =>
+        q.options
+          ? { kind: "choice", prompt: q.text, say: sayFractions(q.text), options: q.options, answer: q.options.indexOf(String(q.answer)), stack: false }
           : { kind: "number", prompt: q.text, answer: Number(q.answer) },
       ),
   },
@@ -226,7 +240,7 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
           <>
             <div className="w-full max-w-xl rounded-3xl bg-card border-4 border-line py-10 flex flex-col items-center gap-4">
               <p className={`px-4 text-center font-black tabular-nums ${/[A-Za-z]{2,}/.test(q.prompt) ? "text-4xl" : "text-6xl sm:text-7xl"}`}>
-                {q.prompt.includes("?") || /[A-Za-z]{2,}/.test(q.prompt) ? q.prompt : `${q.prompt} =`}
+                <FractionText text={q.prompt.includes("?") || /[A-Za-z]{2,}/.test(q.prompt) ? q.prompt : `${q.prompt} =`} />
               </p>
               <p className="min-h-20 min-w-40 px-6 rounded-2xl border-4 border-dashed border-line text-6xl font-black tabular-nums flex items-center justify-center">
                 {input || " "}
@@ -239,9 +253,11 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
         {q.kind === "choice" && (
           <>
             <SpeakButton text={q.say} label="Hear it" />
-            <h1 className="text-3xl font-black text-center">{q.prompt}</h1>
+            <h1 className="text-3xl font-black text-center">
+              <FractionText text={q.prompt} />
+            </h1>
             {q.sentence && <p className="text-4xl font-extrabold text-center">{q.sentence.replace("___", "____")}</p>}
-            <ChoiceGrid options={q.options} stack={q.stack} onChoose={(_, k) => answer(k === q.answer)} />
+            <ChoiceGrid options={q.options} stack={q.stack} renderOption={(o) => <FractionText text={o} />} onChoose={(_, k) => answer(k === q.answer)} />
           </>
         )}
 

@@ -240,3 +240,30 @@ describe("FR sets", () => {
     expect(hits).toBeGreaterThan(base);
   });
 });
+
+describe("comparisons are ones the curriculum teaches (review of 008)", () => {
+  it("Year 3: same denominator, unit fractions, or an equivalent pair; Year 4: tenths/hundredths", () => {
+    for (const id of ["FR-04", "FR-05", "FR-06"]) {
+      for (let seed = 1; seed <= 200; seed++) {
+        const level = getFRLevel(id)!;
+        for (const q of generateFRSet(level, {}, seeded(seed))) {
+          const [shape, ...rest] = q.key.split(":");
+          if (shape !== "cmp" && shape !== "big") continue;
+          const [a, b, c, d] = rest.map(Number);
+          const equivalent = a * d === c * b;
+          if (id === "FR-06") {
+            // a known equivalent against hundredths (1/4 ? 25/100), or tenths/hundredths
+            expect(b === 100 || d === 100, q.key).toBe(true);
+            if (!equivalent) {
+              expect([10, 100], q.key).toContain(b);
+              expect([10, 100], q.key).toContain(d);
+            }
+          } else {
+            const ok = b === d || (a === 1 && c === 1) || (equivalent && Math.max(b, d) <= 10);
+            expect(ok, q.key).toBe(true);
+          }
+        }
+      }
+    }
+  });
+});

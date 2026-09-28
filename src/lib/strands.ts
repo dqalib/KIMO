@@ -2,6 +2,7 @@
 // level pickers on the parent page. Times tables and handwriting have their own.
 
 import { AS_LEVELS } from "./as";
+import { FR_LEVELS } from "./fr";
 import { GP_LEVELS } from "./grammar";
 import { NP_LEVELS } from "./np";
 import { PH_LEVELS } from "./phonics";
@@ -53,6 +54,16 @@ export const STRANDS: StrandInfo[] = [
     levels: NP_LEVELS,
     shownFor: () => true,
     hiddenNote: "",
+  },
+  {
+    key: "fr",
+    name: "Fractions",
+    path: "fractions",
+    icon: "½",
+    button: "Start ▶",
+    levels: FR_LEVELS,
+    shownFor: (y) => y >= 2,
+    hiddenNote: "starts in Year 2",
   },
   {
     key: "sp",

@@ -10,6 +10,7 @@ export const SUBJECTS: Record<string, string> = {
   TT: "Times tables",
   AS: "Adding & taking away",
   NP: "Numbers",
+  FR: "Fractions",
   PH: "Phonics",
   SP: "Spelling",
   GP: "Grammar",
@@ -124,12 +125,34 @@ export function npLabel(key: string): string {
   return named[kind]?.() ?? key.replace(/:/g, " ");
 }
 
+/** Readable version of a fractions question key (see src/lib/fr.ts), e.g. "of:3:4:8" → "3/4 of 8". */
+export function frLabel(key: string): string {
+  const [kind, ...p] = key.split(":");
+  const f = (n: string, d: string) => `${n === "x" ? "?" : n}/${d === "x" ? "?" : d}`;
+  const named: Record<string, () => string> = {
+    of: () => `${f(p[0], p[1])} of ${p[2]}`,
+    inv: () => `${f(p[0], p[1])} of ? = ${p[2]}`,
+    howmany: () => `how many 1/${p[0]}s make a whole`,
+    eq: () => `${f(p[0], p[1])} = ${f(p[2], p[3])}`,
+    same: () => `the same as ${f(p[0], p[1])}`,
+    cmp: () => `${f(p[0], p[1])} ? ${f(p[2], p[3])}`,
+    big: () => `${f(p[0], p[1])} or ${f(p[2], p[3])}`,
+    add: () => `${f(p[0], p[2])} + ${f(p[1], p[2])}`,
+    sub: () => `${f(p[0], p[2])} − ${f(p[1], p[2])}`,
+    dec: () => `${f(p[0], p[1])} as a decimal`,
+    hund: () => `${f(p[0], p[1])} in hundredths`,
+    todec: () => `${f(p[0], p[1])} as a decimal`,
+  };
+  return named[kind]?.() ?? key.replace(/:/g, " ");
+}
+
 /** The things each child most often gets wrong, across every subject. */
 export function trickyItems(s: AppState, childId: string, limit = 8): TrickyItem[] {
   const out: TrickyItem[] = [];
   for (const [k, n] of Object.entries(s.weakFacts[childId] ?? {})) out.push({ subject: SUBJECTS.TT, label: k.replace("x", " × ").replace("/", " ÷ "), count: n });
   for (const [k, n] of Object.entries(s.asTricky?.[childId] ?? {})) out.push({ subject: SUBJECTS.AS, label: asLabel(k), count: n });
   for (const [k, n] of Object.entries(s.npTricky?.[childId] ?? {})) out.push({ subject: SUBJECTS.NP, label: npLabel(k), count: n });
+  for (const [k, n] of Object.entries(s.frTricky?.[childId] ?? {})) out.push({ subject: SUBJECTS.FR, label: frLabel(k), count: n });
   for (const [k, n] of Object.entries(s.spTricky?.[childId] ?? {})) out.push({ subject: SUBJECTS.SP, label: k, count: n });
   for (const [k, n] of Object.entries(s.phTricky?.[childId] ?? {})) out.push({ subject: SUBJECTS.PH, label: k, count: n });
   for (const [k, n] of Object.entries(s.gpTricky?.[childId] ?? {})) {

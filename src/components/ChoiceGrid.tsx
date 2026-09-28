@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 
 interface Props {
   options: string[]; // 2-6 strings
@@ -11,9 +11,11 @@ interface Props {
   size?: "md" | "lg"; // lg = phonics (huge text)
   /** One option per row, left-aligned, smaller text — for whole-sentence answers. */
   stack?: boolean;
+  /** Draw an option differently (e.g. stacked fractions); the plain string is still what's chosen. */
+  renderOption?: (option: string) => ReactNode;
 }
 
-export default function ChoiceGrid({ options, onChoose, disabled, result, size = "md", stack = false }: Props) {
+export default function ChoiceGrid({ options, onChoose, disabled, result, size = "md", stack = false, renderOption }: Props) {
   // Physical keyboard support for laptop testing: keys 1-6 choose that option.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -55,7 +57,7 @@ export default function ChoiceGrid({ options, onChoose, disabled, result, size =
             disabled={disabled || !!result}
             aria-label={option}
           >
-            {option}
+            {renderOption ? renderOption(option) : option}
           </button>
         );
       })}

@@ -62,3 +62,13 @@ export function generateFRSet(level: FRLevel, tricky?: Record<string, number>, r
 - Denominators per year: Y2 {2,3,4}, Y3 ≤ 10 — including equivalent-fraction questions (`k` is capped so `d·k ≤ 10`), Y4 hundredths set {2,4,5,10,20,25,50,100}. Compares and "which is bigger" use proper fractions only.
 - Starter slots pin the headline skill every set (¾ of an amount at FR-02, an `=` compare at FR-05, …), which also guarantees ≥ 3 shapes per set; pools prune used keys so no key repeats within a set.
 - Tricky weight is `1 + 2*min(count, 3)` — about 3× when unseen, mirroring np.ts.
+
+## Review (Claude)
+Accepted. Every answer re-checked independently over 300 sets per level: no wrong answers, options always contain the answer, no duplicates. Good work.
+
+One change made in review: comparisons (`cmp`, `big`) picked any two proper fractions, which produced questions like `18/89 ? 10/43` at FR-06 and `5/7 ? 2/3` at FR-05 — not what Years 3–4 are taught. Now:
+- Year 3 (FR-04, FR-05): same denominator (`3/7 ? 5/7`), two unit fractions (`1/3 ? 1/5`), or an equivalent pair within tenths (`2/4 ? 1/2`).
+- Year 4 (FR-06): tenths against hundredths (`3/10 ? 29/100`), hundredths against hundredths, or a known equivalent against hundredths (`1/4 ? 25/100`).
+A test for this was added to `fr.test.ts`. Lesson for next time: "allowed denominators" applies to every question shape, including comparisons.
+
+Screen: `/child/[id]/fractions` (the numbers screen, with fractions drawn stacked by `src/components/FractionText.tsx`), plus a placement check and parent-report labels.
