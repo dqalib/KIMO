@@ -1,6 +1,6 @@
 # 009 — Clock face component + time questions (MT-02, MT-03, MT-05)
 
-Status: ready
+Status: done — PR #9
 Owner: Kimi · Reviewer: Claude, then DQ
 
 ## Goal
@@ -56,4 +56,9 @@ A row of clocks: 3:00, 7:30, 4:15, 3:45, 8:25, 12:55, 9:37 with their `timeWords
 `npm run lint`, `npm test`, `npm run build` pass; PR from `kimi/009-clock-and-time` with a screenshot of `/dev/clock` (portrait iPad) shown to DQ.
 
 ## Notes from Kimi
-(write here when done)
+
+- `timeWords` folds any hour onto the 1–12 face, wraps for "to" (12:45 → "quarter to 1"), and falls back to `h:mm` for non-5-minute times — so `ClockFace`'s aria-label and MT-05 read answers share one wording function.
+- Choices are always exactly 3 (correct + 2 believable wrongs): past/to flip, adjacent hour, hands-swapped reading; for digital: ±5 minutes, hour before/after, hands swapped. `gap` answers are whole numbers of minutes → keypad, no options.
+- `which` options are `h:mm` strings with a comment noting the screen draws each as a clock; the question itself carries no `clock` field, `read` questions do.
+- Hour hand angle is `(h % 12) * 30 + m * 0.5` — it moves between numbers, which is what makes "quarter to 4" clocks drawable correctly.
+- Seconds-per-question (10/12/15) chosen per level difficulty; brief didn't specify.
