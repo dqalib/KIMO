@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
+  defaultMTTimeStart,
   digital,
   generateTimeSet,
   getMTTimeLevel,
   MT_TIME_LEVELS,
+  nextMTTimeLevel,
+  prevMTTimeLevel,
   TimeQuestion,
   timeWords,
   to12Hour,
@@ -189,5 +192,27 @@ describe("time sets", () => {
       if (generateTimeSet("MT-03", {}, seeded(s)).some((q) => q.key === "read:3:15")) base++;
     }
     expect(hits).toBeGreaterThan(base);
+  });
+});
+
+describe("review of 009", () => {
+  const sets = (id: string) => Array.from({ length: 200 }, (_, i) => generateTimeSet(id, {}, seeded(i + 1)));
+  it("Year 1 'which clock' choices are only o'clock and half past", () => {
+    for (const set of sets("MT-02")) for (const q of set) if (q.options) for (const o of q.options) {
+      const mins = o.includes(":") && !/[a-z]/.test(o) ? Number(o.split(":")[1]) : null;
+      if (mins !== null) expect([0, 30], `${q.key} ${o}`).toContain(mins);
+    }
+  });
+  it("24-hour times are written with two-digit hours, and gaps are at most an hour", () => {
+    for (const set of sets("MT-05")) for (const q of set) {
+      if (q.key.startsWith("12to24:")) expect(q.prompt, q.key).toMatch(/\b\d{2}:\d{2} in 12-hour time\?$/);
+      if (q.key.startsWith("gap:")) expect(q.answer as number, q.key).toBeLessThanOrEqual(60);
+    }
+  });
+  it("levels follow each other and start by school year", () => {
+    expect(nextMTTimeLevel("MT-02")!.id).toBe("MT-03");
+    expect(nextMTTimeLevel("MT-03")!.id).toBe("MT-05");
+    expect(prevMTTimeLevel("MT-02")).toBeUndefined();
+    expect([1, 2, 3, 4].map(defaultMTTimeStart)).toEqual(["MT-02", "MT-03", "MT-05", "MT-05"]);
   });
 });

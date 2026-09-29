@@ -57,6 +57,9 @@ export interface AppState {
   np?: Record<string, LevelProgress>; // number & place value progress by child id
   npUpdatedAt?: Record<string, string>;
   npTricky?: Record<string, Record<string, number>>; // child id -> question key -> times wrong
+  mt?: Record<string, LevelProgress>; // telling-the-time progress by child id
+  mtUpdatedAt?: Record<string, string>;
+  mtTricky?: Record<string, Record<string, number>>; // child id -> question key -> times wrong
   fr?: Record<string, LevelProgress>; // fractions progress by child id
   frUpdatedAt?: Record<string, string>;
   frTricky?: Record<string, Record<string, number>>; // child id -> question key -> times wrong

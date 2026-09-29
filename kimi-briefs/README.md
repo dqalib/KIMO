@@ -24,9 +24,10 @@ Task briefs for Kimi. One file per task: `NNN-short-name.md`. Claude (lead) writ
 | 006 | [Reading comprehension passages](006-reading-passages.md) | done — reviewed, PR #6 |
 | 007 | [Number & place value generator](007-place-value-generator.md) | done — reviewed, PR #7 |
 | 008 | [Fractions generator](008-fractions-generator.md) | done — reviewed, PR #8 |
-| 009 | [Clock face + time questions](009-clock-and-time.md) | ready |
+| 009 | [Clock face + time questions](009-clock-and-time.md) | done — reviewed, PR #9 |
+| 010 | [Coins, notes + money questions](010-money.md) | ready |
 
-008 and 009 are independent — do them in any order, or in parallel. Pull `main` first.
+Pull `main` first — 008 and 009 review fixes are there.
 
 
 **Work only in your own clone: `C:\Users\Dayib.Qalib\Downloads\AI-Project\KIMO-kimi`. Never in the `KIMO` folder.**

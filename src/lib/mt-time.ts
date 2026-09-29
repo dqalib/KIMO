@@ -30,6 +30,23 @@ export function getMTTimeLevel(id: string): MTTimeLevel | undefined {
   return MT_TIME_LEVELS.find((l) => l.id === id);
 }
 
+// Levels in this list follow each other even though the ids skip (MT-04 money comes later).
+export function nextMTTimeLevel(id: string): MTTimeLevel | undefined {
+  const i = MT_TIME_LEVELS.findIndex((l) => l.id === id);
+  return i >= 0 ? MT_TIME_LEVELS[i + 1] : undefined;
+}
+
+export function prevMTTimeLevel(id: string): MTTimeLevel | undefined {
+  const i = MT_TIME_LEVELS.findIndex((l) => l.id === id);
+  return i > 0 ? MT_TIME_LEVELS[i - 1] : undefined;
+}
+
+export function defaultMTTimeStart(schoolYear: number): string {
+  if (schoolYear <= 1) return "MT-02";
+  if (schoolYear === 2) return "MT-03";
+  return "MT-05";
+}
+
 type Rng = () => number;
 type Slot = () => TimeQuestion | undefined;
 
@@ -119,11 +136,21 @@ function readQ(rng: Rng, h: number, m: number, digitalAnswer: boolean): TimeQues
   return q(`read:${h}:${m}`, "What time does the clock show?", answer, shuffle3(rng, answer, wrongs), { hours: h, minutes: m });
 }
 
+/**
+ * Year 1 wrong clocks use only o'clock and half past (review of 009): for "half past 7"
+ * the usual slips are 7 o'clock and half past 8; for "7 o'clock", half past 7 and half past 6.
+ */
+function y1Wrongs(h: number, m: number): string[] {
+  const next = (h % 12) + 1;
+  const prev = ((h + 10) % 12) + 1;
+  return m === 30 ? [digital(h, 0), digital(next, 30)] : [digital(h, 30), digital(prev, 30)];
+}
+
 /** which:h:m — "Which clock shows X?". Options are 3 "h:mm" strings; the screen draws each as a clock. */
-function whichQ(rng: Rng, h: number, m: number, digitalPrompt: boolean): TimeQuestion {
+function whichQ(rng: Rng, h: number, m: number, digitalPrompt: boolean, year1 = false): TimeQuestion {
   const answer = digital(h, m);
   const label = digitalPrompt ? answer : timeWords(h, m);
-  return q(`which:${h}:${m}`, `Which clock shows ${label}?`, answer, shuffle3(rng, answer, digitalWrongs(h, m)));
+  return q(`which:${h}:${m}`, `Which clock shows ${label}?`, answer, shuffle3(rng, answer, year1 ? y1Wrongs(h, m) : digitalWrongs(h, m)));
 }
 
 /** 12to24:H:M — "14:20 in 12-hour time?" → "2:20 pm". Wrongs: am/pm flip and off-by-one hour. */
@@ -133,7 +160,9 @@ function to12Q(rng: Rng, H: number, M: number): TimeQuestion {
   const offH = H % 12 === 0 ? 12 : H % 12;
   const later = to12Hour((H + 1) % 24, M);
   const wrongs = [...new Set([flip, later, digital(offH === 12 ? 1 : offH + 1, M)])].filter((w) => w !== answer);
-  return q(`12to24:${H}:${M}`, `${digital(H, M)} in 12-hour time?`, answer, shuffle3(rng, answer, wrongs));
+  // 24-hour times are written with two-digit hours (07:50, 00:00) so the child can tell them apart.
+  const shown = `${String(H).padStart(2, "0")}:${String(M).padStart(2, "0")}`;
+  return q(`12to24:${H}:${M}`, `What is ${shown} in 12-hour time?`, answer, shuffle3(rng, answer, wrongs));
 }
 
 /** gap:h:m:H:M — "How many minutes from 3:45 to 4:10?" → 25 (keypad, no options). */
@@ -206,7 +235,7 @@ export function generateTimeSet(
   if (level.id === "MT-02") starters = [
     () => take("readoc", () => { const h = ri(rng, 1, 12); return readQ(rng, h, 0, false); }),
     () => take("readhp", () => { const h = ri(rng, 1, 12); return readQ(rng, h, 30, false); }),
-    () => take("whichhp", () => { const h = ri(rng, 1, 12); return whichQ(rng, h, 30, false); }),
+    () => take("whichhp", () => { const h = ri(rng, 1, 12); return whichQ(rng, h, 30, false, true); }),
   ];
   if (level.id === "MT-03") starters = [
     () => take("readq", () => { const h = ri(rng, 1, 12); return readQ(rng, h, rng() < 0.5 ? 15 : 45, false); }),
@@ -216,7 +245,7 @@ export function generateTimeSet(
   if (level.id === "MT-05") starters = [
     () => take("readdig", () => { const { h, m } = y4Time(); return readQ(rng, h, m, true); }),
     () => take("12to24", () => { const H = ri(rng, 0, 23); return to12Q(rng, H, 5 * ri(rng, 0, 11)); }),
-    () => take("gap", () => { const { h, m } = y4Time(); const mins = h * 60 + m + ri(rng, 5, 120); return gapQ(h, m, Math.floor(mins / 60) % 24, mins % 60); }),
+    () => take("gap", () => { const { h, m } = y4Time(); const mins = h * 60 + m + ri(rng, 5, 60); return gapQ(h, m, Math.floor(mins / 60) % 24, mins % 60); }),
   ];
 
   for (const slot of starters) {
@@ -232,7 +261,7 @@ export function generateTimeSet(
       case "MT-02": {
         const { h, m } = y1Time();
         if (r < 0.55) push(take("read", () => readQ(rng, h, m, false)));
-        else push(take("which", () => whichQ(rng, h, m, false)));
+        else push(take("which", () => whichQ(rng, h, m, false, true)));
         break;
       }
       case "MT-03": {
@@ -252,7 +281,7 @@ export function generateTimeSet(
           push(take("12to24", () => { const H = ri(rng, 0, 23); return to12Q(rng, H, ri(rng, 0, 59)); }));
         } else {
           const { h, m } = y4Time();
-          const mins = h * 60 + m + ri(rng, 5, 120);
+          const mins = h * 60 + m + ri(rng, 5, 60);
           push(take("gap", () => gapQ(h, m, Math.floor(mins / 60) % 24, mins % 60)));
         }
         break;

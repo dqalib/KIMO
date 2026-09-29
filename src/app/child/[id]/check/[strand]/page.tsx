@@ -15,6 +15,8 @@ import NumberPad from "@/components/NumberPad";
 import SpeakButton from "@/components/SpeakButton";
 import { AS_LEVELS, defaultASStart, generateASSet, getASLevel } from "@/lib/as";
 import { FR_LEVELS, defaultFRStart, generateFRSet, getFRLevel } from "@/lib/fr";
+import { MT_TIME_LEVELS, defaultMTTimeStart, generateTimeSet } from "@/lib/mt-time";
+import { timeToNumberQuestion } from "@/lib/time-questions";
 import { GP_LEVELS, defaultGpStart, generateGpSet, getGpLevel, spokenGp } from "@/lib/grammar";
 import { NP_LEVELS, defaultNPStart, generateNPSet, getNPLevel } from "@/lib/np";
 import { PER_LEVEL, recordRound, startPlacement, type PlacementState } from "@/lib/placement";
@@ -81,6 +83,18 @@ const CHECKS: Partial<Record<PlacementStrand, StrandCheck>> = {
         q.options
           ? { kind: "choice", prompt: q.text, say: sayFractions(q.text), options: q.options, answer: q.options.indexOf(String(q.answer)), stack: false }
           : { kind: "number", prompt: q.text, answer: Number(q.answer) },
+      ),
+  },
+  mt: {
+    name: "Telling the time",
+    path: "time",
+    levels: MT_TIME_LEVELS,
+    start: defaultMTTimeStart,
+    questions: (id) =>
+      pick(generateTimeSet(id).map(timeToNumberQuestion), PER_LEVEL).map((q) =>
+        q.options
+          ? { kind: "choice", prompt: q.prompt, say: sayFractions(q.prompt), options: q.options, answer: q.options.indexOf(String(q.answer)), stack: false }
+          : { kind: "number", prompt: q.prompt, answer: Number(q.answer) },
       ),
   },
   sp: {

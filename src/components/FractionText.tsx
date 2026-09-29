@@ -2,9 +2,11 @@
 // children see fractions at school. "?" can be the top or bottom: "?/4".
 
 import { useId, type ReactNode } from "react";
+import ClockFace from "./ClockFace";
 
 const FRACTION = /(\d+|\?)\/(\d+|\?)/g;
-const SHAPE = /\[\[(circle|square|rect):(\d):(\d)(:u)?\]\]/g;
+/** Pictures in question text: shapes (above) or a clock, [[clock:3:45]]. */
+const PICTURE = /\[\[(?:(circle|square|rect):(\d):(\d)(:u)?|clock:(\d{1,2}):(\d{1,2}))\]\]/g;
 
 /**
  * A shape cut into 2 or 4 parts with some shaded (Year 1 fractions).
@@ -66,11 +68,15 @@ export default function FractionText({ text }: { text: string }): ReactNode {
   const alone = /^\s*\[\[[^\]]+\]\]\s*$/.test(text);
   const parts: ReactNode[] = [];
   let last = 0;
-  for (const m of text.matchAll(SHAPE)) {
+  for (const m of text.matchAll(PICTURE)) {
     if (m.index! > last) parts.push(...fractions(text.slice(last, m.index), m.index!));
     parts.push(
-      <span key={`s${m.index}`} className={alone ? "inline-block py-1" : "block mx-auto mt-4"}>
-        <ShapePicture shape={m[1]} parts={Number(m[2])} shaded={Number(m[3])} unequal={!!m[4]} size={alone ? "1.9em" : "4.2em"} />
+      <span key={`s${m.index}`} className={alone ? "inline-block py-1" : "block mx-auto mt-4 w-fit"}>
+        {m[5] !== undefined ? (
+          <ClockFace hours={Number(m[5])} minutes={Number(m[6])} size={alone ? "3.6em" : "6.5em"} />
+        ) : (
+          <ShapePicture shape={m[1]} parts={Number(m[2])} shaded={Number(m[3])} unequal={!!m[4]} size={alone ? "1.9em" : "4.2em"} />
+        )}
       </span>,
     );
     last = m.index! + m[0].length;
@@ -95,7 +101,7 @@ const ORD: Record<number, string> = { 2: "half", 3: "third", 4: "quarter", 5: "f
 
 /** Words for reading a question aloud: "3/4 of 8 = ?" → "3 quarters of 8 = ?" (speech engines read "3/4" as a date). */
 export function sayFractions(text: string): string {
-  return text.replace(SHAPE, "").trim().replace(FRACTION, (_, top: string, bottom: string) => {
+  return text.replace(PICTURE, "").trim().replace(FRACTION, (_, top: string, bottom: string) => {
     const d = Number(bottom);
     const word = ORD[d];
     if (top === "?" || bottom === "?" || !word) return `${top} over ${bottom}`;

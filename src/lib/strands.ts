@@ -4,6 +4,7 @@
 import { AS_LEVELS } from "./as";
 import { FR_LEVELS } from "./fr";
 import { GP_LEVELS } from "./grammar";
+import { MT_TIME_LEVELS } from "./mt-time";
 import { NP_LEVELS } from "./np";
 import { PH_LEVELS } from "./phonics";
 import { RC_LEVELS } from "./reading";
@@ -62,6 +63,16 @@ export const STRANDS: StrandInfo[] = [
     icon: "½",
     button: "Start ▶",
     levels: FR_LEVELS,
+    shownFor: () => true,
+    hiddenNote: "",
+  },
+  {
+    key: "mt",
+    name: "Telling the time",
+    path: "time",
+    icon: "🕒",
+    button: "Start ▶",
+    levels: MT_TIME_LEVELS,
     shownFor: () => true,
     hiddenNote: "",
   },

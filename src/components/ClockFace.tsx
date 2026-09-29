@@ -1,4 +1,4 @@
-import { timeWords } from "@/lib/mt-time";
+import { timeWords } from "../lib/mt-time";
 
 /**
  * Pure-SVG analogue clock, crisp at any size (viewBox 0 0 100 100).
@@ -6,7 +6,7 @@ import { timeWords } from "@/lib/mt-time";
  * ink-coloured, so the two are never confused. Colours come from the app's
  * CSS variables (--ink, --line, --brand, --card).
  */
-export default function ClockFace({ hours, minutes, size = 280 }: { hours: number; minutes: number; size?: number }) {
+export default function ClockFace({ hours, minutes, size = 280 }: { hours: number; minutes: number; size?: number | string }) {
   const hourAngle = ((hours % 12) * 30 + minutes * 0.5 - 90) * (Math.PI / 180);
   const minuteAngle = (minutes * 6 - 90) * (Math.PI / 180);
   const hand = (angle: number, length: number, back: number) => ({

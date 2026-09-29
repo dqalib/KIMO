@@ -9,6 +9,7 @@ import { applySet } from "./mastery";
 import { defaultASStart } from "./as";
 import { defaultGpStart } from "./grammar";
 import { defaultFRStart } from "./fr";
+import { defaultMTTimeStart } from "./mt-time";
 import { defaultNPStart } from "./np";
 import { defaultRcStart, type ReviewStatus } from "./reading";
 import { defaultSpStart } from "./spelling";
@@ -273,7 +274,7 @@ export function setInputMode(childId: string, mode: InputMode) {
 // Each strand keeps, per child: level progress, when it last changed (for sync),
 // and a "tricky" count per word / question / fact the child got wrong.
 
-export type Strand = "ph" | "sp" | "gp" | "as" | "np" | "fr" | "rc";
+export type Strand = "ph" | "sp" | "gp" | "as" | "np" | "fr" | "mt" | "rc";
 
 const START: Record<Strand, (schoolYear: number) => string> = {
   ph: () => "PH-01",
@@ -282,6 +283,7 @@ const START: Record<Strand, (schoolYear: number) => string> = {
   as: defaultASStart,
   np: defaultNPStart,
   fr: defaultFRStart,
+  mt: defaultMTTimeStart,
   rc: defaultRcStart,
 };
 

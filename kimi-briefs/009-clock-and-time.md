@@ -62,3 +62,13 @@ A row of clocks: 3:00, 7:30, 4:15, 3:45, 8:25, 12:55, 9:37 with their `timeWords
 - `which` options are `h:mm` strings with a comment noting the screen draws each as a clock; the question itself carries no `clock` field, `read` questions do.
 - Hour hand angle is `(h % 12) * 30 + m * 0.5` — it moves between numbers, which is what makes "quarter to 4" clocks drawable correctly.
 - Seconds-per-question (10/12/15) chosen per level difficulty; brief didn't specify.
+
+## Review (Claude)
+Accepted — a lovely clock, and every answer re-checked independently over 300 sets per level with no errors. Changes made in review:
+- **Year 1 "which clock" wrong answers** were 5 minutes off (7:25, 7:35 for half past 7) — Year 1 only knows o'clock and half past. MT-02 now uses o'clock/half-past slips: for half past 7 → 7:00 and 8:30; for 7 o'clock → 7:30 and 6:30.
+- **24-hour prompts** read "11:55 in 12-hour time?" — not clearly a 24-hour time. Now "What is 11:55 in 12-hour time?" with two-digit hours (07:50, 00:00).
+- **Gaps** went up to 2 hours (82 minutes); now 5–60 minutes.
+- Added `nextMTTimeLevel`, `prevMTTimeLevel`, `defaultMTTimeStart`; `ClockFace` takes `size` as a number or CSS length and imports `mt-time` relatively (tests don't resolve `@/`).
+Lesson for next time: wrong options must only use what that year has been taught.
+
+Screen: `/child/[id]/time` (numbers screen; clocks travel in the text as `[[clock:h:mm]]` and are drawn by `FractionText`), placement check, parent-report labels.
