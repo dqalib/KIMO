@@ -68,6 +68,8 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
   const [wrong, setWrong] = useState<NumberQuestion[]>([]);
   const [fixIndex, setFixIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
+  // Tap-to-answer: colour the tapped button (green/red) and reveal the right one.
+  const [picked, setPicked] = useState<{ chosen: number; correct: number } | null>(null);
   const [result, setResult] = useState<{ r: SetResult; outcome: Outcome } | null>(null);
 
   const startedAt = useRef(0);
@@ -103,27 +105,32 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
     setInput("");
     setAttemptNo((n) => n + 1);
     setFlash(null);
+    setPicked(null);
+    setShowAnswer(false);
     busy.current = false;
     if (index + 1 < questions.length) setIndex(index + 1);
     else endMain();
   }, [index, questions.length, endMain]);
 
+  // Wrong: show the right answer long enough to read it, then move on.
   const markWrongMain = useCallback(() => {
     wrongRef.current.push(questions[index]);
     setFlash("bad");
-    setTimeout(advanceMain, 650);
+    setShowAnswer(true);
+    setTimeout(advanceMain, 2000);
   }, [questions, index, advanceMain]);
 
   const submitValue = useCallback((value: string) => {
     if (busy.current || !q || value === "") return;
     busy.current = true;
     const correct = typeof q.answer === "number" ? Number(value) === q.answer : value === q.answer;
+    if (q.options) setPicked({ chosen: q.options.indexOf(value), correct: q.options.indexOf(String(q.answer)) });
 
     if (phase === "main") {
       if (correct) {
         correctFirst.current++;
         setFlash("good");
-        setTimeout(advanceMain, 300);
+        setTimeout(advanceMain, q.options ? 700 : 400);
       } else markWrongMain();
       return;
     }
@@ -133,6 +140,7 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
       setFlash("good");
       setTimeout(() => {
         setFlash(null);
+        setPicked(null);
         setInput("");
         setAttemptNo((n) => n + 1);
         setShowAnswer(false);
@@ -142,13 +150,14 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
       }, 400);
     } else {
       setFlash("bad");
+      setShowAnswer(true);
       setTimeout(() => {
         setFlash(null);
+        setPicked(null);
         setInput("");
         setAttemptNo((n) => n + 1);
-        setShowAnswer(true);
         busy.current = false;
-      }, 650);
+      }, 1500);
     }
   }, [q, phase, advanceMain, markWrongMain, fixIndex, wrong.length, finish]);
 
@@ -268,7 +277,8 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
         )}
         {showAnswer && q && (
           <p className="text-2xl font-bold text-muted animate-pop">
-            It&apos;s <span className="text-ink">{renderText ? renderText(String(q.answer)) : q.answer}</span> — {q.options ? "tap it" : "type it in"}
+            {flash === "bad" ? "Not quite — it" : "It"}&apos;s <span className="text-ink">{renderText ? renderText(String(q.answer)) : q.answer}</span>
+            {phase === "fix" && flash !== "bad" && <> — {q.options ? "tap it" : "type it in"}</>}
           </p>
         )}
       </div>
@@ -279,6 +289,7 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
           options={q.options}
           size="lg"
           renderOption={renderText}
+          result={picked ?? undefined}
           disabled={flash !== null}
           onChoose={(option) => submitValue(option)}
         />
