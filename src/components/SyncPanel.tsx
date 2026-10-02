@@ -5,6 +5,7 @@ import { isSyncConfigured, signIn, signOut, syncNow, useSyncInfo } from "@/lib/s
 
 const LABEL = {
   off: "Cloud sync is not set up — progress is saved on this device only.",
+  checking: "Checking sign-in…",
   signedOut: "Not signed in — progress is saved on this device only.",
   syncing: "Syncing…",
   synced: "Synced",

@@ -17,17 +17,20 @@ const URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const TABLE = "family_state";
 
-export type SyncStatus = "off" | "signedOut" | "syncing" | "synced" | "offline" | "error";
+export type SyncStatus = "off" | "checking" | "signedOut" | "syncing" | "synced" | "offline" | "error";
 
 export interface SyncInfo {
   status: SyncStatus;
   email?: string;
   lastSyncedAt?: string;
   error?: string;
+  /** True once the first sync after loading has finished (or couldn't run) — the family data is as fresh as it'll get. */
+  ready?: boolean;
 }
 
 let client: SupabaseClient | null = null;
-let info: SyncInfo = { status: URL && KEY ? "signedOut" : "off" };
+// "checking" until Supabase has said whether this device is signed in.
+let info: SyncInfo = { status: URL && KEY ? "checking" : "off" };
 const listeners = new Set<() => void>();
 
 function set(next: Partial<SyncInfo>) {
@@ -86,7 +89,7 @@ async function doSync() {
     return;
   }
   if (typeof navigator !== "undefined" && !navigator.onLine) {
-    set({ status: "offline" });
+    set({ status: "offline", ready: true });
     return;
   }
 
@@ -106,10 +109,10 @@ async function doSync() {
         .upsert({ owner: user.id, state: merged, updated_at: new Date().toISOString() }, { onConflict: "owner" });
       if (upErr) throw upErr;
     }
-    set({ status: "synced", lastSyncedAt: new Date().toISOString() });
+    set({ status: "synced", lastSyncedAt: new Date().toISOString(), ready: true });
   } catch (e) {
     const msg = e instanceof Error ? e.message : typeof e === "object" && e && "message" in e ? String(e.message) : String(e);
-    set({ status: navigator.onLine ? "error" : "offline", error: msg });
+    set({ status: navigator.onLine ? "error" : "offline", error: msg, ready: true });
   }
 }
 
@@ -119,7 +122,11 @@ export async function signIn(email: string, password: string): Promise<string | 
   const c = sb();
   if (!c) return "Cloud sync isn't set up yet.";
   const { error } = await c.auth.signInWithPassword({ email: email.trim(), password });
-  if (error) return error.message === "Invalid login credentials" ? "Wrong email or password." : error.message;
+  if (error) {
+    if (error.message === "Invalid login credentials") return "Wrong email or password.";
+    if (/fetch|network/i.test(error.message)) return "Couldn't reach the internet — check the connection and try again.";
+    return error.message;
+  }
   await syncNow();
   return null;
 }
@@ -128,7 +135,7 @@ export async function signOut() {
   const c = sb();
   if (!c) return;
   await c.auth.signOut();
-  set({ status: "signedOut", email: undefined, lastSyncedAt: undefined });
+  set({ status: "signedOut", email: undefined, lastSyncedAt: undefined, ready: false });
 }
 
 // ---- lifecycle -------------------------------------------------------------
