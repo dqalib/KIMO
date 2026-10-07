@@ -6,13 +6,16 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import LetterKeyboard from "@/components/LetterKeyboard";
 import SpeakButton from "@/components/SpeakButton";
 import { accuracy, type Outcome, type SetResult } from "@/lib/mastery";
+import { dueKeys } from "@/lib/memory";
+import { armSfx, playRight, playWrong } from "@/lib/sfx";
 import { speak } from "@/lib/speech";
 import {
   generateSpSet,
+  pickSpReview,
   getSpLevel,
   isCorrectSpelling,
   nextSpLevel,
@@ -21,7 +24,7 @@ import {
   type SpLevel,
   type SpWord,
 } from "@/lib/spelling";
-import { recordSpSet, spProgress, useAppState, type Child } from "@/lib/store";
+import { childMemory, recordMemory, recordSpSet, spProgress, useAppState, type Child } from "@/lib/store";
 
 export default function SpellingPage() {
   const { id } = useParams<{ id: string }>();
@@ -30,7 +33,7 @@ export default function SpellingPage() {
   const child = state.children.find((c) => c.id === id);
   const level = getSpLevel(spProgress(state, id).current);
   if (!child || !level) return null;
-  return <Session child={child} level={level} tricky={state.spTricky?.[id] ?? {}} />;
+  return <Session child={child} level={level} tricky={state.spTricky?.[id] ?? {}} due={dueKeys(childMemory(state, id), "sp:")} />;
 }
 
 type Phase = "ready" | "main" | "fix" | "done";
@@ -39,33 +42,45 @@ type Step = "look" | "typing" | "right" | "wrong";
 
 const MAX_LEN = 16;
 
-function Session({ child, level, tricky }: { child: Child; level: SpLevel; tricky: Record<string, number> }) {
-  const [words] = useState<SpWord[]>(() => generateSpSet(level, tricky));
+function Session({ child, level, tricky, due }: { child: Child; level: SpLevel; tricky: Record<string, number>; due: string[] }) {
+  // Words from earlier days that are due ("Do you still remember?") come first;
+  // they're saved in the memory boxes but don't count towards passing the level.
+  const [{ words, reviewCount }] = useState(() => {
+    const set = generateSpSet(level, tricky);
+    const review = pickSpReview(due, set);
+    return { words: [...review, ...set], reviewCount: review.length };
+  });
   const [phase, setPhase] = useState<Phase>("ready");
   const [i, setI] = useState(0);
   const [fix, setFix] = useState<SpWord[]>([]);
   const [typed, setTyped] = useState("");
   const [step, setStep] = useState<Step>("typing");
-  const [result, setResult] = useState<{ r: SetResult; outcome: Outcome } | null>(null);
+  const [result, setResult] = useState<{ r: SetResult; outcome: Outcome; review: { total: number; remembered: number } } | null>(null);
   const correct = useRef(0);
   const wrong = useRef<SpWord[]>([]);
+  const wrongReview = useRef<SpWord[]>([]);
+  const remembered = useRef(0);
+  const answers = useRef<{ key: string; ok: boolean }[]>([]);
   const startedAt = useRef(0);
+  useEffect(armSfx, []);
 
   const list = phase === "fix" ? fix : words;
   const w = list[i];
+  const isReview = phase === "main" && i < reviewCount;
 
   const finish = useCallback(() => {
     const r: SetResult = {
-      total: words.length,
+      total: words.length - reviewCount,
       correctFirstTime: correct.current,
       durationMs: Date.now() - startedAt.current,
       secondsPerQuestion: 0,
       accuracyTarget: level.accuracyTarget,
     };
+    recordMemory(child.id, answers.current);
     const outcome = recordSpSet(child.id, level.id, r, wrong.current.map((x) => x.word), nextSpLevel(level.id)?.id, prevSpLevel(level.id)?.id);
-    setResult({ r, outcome });
+    setResult({ r, outcome, review: { total: reviewCount, remembered: remembered.current } });
     setPhase("done");
-  }, [child.id, level, words.length]);
+  }, [child.id, level, words.length, reviewCount]);
 
   const advance = useCallback(() => {
     setTyped("");
@@ -74,8 +89,8 @@ function Session({ child, level, tricky }: { child: Child; level: SpLevel; trick
       setStep(phase === "fix" ? "look" : "typing");
       return;
     }
-    if (phase === "main" && wrong.current.length) {
-      setFix(wrong.current.slice());
+    if (phase === "main" && (wrong.current.length || wrongReview.current.length)) {
+      setFix([...wrongReview.current, ...wrong.current]);
       setI(0);
       setPhase("fix");
       setStep("look");
@@ -98,16 +113,22 @@ function Session({ child, level, tricky }: { child: Child; level: SpLevel; trick
     if (step !== "typing" || !typed.trim() || !w) return;
     const ok = isCorrectSpelling(typed, w.word);
     if (phase === "main") {
-      if (ok) correct.current++;
+      answers.current.push({ key: `sp:${w.word}`, ok });
+      if (isReview) {
+        if (ok) remembered.current++;
+        else wrongReview.current.push(w);
+      } else if (ok) correct.current++;
       else wrong.current.push(w);
     }
     if (ok) {
+      playRight();
       setStep("right");
       setTimeout(advance, 800);
     } else {
+      playWrong();
       setStep("wrong");
     }
-  }, [step, typed, w, phase, advance]);
+  }, [step, typed, w, phase, advance, isReview]);
 
   /** After seeing the right spelling: main round moves on; fix round has another go. */
   const afterWrong = useCallback(() => {
@@ -166,6 +187,9 @@ function Session({ child, level, tricky }: { child: Child; level: SpLevel; trick
       </header>
 
       {phase === "fix" && <p className="text-xl font-extrabold text-warn">Let&apos;s fix these ✏️</p>}
+      {isReview && step !== "look" && (
+        <p className="px-4 py-2 rounded-full bg-brand/10 text-brand text-xl font-extrabold">🧠 Do you still remember this one?</p>
+      )}
 
       {step === "look" ? (
         <div key={`look-${i}`} className="flex-1 flex flex-col items-center justify-center gap-8 animate-pop">
@@ -249,7 +273,7 @@ function Diff({ typed, word }: { typed: string; word: string }) {
   );
 }
 
-function Result({ child, level, r, outcome }: { child: Child; level: SpLevel; r: SetResult; outcome: Outcome }) {
+function Result({ child, level, r, outcome, review }: { child: Child; level: SpLevel; r: SetResult; outcome: Outcome; review: { total: number; remembered: number } }) {
   const pct = Math.round(accuracy(r) * 100);
   const next = nextSpLevel(level.id);
   const head = {
@@ -270,6 +294,12 @@ function Result({ child, level, r, outcome }: { child: Child; level: SpLevel; r:
         </p>
         <p className="font-bold text-muted">right first time</p>
       </div>
+      {review.total > 0 && (
+        <p className="text-xl font-bold">
+          🧠 Remembered {review.remembered} of {review.total} word{review.total === 1 ? "" : "s"} from before
+          {review.remembered === review.total ? " — amazing memory!" : ""}
+        </p>
+      )}
       <div className="flex gap-4 mt-2">
         <Link href={`/child/${child.id}`} className="h-16 px-8 rounded-2xl bg-card border-2 border-line text-xl font-extrabold flex items-center">
           Finish

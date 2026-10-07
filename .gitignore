@@ -68,3 +68,9 @@ s.txt
 # voice script helper output
 voice-log.txt
 publish-log.txt
+*.bundle
+update-log.txt
+get-update.bat
+sb_publishable.txt
+supabase-url.txt
+voice-google-log.txt

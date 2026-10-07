@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { armSfx, playRight, playWrong } from "@/lib/sfx";
 
 interface Props {
   options: string[]; // 2-6 strings
@@ -16,6 +17,19 @@ interface Props {
 }
 
 export default function ChoiceGrid({ options, onChoose, disabled, result, size = "md", stack = false, renderOption }: Props) {
+  // Instant right / wrong sound the moment an answer is marked.
+  useEffect(armSfx, []);
+  // Plays once, when the answer goes from unmarked to marked.
+  const marked = result ? (result.chosen === result.correct ? "right" : "wrong") : null;
+  const lastMarked = useRef<typeof marked>(null);
+  useEffect(() => {
+    if (marked && !lastMarked.current) {
+      if (marked === "right") playRight();
+      else playWrong();
+    }
+    lastMarked.current = marked;
+  }, [marked]);
+
   // Physical keyboard support for laptop testing: keys 1-6 choose that option.
   useEffect(() => {
     function onKey(e: KeyboardEvent) {

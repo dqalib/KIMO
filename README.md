@@ -1,6 +1,6 @@
 # KIMO
 
-Kumon-style daily practice web app for Years 1–4 (maths + English). Private family use.
+Kumon-style daily practice web app for Years 1–5 (maths, English, coding words). Private family use.
 
 - Project brief: [PROJECT_BRIEF.md](PROJECT_BRIEF.md)
 - Skill map (levels + mastery rules): [docs/skill-map.md](docs/skill-map.md)
@@ -46,6 +46,11 @@ npm run build
 | `src/lib/placement.ts`, `src/app/child/[id]/check/[strand]/page.tsx` | Placement check (first visit to TT / AS / SP / GP) |
 | `src/lib/report.ts` | Weekly summary, daily goal, streak and tricky items (parent dashboard + child home) |
 | `src/lib/speech.ts`, `src/lib/audio-key.ts`, `src/lib/phrases.ts`, `scripts/make-audio.ts` | Speaking: pre-made British voice recordings (`public/audio`, see `docs/audio-setup.md`), else the device voice |
+| `src/lib/memory.ts` | "Do you still remember?" spaced review (Leitner boxes) for spelling and coding words |
+| `src/lib/coding.ts`, `src/content/coding/terms.json`, `src/app/child/[id]/coding/page.tsx` | Coding words: learn cards + tap-the-answer quiz |
+| `src/app/parent/report/[id]/page.tsx`, `childReport` in `src/lib/report.ts` | Full progress report per child (printable) |
+| `src/components/VoicePanel.tsx`, `voice-google.bat` | Voice coverage + this iPad's British voice; record the rest with Google |
+| `src/lib/sfx.ts` | Right / wrong sounds |
 | `src/lib/strands.ts` | Which level strands show for which school year; drives home-page cards and parent level pickers |
 | `src/components/ChoiceGrid.tsx`, `SpeakButton.tsx`, `SoundButtons.tsx`, `src/lib/speech.ts` | Tap-to-answer, text-to-speech and sound-button components (Kimi, brief 003) |
 | `src/app/` | Screens: `/` picker, `/setup`, `/child/[id]`, `/child/[id]/practice`, `/parent` |

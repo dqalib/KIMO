@@ -1,0 +1,952 @@
+{
+ "source": "Written for KIMO by Claude, 2026-10-07. Kid-friendly meanings; review before relying on them.",
+ "levels": [
+  {
+   "level": "CW-01",
+   "year": 1,
+   "title": "Parts of a computer",
+   "terms": [
+    {
+     "id": "monitor",
+     "term": "monitor",
+     "emoji": "🖥️",
+     "meaning": "The screen that shows you pictures and words from the computer.",
+     "example": "I looked at the monitor to see my drawing."
+    },
+    {
+     "id": "keyboard",
+     "term": "keyboard",
+     "emoji": "⌨️",
+     "meaning": "Buttons with letters and numbers that you press to type.",
+     "example": "I typed my name on the keyboard."
+    },
+    {
+     "id": "mouse",
+     "term": "mouse",
+     "emoji": "🖱️",
+     "meaning": "You move it and click it to point at things on the screen.",
+     "example": "I clicked on the game with the mouse."
+    },
+    {
+     "id": "speaker",
+     "term": "speaker",
+     "emoji": "🔈",
+     "meaning": "It lets the computer play sounds out loud.",
+     "example": "The music came out of the speaker."
+    },
+    {
+     "id": "microphone",
+     "term": "microphone",
+     "emoji": "🎤",
+     "meaning": "It picks up your voice so the computer can hear you.",
+     "example": "I said hello into the microphone."
+    },
+    {
+     "id": "webcam",
+     "term": "webcam",
+     "emoji": "📷",
+     "meaning": "A small camera on a computer, so people can see you on a video call.",
+     "example": "Grandma saw me on the webcam."
+    },
+    {
+     "id": "printer",
+     "term": "printer",
+     "emoji": "🖨️",
+     "meaning": "It puts words and pictures from the computer onto paper.",
+     "example": "The printer printed my party invitation."
+    },
+    {
+     "id": "laptop",
+     "term": "laptop",
+     "emoji": "💻",
+     "meaning": "A computer you can fold shut and carry around.",
+     "example": "Dad took his laptop on the train.",
+     "avoid": [
+      "tablet"
+     ]
+    },
+    {
+     "id": "tablet",
+     "term": "tablet",
+     "emoji": "📱",
+     "meaning": "A flat computer you use by touching the screen, like an iPad.",
+     "example": "I read a story on my tablet.",
+     "avoid": [
+      "laptop"
+     ]
+    },
+    {
+     "id": "headphones",
+     "term": "headphones",
+     "emoji": "🎧",
+     "meaning": "You wear them over your ears to hear sound without anyone else hearing.",
+     "example": "I wore headphones so I didn't wake the baby.",
+     "avoid": [
+      "speaker"
+     ]
+    },
+    {
+     "id": "charger",
+     "term": "charger",
+     "emoji": "🔌",
+     "meaning": "A cable that puts power back into a battery.",
+     "example": "My tablet was flat, so I plugged in the charger."
+    }
+   ],
+   "extra": [
+    {
+     "prompt": "Which one do you use to type words?",
+     "options": [
+      "keyboard",
+      "printer",
+      "speaker"
+     ],
+     "answer": 0,
+     "why": "A keyboard has the letters on it."
+    },
+    {
+     "prompt": "Which one lets the computer hear you?",
+     "options": [
+      "microphone",
+      "monitor",
+      "printer"
+     ],
+     "answer": 0,
+     "why": "A microphone picks up sound, like your voice."
+    },
+    {
+     "prompt": "Which one puts your picture on paper?",
+     "options": [
+      "printer",
+      "webcam",
+      "mouse"
+     ],
+     "answer": 0,
+     "why": "A printer prints onto paper."
+    }
+   ]
+  },
+  {
+   "level": "CW-02",
+   "year": 2,
+   "title": "Inside the computer",
+   "terms": [
+    {
+     "id": "processor",
+     "term": "processor (CPU)",
+     "emoji": "🧠",
+     "meaning": "The \"brain\" of the computer. It follows instructions super fast.",
+     "example": "The processor works out the answers to my sums."
+    },
+    {
+     "id": "ram",
+     "term": "RAM",
+     "emoji": "⚡",
+     "meaning": "The computer's short-term memory. It holds what you're doing right now and is wiped clean when you switch off.",
+     "example": "The game was loaded into RAM while I played.",
+     "avoid": [
+      "storage"
+     ]
+    },
+    {
+     "id": "storage",
+     "term": "storage",
+     "emoji": "🗄️",
+     "meaning": "Where files are kept for a long time, even when the computer is switched off.",
+     "example": "My photos are kept in storage.",
+     "avoid": [
+      "ram",
+      "usb"
+     ]
+    },
+    {
+     "id": "battery",
+     "term": "battery",
+     "emoji": "🔋",
+     "meaning": "It stores electricity so a laptop or tablet works without being plugged in.",
+     "example": "The battery was at 10%, so I charged it."
+    },
+    {
+     "id": "usb",
+     "term": "USB stick",
+     "emoji": "💾",
+     "meaning": "A small thing you plug in to carry files from one computer to another.",
+     "example": "I took my project to school on a USB stick.",
+     "avoid": [
+      "storage"
+     ]
+    },
+    {
+     "id": "input",
+     "term": "input device",
+     "emoji": "⬅️",
+     "meaning": "A part that puts information INTO the computer, like a keyboard or mouse.",
+     "example": "A microphone is an input device.",
+     "avoid": [
+      "output"
+     ]
+    },
+    {
+     "id": "output",
+     "term": "output device",
+     "emoji": "➡️",
+     "meaning": "A part the computer uses to give information OUT, like a screen or speaker.",
+     "example": "A printer is an output device.",
+     "avoid": [
+      "input"
+     ]
+    },
+    {
+     "id": "data",
+     "term": "data",
+     "emoji": "🔢",
+     "meaning": "Information, like numbers, words, pictures and sounds.",
+     "example": "The computer saved the data from our class survey."
+    },
+    {
+     "id": "file",
+     "term": "file",
+     "emoji": "📄",
+     "meaning": "One saved piece of work, like a story, a picture or a song.",
+     "example": "I opened the file with my story in it.",
+     "avoid": [
+      "folder"
+     ]
+    },
+    {
+     "id": "folder",
+     "term": "folder",
+     "emoji": "📁",
+     "meaning": "A place to keep files together so they are tidy and easy to find.",
+     "example": "I put all my pictures in one folder.",
+     "avoid": [
+      "file"
+     ]
+    }
+   ],
+   "extra": [
+    {
+     "prompt": "Is a keyboard an input or an output device?",
+     "options": [
+      "input",
+      "output"
+     ],
+     "answer": 0,
+     "why": "You put letters INTO the computer with a keyboard."
+    },
+    {
+     "prompt": "Is a mouse an input or an output device?",
+     "options": [
+      "input",
+      "output"
+     ],
+     "answer": 0,
+     "why": "You tell the computer where to point with a mouse — that goes IN."
+    },
+    {
+     "prompt": "Is a monitor an input or an output device?",
+     "options": [
+      "output",
+      "input"
+     ],
+     "answer": 0,
+     "why": "The monitor shows you things — information coming OUT."
+    },
+    {
+     "prompt": "Is a speaker an input or an output device?",
+     "options": [
+      "output",
+      "input"
+     ],
+     "answer": 0,
+     "why": "Sound comes OUT of a speaker."
+    },
+    {
+     "prompt": "Is a microphone an input or an output device?",
+     "options": [
+      "input",
+      "output"
+     ],
+     "answer": 0,
+     "why": "Your voice goes IN through the microphone."
+    },
+    {
+     "prompt": "Is a printer an input or an output device?",
+     "options": [
+      "output",
+      "input"
+     ],
+     "answer": 0,
+     "why": "The printer gives you paper OUT of the computer."
+    },
+    {
+     "prompt": "What happens to what's in RAM when you switch the computer off?",
+     "options": [
+      "It's wiped clean",
+      "It's kept for ever",
+      "It gets printed"
+     ],
+     "answer": 0,
+     "why": "RAM is short-term memory — it forgets when the power goes off."
+    },
+    {
+     "prompt": "Where should your story be saved so it's still there tomorrow?",
+     "options": [
+      "storage",
+      "RAM",
+      "the mouse"
+     ],
+     "answer": 0,
+     "why": "Storage keeps files even when the computer is off."
+    }
+   ]
+  },
+  {
+   "level": "CW-03",
+   "year": 2,
+   "title": "Using a computer",
+   "terms": [
+    {
+     "id": "hardware",
+     "term": "hardware",
+     "emoji": "🔧",
+     "meaning": "The parts of a computer that you can touch.",
+     "example": "The keyboard and the screen are hardware.",
+     "avoid": [
+      "software"
+     ]
+    },
+    {
+     "id": "software",
+     "term": "software",
+     "emoji": "💿",
+     "meaning": "The programs and apps that tell a computer what to do. You can't touch software.",
+     "example": "Games and drawing apps are software.",
+     "avoid": [
+      "hardware",
+      "app",
+      "os"
+     ]
+    },
+    {
+     "id": "app",
+     "term": "app",
+     "emoji": "📲",
+     "meaning": "A program that does one job, like a game or a camera, often on a phone or tablet.",
+     "example": "I opened the drawing app.",
+     "avoid": [
+      "software",
+      "os"
+     ]
+    },
+    {
+     "id": "os",
+     "term": "operating system",
+     "emoji": "🪟",
+     "meaning": "The main software that runs the whole computer, like Windows or iPadOS.",
+     "example": "The operating system starts when you switch the computer on.",
+     "avoid": [
+      "software",
+      "app"
+     ]
+    },
+    {
+     "id": "icon",
+     "term": "icon",
+     "emoji": "🖼️",
+     "meaning": "A small picture you tap or click to open something.",
+     "example": "I tapped the camera icon.",
+     "avoid": [
+      "cursor"
+     ]
+    },
+    {
+     "id": "cursor",
+     "term": "cursor",
+     "emoji": "↖️",
+     "meaning": "The arrow or flashing line that shows where you are on the screen.",
+     "example": "The cursor blinked where my next letter would go.",
+     "avoid": [
+      "icon"
+     ]
+    },
+    {
+     "id": "click",
+     "term": "click",
+     "emoji": "👆",
+     "meaning": "Pressing the mouse button once.",
+     "example": "Click the green button to start.",
+     "avoid": [
+      "doubleclick"
+     ]
+    },
+    {
+     "id": "doubleclick",
+     "term": "double-click",
+     "emoji": "✌️",
+     "meaning": "Pressing the mouse button twice, quickly, to open something.",
+     "example": "Double-click the folder to open it.",
+     "avoid": [
+      "click"
+     ]
+    },
+    {
+     "id": "drag",
+     "term": "drag",
+     "emoji": "✋",
+     "meaning": "Holding down on something and moving it to a new place.",
+     "example": "I dragged the picture into the folder."
+    },
+    {
+     "id": "save",
+     "term": "save",
+     "emoji": "💾",
+     "meaning": "Keeping your work so you can open it again later.",
+     "example": "Save your story before you close it."
+    },
+    {
+     "id": "password",
+     "term": "password",
+     "emoji": "🔑",
+     "meaning": "A secret word that keeps your account safe. Never share it with friends.",
+     "example": "I typed my password to get in.",
+     "avoid": [
+      "login"
+     ]
+    },
+    {
+     "id": "login",
+     "term": "log in",
+     "emoji": "🚪",
+     "meaning": "Typing your username and password to get into your account.",
+     "example": "I logged in to my school account.",
+     "avoid": [
+      "password"
+     ]
+    },
+    {
+     "id": "update",
+     "term": "update",
+     "emoji": "🔄",
+     "meaning": "A new version of software that fixes problems or adds new things.",
+     "example": "The tablet did an update last night."
+    }
+   ],
+   "extra": [
+    {
+     "prompt": "Is a keyboard hardware or software?",
+     "options": [
+      "hardware",
+      "software"
+     ],
+     "answer": 0,
+     "why": "You can touch a keyboard, so it's hardware."
+    },
+    {
+     "prompt": "Is a game app hardware or software?",
+     "options": [
+      "software",
+      "hardware"
+     ],
+     "answer": 0,
+     "why": "An app is instructions — you can't touch it, so it's software."
+    },
+    {
+     "prompt": "Who can you share your password with?",
+     "options": [
+      "a grown-up at home who looks after you",
+      "your best friend",
+      "anyone who asks nicely"
+     ],
+     "answer": 0,
+     "why": "Passwords are secret. Only a grown-up who looks after you should know it."
+    }
+   ]
+  },
+  {
+   "level": "CW-04",
+   "year": 3,
+   "title": "Coding words",
+   "terms": [
+    {
+     "id": "algorithm",
+     "term": "algorithm",
+     "emoji": "📋",
+     "meaning": "A list of step-by-step instructions to do a job or solve a problem.",
+     "example": "Our algorithm for making toast had five steps.",
+     "avoid": [
+      "code",
+      "program",
+      "sequence"
+     ]
+    },
+    {
+     "id": "instruction",
+     "term": "instruction",
+     "emoji": "👉",
+     "meaning": "One step that tells someone or something exactly what to do.",
+     "example": "\"Move 10 steps\" is an instruction.",
+     "avoid": [
+      "algorithm",
+      "code"
+     ]
+    },
+    {
+     "id": "sequence",
+     "term": "sequence",
+     "emoji": "🔢",
+     "meaning": "Doing instructions in the right order, one after another.",
+     "example": "Socks first, then shoes — the sequence matters!",
+     "avoid": [
+      "algorithm"
+     ]
+    },
+    {
+     "id": "code",
+     "term": "code",
+     "emoji": "⌨️",
+     "meaning": "Instructions written in a language a computer understands.",
+     "example": "We wrote code to make the cat dance.",
+     "avoid": [
+      "program",
+      "algorithm",
+      "instruction"
+     ]
+    },
+    {
+     "id": "program",
+     "term": "program",
+     "emoji": "🖥️",
+     "meaning": "A finished set of code that a computer runs to do a job.",
+     "example": "I wrote a program that draws a square.",
+     "avoid": [
+      "code",
+      "algorithm"
+     ]
+    },
+    {
+     "id": "programmer",
+     "term": "programmer",
+     "emoji": "🧑‍💻",
+     "meaning": "A person who writes code.",
+     "example": "When I grow up I want to be a programmer."
+    },
+    {
+     "id": "bug",
+     "term": "bug",
+     "emoji": "🐞",
+     "meaning": "A mistake in a program that stops it working properly.",
+     "example": "There was a bug, so the cat walked off the screen.",
+     "avoid": [
+      "debug"
+     ]
+    },
+    {
+     "id": "debug",
+     "term": "debug",
+     "emoji": "🔍",
+     "meaning": "Finding and fixing the mistakes in a program.",
+     "example": "We debugged our game until it worked.",
+     "avoid": [
+      "bug"
+     ]
+    },
+    {
+     "id": "loop",
+     "term": "loop",
+     "emoji": "🔁",
+     "meaning": "Part of a program that repeats instructions again and again.",
+     "example": "I used a loop to make the cat jump 10 times."
+    },
+    {
+     "id": "sprite",
+     "term": "sprite",
+     "emoji": "🐱",
+     "meaning": "A character or object that moves around in a game or in Scratch.",
+     "example": "My sprite is a flying dragon."
+    },
+    {
+     "id": "run",
+     "term": "run",
+     "emoji": "▶️",
+     "meaning": "Starting a program so the computer follows its instructions.",
+     "example": "Press the green flag to run the program."
+    }
+   ],
+   "extra": [
+    {
+     "prompt": "A program that says \"Hello\" 10 times would use a…",
+     "options": [
+      "loop",
+      "bug",
+      "sprite",
+      "programmer"
+     ],
+     "answer": 0,
+     "why": "A loop repeats instructions, so you don't write them 10 times."
+    },
+    {
+     "prompt": "Your game stops working because of a mistake in the code. The mistake is a…",
+     "options": [
+      "bug",
+      "loop",
+      "sprite",
+      "sequence"
+     ],
+     "answer": 0,
+     "why": "A mistake in a program is called a bug."
+    },
+    {
+     "prompt": "Putting on socks, then shoes, then tying the laces is an example of a…",
+     "options": [
+      "sequence",
+      "bug",
+      "loop",
+      "sprite"
+     ],
+     "answer": 0,
+     "why": "Doing steps in the right order is a sequence."
+    },
+    {
+     "prompt": "You find and fix the mistakes in your game. You are…",
+     "options": [
+      "debugging",
+      "looping",
+      "running",
+      "drawing"
+     ],
+     "answer": 0,
+     "why": "Finding and fixing mistakes is debugging."
+    }
+   ]
+  },
+  {
+   "level": "CW-05",
+   "year": 4,
+   "title": "More coding words",
+   "terms": [
+    {
+     "id": "variable",
+     "term": "variable",
+     "emoji": "📦",
+     "meaning": "A named box in a program that stores a value, like a score, which can change.",
+     "example": "The variable called score went up by 1.",
+     "avoid": [
+      "boolean"
+     ]
+    },
+    {
+     "id": "condition",
+     "term": "condition",
+     "emoji": "❓",
+     "meaning": "A question in a program that is either true or false, like \"Is the score 10?\"",
+     "example": "The condition checked if the cat touched the wall.",
+     "avoid": [
+      "if",
+      "else",
+      "boolean"
+     ]
+    },
+    {
+     "id": "if",
+     "term": "if statement",
+     "emoji": "🔀",
+     "meaning": "Code that only runs IF a condition is true.",
+     "example": "If it is raining, then take an umbrella.",
+     "avoid": [
+      "condition",
+      "else"
+     ]
+    },
+    {
+     "id": "else",
+     "term": "else",
+     "emoji": "↪️",
+     "meaning": "What the program does when the condition is NOT true.",
+     "example": "If it is sunny wear a hat, else wear a coat.",
+     "avoid": [
+      "if",
+      "condition"
+     ]
+    },
+    {
+     "id": "event",
+     "term": "event",
+     "emoji": "🖱️",
+     "meaning": "Something that happens, like a click or a key press, that starts some code.",
+     "example": "Clicking the green flag is an event."
+    },
+    {
+     "id": "function",
+     "term": "function",
+     "emoji": "🧩",
+     "meaning": "A named set of instructions you can use again and again just by using its name.",
+     "example": "I made a function called drawSquare.",
+     "avoid": [
+      "loop"
+     ]
+    },
+    {
+     "id": "decompose",
+     "term": "decompose",
+     "emoji": "✂️",
+     "meaning": "Breaking a big problem into smaller parts that are easier to solve.",
+     "example": "We decomposed the game into the player, the enemies and the score."
+    },
+    {
+     "id": "pattern",
+     "term": "pattern",
+     "emoji": "🔷",
+     "meaning": "Something that repeats or is the same, which can help you solve problems.",
+     "example": "I spotted a pattern: every second tile was red."
+    },
+    {
+     "id": "random",
+     "term": "random",
+     "emoji": "🎲",
+     "meaning": "When the computer picks a number or a choice by chance, like rolling a dice.",
+     "example": "The apple appears in a random place."
+    },
+    {
+     "id": "boolean",
+     "term": "true or false (Boolean)",
+     "emoji": "✅",
+     "meaning": "A value that can only be true or false.",
+     "example": "\"Game over\" is either true or false.",
+     "avoid": [
+      "condition",
+      "variable"
+     ]
+    }
+   ],
+   "extra": [
+    {
+     "prompt": "A game keeps track of your points in a…",
+     "options": [
+      "variable",
+      "loop",
+      "event",
+      "sprite"
+     ],
+     "answer": 0,
+     "why": "A variable stores a value that can change, like a score."
+    },
+    {
+     "prompt": "\"When the green flag is clicked\" starts the program. The click is an…",
+     "options": [
+      "event",
+      "variable",
+      "bug",
+      "pattern"
+     ],
+     "answer": 0,
+     "why": "Something that happens and starts code is an event."
+    },
+    {
+     "prompt": "\"If it is raining, take an umbrella.\" What is the condition?",
+     "options": [
+      "it is raining",
+      "take an umbrella",
+      "if"
+     ],
+     "answer": 0,
+     "why": "The condition is the true-or-false part: is it raining?"
+    },
+    {
+     "prompt": "Splitting \"make a game\" into \"draw the player\", \"make it move\" and \"add a score\" is called…",
+     "options": [
+      "decomposing",
+      "debugging",
+      "looping",
+      "random"
+     ],
+     "answer": 0,
+     "why": "Breaking a big problem into smaller parts is decomposing."
+    }
+   ]
+  },
+  {
+   "level": "CW-06",
+   "year": 4,
+   "title": "The internet and staying safe",
+   "terms": [
+    {
+     "id": "internet",
+     "term": "internet",
+     "emoji": "🌍",
+     "meaning": "Millions of computers all over the world, joined together.",
+     "example": "I found a video about sharks on the internet.",
+     "avoid": [
+      "network",
+      "website",
+      "cloud"
+     ]
+    },
+    {
+     "id": "network",
+     "term": "network",
+     "emoji": "🕸️",
+     "meaning": "A group of computers connected so they can share information.",
+     "example": "All the computers at school are on one network.",
+     "avoid": [
+      "internet",
+      "wifi"
+     ]
+    },
+    {
+     "id": "wifi",
+     "term": "Wi-Fi",
+     "emoji": "📶",
+     "meaning": "A way of connecting to the internet without wires.",
+     "example": "The tablet joined the Wi-Fi at Grandma's house.",
+     "avoid": [
+      "router",
+      "network"
+     ]
+    },
+    {
+     "id": "router",
+     "term": "router",
+     "emoji": "📡",
+     "meaning": "The box at home that connects your devices to the internet.",
+     "example": "The router has little flashing lights.",
+     "avoid": [
+      "wifi"
+     ]
+    },
+    {
+     "id": "website",
+     "term": "website",
+     "emoji": "🌐",
+     "meaning": "Pages of information on the internet that you can visit.",
+     "example": "The school has a website with photos of our trip.",
+     "avoid": [
+      "browser",
+      "search"
+     ]
+    },
+    {
+     "id": "browser",
+     "term": "web browser",
+     "emoji": "🧭",
+     "meaning": "The app you use to look at websites, like Safari or Chrome.",
+     "example": "I opened the web browser to look at the website.",
+     "avoid": [
+      "website",
+      "search"
+     ]
+    },
+    {
+     "id": "search",
+     "term": "search engine",
+     "emoji": "🔎",
+     "meaning": "A website that helps you find things on the internet, like Google.",
+     "example": "I used a search engine to find facts about volcanoes.",
+     "avoid": [
+      "website",
+      "browser"
+     ]
+    },
+    {
+     "id": "link",
+     "term": "link",
+     "emoji": "🔗",
+     "meaning": "Words or a picture you click to go to another page.",
+     "example": "Click the link to see the next page."
+    },
+    {
+     "id": "download",
+     "term": "download",
+     "emoji": "⬇️",
+     "meaning": "Copying something from the internet onto your device.",
+     "example": "I downloaded a new book onto my tablet.",
+     "avoid": [
+      "upload"
+     ]
+    },
+    {
+     "id": "upload",
+     "term": "upload",
+     "emoji": "⬆️",
+     "meaning": "Sending something from your device up to the internet.",
+     "example": "Mum uploaded the photos to the cloud.",
+     "avoid": [
+      "download"
+     ]
+    },
+    {
+     "id": "email",
+     "term": "email",
+     "emoji": "✉️",
+     "meaning": "A message sent from one person to another over the internet.",
+     "example": "I sent my teacher an email."
+    },
+    {
+     "id": "cloud",
+     "term": "the cloud",
+     "emoji": "☁️",
+     "meaning": "Keeping your files on the internet, not just on your own device.",
+     "example": "My photos are saved in the cloud.",
+     "avoid": [
+      "internet",
+      "storage"
+     ]
+    },
+    {
+     "id": "virus",
+     "term": "virus",
+     "emoji": "🦠",
+     "meaning": "A harmful program that can damage a computer or steal information.",
+     "example": "Don't open strange emails — they might have a virus."
+    },
+    {
+     "id": "personal",
+     "term": "personal information",
+     "emoji": "🙈",
+     "meaning": "Things like your full name, address, school and passwords. Keep them private online.",
+     "example": "I never put my personal information in a game chat."
+    }
+   ],
+   "extra": [
+    {
+     "prompt": "Someone in a game chat asks where you live. What should you do?",
+     "options": [
+      "Don't tell them, and tell a grown-up",
+      "Tell them your address",
+      "Tell them your school instead"
+     ],
+     "answer": 0,
+     "why": "Your address is personal information. Keep it private and tell a grown-up."
+    },
+    {
+     "prompt": "Someone online you don't know asks for your password. What do you do?",
+     "options": [
+      "Don't share it, and tell a grown-up",
+      "Send it to them",
+      "Swap passwords with them"
+     ],
+     "answer": 0,
+     "why": "Never share your password online."
+    },
+    {
+     "prompt": "Moving a photo from your iPad onto the internet is…",
+     "options": [
+      "an upload",
+      "a download"
+     ],
+     "answer": 0,
+     "why": "Sending something UP from your device is uploading."
+    },
+    {
+     "prompt": "Getting a game from the internet onto your iPad is…",
+     "options": [
+      "a download",
+      "an upload"
+     ],
+     "answer": 0,
+     "why": "Bringing something DOWN onto your device is downloading."
+    }
+   ]
+  }
+ ]
+}

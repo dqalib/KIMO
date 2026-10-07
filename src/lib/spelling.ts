@@ -33,6 +33,15 @@ const INFO: [string, number, string][] = [
   ["SP-07", 3, "Endings: -ation, -ous, -tion, -sion, -cian"],
   ["SP-08", 3, "Sound-alike words (here / hear)"],
   ["SP-09", 4, "Year 3/4 word list, part 2"],
+  ["SP-10", 4, "Sounds: -ture, -sure, ch, -gue, -que, sc, ei"],
+  ["SP-11", 5, "Year 5/6 word list, part 1"],
+  ["SP-12", 5, "Year 5/6 word list, part 2"],
+  ["SP-13", 5, "Endings: -cious, -tious, -cial, -tial"],
+  ["SP-14", 5, "Endings: -ant, -ance, -ancy, -ent, -ence, -ency"],
+  ["SP-15", 5, "Endings: -able, -ible, -ably, -ibly"],
+  ["SP-16", 5, "Silent letters and -ough words"],
+  ["SP-17", 5, "ei after c, and hyphens (co-operate)"],
+  ["SP-18", 5, "Year 5 sound-alike words (advice / advise)"],
 ];
 
 export const SP_LEVELS: SpLevel[] = INFO.map(([id, year, title], i) => ({
@@ -61,6 +70,33 @@ export function spLevelWords(id: string): SpWord[] {
   return LEVEL_WORDS.get(id) ?? [];
 }
 
+// Every word, for "Do you still remember?" review of words from earlier levels.
+const WORD_INFO = new Map<string, SpWord>();
+for (const l of SP_LEVELS) for (const w of spLevelWords(l.id)) if (!WORD_INFO.has(w.word)) WORD_INFO.set(w.word, w);
+
+export function findSpWord(word: string): SpWord | undefined {
+  return WORD_INFO.get(word);
+}
+
+/** How many earlier-day words start each set (they don't count towards passing the level). */
+export const SP_REVIEW_PER_SET = 3;
+
+/**
+ * Words due for review today (most overdue first, from src/lib/memory.ts),
+ * skipping any already in this set and keeping homophone pairs apart.
+ */
+export function pickSpReview(due: string[], set: SpWord[], limit = SP_REVIEW_PER_SET): SpWord[] {
+  const out: SpWord[] = [];
+  const taken = (w: string) => set.some((s) => s.word === w) || out.some((s) => s.word === w);
+  for (const word of due) {
+    if (out.length >= limit) break;
+    const w = WORD_INFO.get(word);
+    if (!w || taken(w.word) || w.homophoneOf?.some(taken)) continue;
+    out.push(w);
+  }
+  return out;
+}
+
 /**
  * Where a child starts before any placement test: about a year below their
  * school year ("start easy, build confidence"). The parent can move them.
@@ -68,7 +104,8 @@ export function spLevelWords(id: string): SpWord[] {
 export function defaultSpStart(schoolYear: number): string {
   if (schoolYear <= 2) return "SP-01";
   if (schoolYear === 3) return "SP-03";
-  return "SP-05";
+  if (schoolYear === 4) return "SP-05";
+  return "SP-09";
 }
 
 /** Normalise what was typed: trim, curly apostrophes → straight. */

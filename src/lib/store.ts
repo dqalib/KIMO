@@ -7,6 +7,8 @@ import { useSyncExternalStore } from "react";
 import type { LevelProgress, Outcome, SetResult } from "./mastery";
 import { applySet } from "./mastery";
 import { defaultASStart } from "./as";
+import { defaultCwStart } from "./coding";
+import { applyAnswers, type Memory } from "./memory";
 import { defaultGpStart } from "./grammar";
 import { defaultFRStart } from "./fr";
 import { defaultMTTimeStart } from "./mt-time";
@@ -149,12 +151,15 @@ export function removeChild(id: string) {
   void _pu;
   const { [id]: _hw, ...hw } = s.hw ?? {};
   void _hw;
+  const { [id]: _mem, ...memory } = s.memory ?? {};
+  void _mem;
   save({
     ...s,
     children: s.children.filter((c) => c.id !== id),
     tt,
     progressUpdatedAt,
     hw,
+    memory,
     weakFacts,
     attempts: s.attempts.filter((a) => a.childId !== id),
     deletedChildren: [...(s.deletedChildren ?? []), id],
@@ -274,7 +279,7 @@ export function setInputMode(childId: string, mode: InputMode) {
 // Each strand keeps, per child: level progress, when it last changed (for sync),
 // and a "tricky" count per word / question / fact the child got wrong.
 
-export type Strand = "ph" | "sp" | "gp" | "as" | "np" | "fr" | "mt" | "rc";
+export type Strand = "ph" | "sp" | "gp" | "as" | "np" | "fr" | "mt" | "rc" | "cw";
 
 const START: Record<Strand, (schoolYear: number) => string> = {
   ph: () => "PH-01",
@@ -285,6 +290,7 @@ const START: Record<Strand, (schoolYear: number) => string> = {
   fr: defaultFRStart,
   mt: defaultMTTimeStart,
   rc: defaultRcStart,
+  cw: defaultCwStart,
 };
 
 export function strandProgress(s: AppState, strand: Strand, childId: string): LevelProgress {
@@ -357,6 +363,19 @@ export const recordPhSet = (childId: string, levelId: string, r: SetResult, wron
   recordStrandSet("ph", childId, levelId, r, wrong, next, prev);
 export const recordSpSet = (childId: string, levelId: string, r: SetResult, wrong: string[], next?: string, prev?: string) =>
   recordStrandSet("sp", childId, levelId, r, wrong, next, prev);
+
+// ---- memory: spaced review across days (src/lib/memory.ts) -----------------------
+
+export function childMemory(s: AppState, childId: string): Memory {
+  return s.memory?.[childId] ?? {};
+}
+
+/** Save first-try answers into the memory boxes ("sp:word", "cw:term"). */
+export function recordMemory(childId: string, answers: { key: string; ok: boolean }[]) {
+  if (!answers.length) return;
+  const s = load();
+  save({ ...s, memory: { ...(s.memory ?? {}), [childId]: applyAnswers(childMemory(s, childId), answers) } });
+}
 
 // ---- reading: grown-up review of passages ---------------------------------------
 

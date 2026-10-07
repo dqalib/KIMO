@@ -38,3 +38,30 @@ describe("phrase list", () => {
     for (const l of GP_LEVELS) for (const q of gpQuestions(l.id)) expect(keys.has(audioKey(spokenGp(q)))).toBe(true);
   });
 });
+
+describe("British voice choice", () => {
+  it("only British voices count, natural ones before novelty ones, enhanced first", async () => {
+    const { isBritishVoice, voiceScore } = await import("./speech");
+    const v = (name: string, lang: string) => ({ name, lang });
+    expect(isBritishVoice(v("Samantha", "en-US"))).toBe(false);
+    expect(voiceScore(v("Samantha", "en-US"))).toBeLessThan(0);
+    expect(isBritishVoice(v("Daniel", "en-GB"))).toBe(true);
+    expect(isBritishVoice(v("Google UK English Female", "en_GB"))).toBe(true);
+    expect(voiceScore(v("Grandma (English (UK))", "en-GB"))).toBeLessThan(voiceScore(v("Daniel", "en-GB")));
+    expect(voiceScore(v("Rocko", "en-GB"))).toBeLessThan(1000);
+    expect(voiceScore(v("Serena (Enhanced)", "en-GB"))).toBeGreaterThan(voiceScore(v("Daniel", "en-GB")));
+  });
+
+  it("reads maths symbols as words", async () => {
+    const { spokenMaths } = await import("./speech");
+    expect(spokenMaths("6 × 3 =")).toBe("6 times 3 equals");
+    expect(spokenMaths("20 − 7")).toBe("20 take away 7");
+    expect(spokenMaths("3/4 of 8")).toBe("3 over 4 of 8");
+  });
+
+  it("covers the coding words and the new spelling levels in the phrase list", () => {
+    const texts = new Set(allPhrases().map((p) => p.text));
+    expect(texts.has("RAM. The computer's short-term memory. It holds what you're doing right now and is wiped clean when you switch off.")).toBe(true);
+    expect([...texts].some((t) => t.startsWith("yacht."))).toBe(true);
+  });
+});

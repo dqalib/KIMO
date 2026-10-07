@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { SP_LEVELS, cleanTyped, defaultSpStart, generateSpSet, getSpLevel, isCorrectSpelling, spLevelWords, spokenPrompt } from "./spelling";
+import { SP_LEVELS, cleanTyped, defaultSpStart, findSpWord, generateSpSet, getSpLevel, isCorrectSpelling, pickSpReview, spLevelWords, spokenPrompt } from "./spelling";
 
 function seeded(seed: number) {
   let s = seed;
@@ -10,8 +10,9 @@ function seeded(seed: number) {
 }
 
 describe("spelling levels", () => {
-  it("has nine levels, each with enough words for a set", () => {
-    expect(SP_LEVELS.map((l) => l.id)).toEqual(["SP-01", "SP-02", "SP-03", "SP-04", "SP-05", "SP-06", "SP-07", "SP-08", "SP-09"]);
+  it("has eighteen levels (Years 1–5), each with enough words for a set", () => {
+    expect(SP_LEVELS.map((l) => l.id)).toEqual(Array.from({ length: 18 }, (_, i) => `SP-${String(i + 1).padStart(2, "0")}`));
+    expect(SP_LEVELS.at(-1)!.year).toBe(5);
     for (const l of SP_LEVELS) expect(spLevelWords(l.id).length).toBeGreaterThanOrEqual(l.setSize);
   });
 
@@ -20,6 +21,7 @@ describe("spelling levels", () => {
     expect(defaultSpStart(2)).toBe("SP-01");
     expect(defaultSpStart(3)).toBe("SP-03");
     expect(defaultSpStart(4)).toBe("SP-05");
+    expect(defaultSpStart(5)).toBe("SP-09");
   });
 });
 
@@ -75,5 +77,18 @@ describe("generateSpSet", () => {
       if (generateSpSet(level, {}, seeded(seed)).some((w) => w.word === "believe")) without++;
     }
     expect(withTricky).toBeGreaterThan(without);
+  });
+});
+
+describe("pickSpReview (earlier-day words)", () => {
+  it("takes due words in order, up to the limit, skipping ones already in the set", () => {
+    const set = [findSpWord("because")!];
+    const got = pickSpReview(["because", "said", "friend", "school", "people"], set);
+    expect(got.map((w) => w.word)).toEqual(["said", "friend", "school"]);
+  });
+
+  it("ignores words that no longer exist and keeps homophone pairs apart", () => {
+    const got = pickSpReview(["zzznotaword", "here", "hear", "advice", "advise", "steal"], []);
+    expect(got.map((w) => w.word)).toEqual(["here", "advice", "steal"]);
   });
 });

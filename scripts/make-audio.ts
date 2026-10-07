@@ -7,6 +7,9 @@
 //   npm.cmd run audio -- --max-chars 9000   stop before using more than this many characters
 //   npm.cmd run audio -- --voice <id> --force   remake everything (e.g. after changing voice)
 //   npm.cmd run audio -- --prune         also delete recordings nothing uses any more
+//   npm.cmd run audio -- --provider google --voice en-GB-Chirp3-HD-Leda --force
+//                                        use Google even when an ElevenLabs key file exists
+//                                        (Google's free allowance: 1 million characters a month)
 //
 // The key: put it on its own in ELEVENLABS_API.txt (ElevenLabs, starts "sk_") or
 // GOOGLE_API.txt (Google, starts "AIza") in the KIMO folder — both are git-ignored.
@@ -60,7 +63,7 @@ function envLocal(name: string): string | undefined {
   return line?.slice(name.length + 1).trim().replace(/^["']|["']$/g, "") || undefined;
 }
 
-function findKey(): { provider: Provider; key: string } | undefined {
+function findKey(want?: Provider): { provider: Provider; key: string } | undefined {
   const candidates = [
     process.env.ELEVENLABS_API_KEY,
     envLocal("ELEVENLABS_API_KEY"),
@@ -73,10 +76,11 @@ function findKey(): { provider: Provider; key: string } | undefined {
     tokenFrom("GOOGLE_API.txt"),
     tokenFrom("GOOGLE_API"),
   ].filter((k): k is string => !!k);
-  const key = candidates[0];
-  if (!key) return undefined;
   // Google API keys always start "AIza"; anything else is treated as ElevenLabs ("sk_…").
-  return { provider: key.startsWith("AIza") ? "google" : "elevenlabs", key };
+  const providerOf = (k: string): Provider => (k.startsWith("AIza") ? "google" : "elevenlabs");
+  const key = candidates.find((k) => !want || providerOf(k) === want);
+  if (!key) return undefined;
+  return { provider: providerOf(key), key };
 }
 
 async function retrying(label: string, call: () => Promise<Response>): Promise<Response> {
@@ -223,9 +227,18 @@ async function main() {
   console.log(`Already made: ${[...phrases.keys()].filter((k) => onDisk.has(k)).length} · to make now: ${todo.length} (${chars.toLocaleString()} characters)`);
   if (flag("dry-run")) return;
 
-  const found = findKey();
+  const wantProvider = option("provider") as Provider | undefined;
+  if (wantProvider && wantProvider !== "google" && wantProvider !== "elevenlabs") {
+    console.error(`\n--provider must be google or elevenlabs (got ${wantProvider}).`);
+    process.exit(1);
+  }
+  const found = findKey(wantProvider);
   if (!found) {
-    console.error("\nNo API key found. Put your ElevenLabs key on its own in ELEVENLABS_API.txt in the KIMO folder, then run again.");
+    console.error(
+      wantProvider === "google"
+        ? "\nNo Google key found. Put your Google API key (starts AIza) on its own in GOOGLE_API.txt in the KIMO folder, then run again."
+        : "\nNo API key found. Put your ElevenLabs key on its own in ELEVENLABS_API.txt in the KIMO folder, then run again.",
+    );
     process.exit(1);
   }
   const { provider, key } = found;
@@ -272,6 +285,15 @@ async function main() {
   }
 
   const speakOne = (text: string) => (provider === "elevenlabs" ? elevenSpeak(key, voice, text) : googleSpeak(key, voice, text));
+  // Check the key and voice work before touching anything (so a bad key can't half-replace the old voice).
+  if (todo.length) {
+    try {
+      await speakOne("Hello.");
+    } catch (e) {
+      console.error(`\nCouldn't make a test recording, so nothing was changed: ${e instanceof Error ? e.message : e}`);
+      process.exit(1);
+    }
+  }
   let done = 0;
   const save = () => writeManifest({ voice: voiceTag, keys: [...mp3sOnDisk()].filter((k) => phrases.has(k)) });
   try {

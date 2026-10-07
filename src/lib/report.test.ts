@@ -98,3 +98,46 @@ describe("numbers labels", () => {
     expect(npLabel("toroman:29")).toBe("29 in Roman numerals");
   });
 });
+
+describe("childReport", () => {
+  it("summarises 30 days, subjects with level position and trend, memory and tricky items", async () => {
+    const { childReport } = await import("./report");
+    const { applyAnswers } = await import("./memory");
+    const s = base(
+      [
+        att("SP-03", daysAgo(10), { correctFirstTime: 6 }),
+        att("SP-03", daysAgo(2), { correctFirstTime: 9 }),
+        att("SP-03", daysAgo(1), { correctFirstTime: 10, outcome: "levelPassed" }),
+        att("CW-01", daysAgo(0)),
+      ],
+      {
+        sp: { y: { current: "SP-04", passed: ["SP-03"], passStreak: 0, failStreak: 0, flagged: false } },
+        spTricky: { y: { because: 2 } },
+        memory: { y: applyAnswers({}, [{ key: "sp:said", ok: true }, { key: "cw:loop", ok: false }], new Date(daysAgo(3))) },
+      },
+    );
+    const levels = (code: string, n: number) => Array.from({ length: n }, (_, k) => ({ id: `${code}-${String(k + 1).padStart(2, "0")}`, title: `L${k + 1}` }));
+    const r = childReport(
+      s,
+      "y",
+      [
+        { code: "SP", name: "Spelling", levels: levels("SP", 18), progress: s.sp!.y, shown: true },
+        { code: "CW", name: "Coding words", levels: levels("CW", 6), shown: true },
+        { code: "PH", name: "Phonics", levels: levels("PH", 16), shown: false },
+      ],
+      now,
+    );
+    expect(r.days).toHaveLength(30);
+    expect(r.sets30).toBe(4);
+    expect(r.sets7).toBe(3);
+    const sp = r.subjects.find((x) => x.code === "SP")!;
+    expect(sp).toMatchObject({ levelId: "SP-04", levelNo: 4, levelCount: 18, levelsPassed: 1, sets30: 3 });
+    expect(sp.accuracyThisWeek).toBeCloseTo(0.95);
+    expect(sp.accuracyLastWeek).toBeCloseTo(0.6);
+    expect(r.subjects.map((x) => x.code)).toEqual(["SP", "CW"]); // phonics hidden and never practised
+    expect(r.memory.spelling.total).toBe(1);
+    expect(r.memory.coding.dueToday).toBe(1);
+    expect(r.levelsPassed[0]).toMatchObject({ levelId: "SP-03", subject: "Spelling" });
+    expect(r.tricky[0]).toMatchObject({ label: "because", count: 2 });
+  });
+});

@@ -2,6 +2,7 @@
 // level pickers on the parent page. Times tables and handwriting have their own.
 
 import { AS_LEVELS } from "./as";
+import { CW_LEVELS } from "./coding";
 import { FR_LEVELS } from "./fr";
 import { GP_LEVELS } from "./grammar";
 import { MT_TIME_LEVELS } from "./mt-time";
@@ -83,8 +84,9 @@ export const STRANDS: StrandInfo[] = [
     icon: "Aa",
     button: "Spell ▶",
     levels: SP_LEVELS,
-    shownFor: (y) => y >= 2,
-    hiddenNote: "starts in Year 2",
+    // Years 1–5: Year 1 starts with the Year 1 tricky words.
+    shownFor: () => true,
+    hiddenNote: "",
   },
   {
     key: "gp",
@@ -95,6 +97,16 @@ export const STRANDS: StrandInfo[] = [
     levels: GP_LEVELS,
     shownFor: (y) => y >= 2,
     hiddenNote: "starts in Year 2",
+  },
+  {
+    key: "cw",
+    name: "Coding words",
+    path: "coding",
+    icon: "💻",
+    button: "Learn ▶",
+    levels: CW_LEVELS,
+    shownFor: () => true,
+    hiddenNote: "",
   },
   {
     key: "rc",

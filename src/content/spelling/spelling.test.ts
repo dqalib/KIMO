@@ -25,11 +25,15 @@ const level = (id: string) => LEVELS.find((l) => l.level === id)!;
 const EXPECTED_YEAR: Record<string, number> = {
   "SP-01": 1, "SP-02": 1, "SP-03": 2, "SP-04": 2,
   "SP-05": 3, "SP-06": 3, "SP-07": 3, "SP-08": 3, "SP-09": 4,
+  "SP-10": 4, "SP-11": 5, "SP-12": 5, "SP-13": 5, "SP-14": 5,
+  "SP-15": 5, "SP-16": 5, "SP-17": 5, "SP-18": 5,
 };
 
 const EXPECTED_COUNT: Record<string, number> = {
   "SP-01": 45, "SP-02": 30, "SP-03": 64, "SP-04": 40,
   "SP-05": 55, "SP-06": 40, "SP-07": 40, "SP-08": 46, "SP-09": 54,
+  "SP-10": 39, "SP-11": 52, "SP-12": 52, "SP-13": 24, "SP-14": 26,
+  "SP-15": 28, "SP-16": 28, "SP-17": 18, "SP-18": 32,
 };
 
 // The full years 3-4 statutory word list with optional endings expanded,
@@ -51,6 +55,24 @@ const Y3_4_LIST = [
   "through", "various", "weight", "woman", "women",
 ];
 
+// The full years 5-6 statutory word list, optional endings expanded (equip(ped/ment), immediate(ly), sincere(ly)).
+const Y5_6_LIST = [
+  "accommodate", "accompany", "according", "achieve", "aggressive", "amateur", "ancient", "apparent",
+  "appreciate", "attached", "available", "average", "awkward", "bargain", "bruise", "category",
+  "cemetery", "committee", "communicate", "community", "competition", "conscience", "conscious",
+  "controversy", "convenience", "correspond", "criticise", "curiosity", "definite", "desperate",
+  "determined", "develop", "dictionary", "disastrous", "embarrass", "environment", "equip", "equipped",
+  "equipment", "especially", "exaggerate", "excellent", "existence", "explanation", "familiar",
+  "foreign", "forty", "frequently", "government", "guarantee", "harass", "hindrance", "identity",
+  "immediate", "immediately", "individual", "interfere", "interrupt", "language", "leisure",
+  "lightning", "marvellous", "mischievous", "muscle", "necessary", "neighbour", "nuisance", "occupy",
+  "occur", "opportunity", "parliament", "persuade", "physical", "prejudice", "privilege", "profession",
+  "programme", "pronunciation", "queue", "recognise", "recommend", "relevant", "restaurant", "rhyme",
+  "rhythm", "sacrifice", "secretary", "shoulder", "signature", "sincere", "sincerely", "soldier",
+  "stomach", "sufficient", "suggest", "symbol", "system", "temperature", "thorough", "twelfth",
+  "variety", "vegetable", "vehicle", "yacht",
+];
+
 // Fiction/brand names are not allowed anywhere (same rule as phonics, brief 001).
 const BANNED = [
   "quaffle", "quidditch", "muggle", "hogwarts", "pokemon", "lego", "minecraft", "roblox",
@@ -61,7 +83,7 @@ function escapeRegExp(s: string) {
 }
 
 describe("spelling levels.json", () => {
-  it("has a GOV.UK source and nine levels SP-01..SP-09 with the right year", () => {
+  it("has a GOV.UK source and levels SP-01..SP-18 with the right year", () => {
     expect(DATA.source).toContain("gov.uk");
     expect(LEVELS.map((l) => l.level)).toEqual(Object.keys(EXPECTED_YEAR));
     for (const l of LEVELS) expect(l.year).toBe(EXPECTED_YEAR[l.level]);
@@ -86,6 +108,11 @@ describe("spelling levels.json", () => {
     expect(both).toEqual([...Y3_4_LIST].sort());
     expect(new Set(a).size).toBe(a.length);
     expect(new Set(b).size).toBe(b.length);
+  });
+
+  it("SP-11 + SP-12 together are exactly the full years 5-6 statutory list", () => {
+    const both = [...level("SP-11").words, ...level("SP-12").words].map((w) => w.word).sort();
+    expect(both).toEqual([...Y5_6_LIST].sort());
   });
 
   it("every sentence contains its word exactly once (case-insensitive, whole word)", () => {
@@ -125,23 +152,19 @@ describe("spelling levels.json", () => {
     expect(capitalized).toEqual([...CAPITALISED].sort());
   });
 
-  it("homophoneOf references exist in SP-08 and are mutual", () => {
-    const sp08 = new Set(level("SP-08").words.map((w) => w.word));
-    const byWord = new Map(level("SP-08").words.map((w) => [w.word, w]));
+  it("homophoneOf references exist in the same level (SP-08 or SP-18) and are mutual", () => {
     for (const l of LEVELS) {
+      const byWord = new Map(l.words.map((w) => [w.word, w]));
       for (const w of l.words) {
+        if (w.homophoneOf) expect(["SP-08", "SP-18"], w.word).toContain(l.level);
         for (const h of w.homophoneOf ?? []) {
-          expect(sp08.has(h), `${w.word} -> ${h}`).toBe(true);
+          expect(byWord.has(h), `${w.word} -> ${h}`).toBe(true);
+          expect(byWord.get(h)!.homophoneOf).toContain(w.word);
         }
       }
     }
-    // every SP-08 word is a homophone entry with a mutual partner
-    for (const w of level("SP-08").words) {
-      expect(w.homophoneOf, w.word).toBeDefined();
-      for (const h of w.homophoneOf!) {
-        expect(byWord.get(h)!.homophoneOf).toContain(w.word);
-      }
-    }
+    // every SP-08 / SP-18 word is a homophone entry
+    for (const id of ["SP-08", "SP-18"]) for (const w of level(id).words) expect(w.homophoneOf, w.word).toBeDefined();
   });
 
   it("no fiction or brand names", () => {

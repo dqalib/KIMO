@@ -4,6 +4,7 @@ import Link from "next/link";
 import ParentGate from "@/components/ParentGate";
 import PassageReview from "@/components/PassageReview";
 import SyncPanel from "@/components/SyncPanel";
+import VoicePanel from "@/components/VoicePanel";
 import { currentLetter, lettersMastered } from "@/lib/hw";
 import { accuracy } from "@/lib/mastery";
 import { exportJson, getInputMode, removeChild, setCurrentLevel, setDailyGoal, setInputMode, setStrandLevel, strandProgress, strandStarted, useAppState } from "@/lib/store";
@@ -54,6 +55,8 @@ function Dashboard() {
 
       <PassageReview reviews={state.rcReview ?? {}} />
 
+      <VoicePanel />
+
       {state.children.map((c) => {
         const tt = state.tt[c.id];
         const lvl = tt && getLevel(tt.current);
@@ -74,9 +77,10 @@ function Dashboard() {
                   {streak > 0 && ` · 🔥 ${streak} day${streak === 1 ? "" : "s"} in a row`}
                 </p>
               </div>
-              {tt?.flagged && (
-                <span className="ml-auto px-3 py-1 rounded-full bg-warn/15 text-warn font-bold">Needs help</span>
-              )}
+              {tt?.flagged && <span className="px-3 py-1 rounded-full bg-warn/15 text-warn font-bold">Needs help</span>}
+              <Link href={`/parent/report/${c.id}`} className="ml-auto h-11 px-4 rounded-xl bg-brand text-white font-bold flex items-center">
+                Full report ▶
+              </Link>
             </div>
 
             <div className="rounded-2xl bg-bg p-4 flex flex-col gap-3">

@@ -2,9 +2,12 @@
 // this week's practice, the daily goal, streaks, and "tricky" items across all
 // subjects. Pure functions of the family data, so they're easy to test.
 
+import { cwExtras, getTerm } from "./coding";
 import { gpQuestions, GP_LEVELS } from "./grammar";
 import { timeWords } from "./mt-time";
 import { PASSAGES } from "./reading";
+import type { LevelProgress } from "./mastery";
+import { summarise, type MemorySummary } from "./memory";
 import type { AppState, Attempt } from "./store-types";
 
 export const SUBJECTS: Record<string, string> = {
@@ -17,6 +20,7 @@ export const SUBJECTS: Record<string, string> = {
   SP: "Spelling",
   GP: "Grammar",
   RC: "Reading",
+  CW: "Coding words",
 };
 
 export function subjectOf(levelId: string): string {
@@ -165,6 +169,15 @@ export function frLabel(key: string): string {
   return named[kind]?.() ?? key.replace(/:/g, " ");
 }
 
+/** Readable version of a coding-words question id: "loop:m" → "loop", "x:CW-02:3" → that question. */
+export function cwLabel(id: string): string {
+  if (id.startsWith("x:")) {
+    const [, level, n] = id.split(":");
+    return cwExtras(level)[Number(n)]?.prompt ?? id;
+  }
+  return getTerm(id.split(":")[0])?.term ?? id;
+}
+
 /** The things each child most often gets wrong, across every subject. */
 export function trickyItems(s: AppState, childId: string, limit = 8): TrickyItem[] {
   const out: TrickyItem[] = [];
@@ -179,7 +192,135 @@ export function trickyItems(s: AppState, childId: string, limit = 8): TrickyItem
     const q = GP_BY_ID.get(k);
     out.push({ subject: SUBJECTS.GP, label: q ? `${q.prompt}${q.sentence ? ` “${q.sentence}”` : ""}` : k, count: n });
   }
+  for (const [k, n] of Object.entries(s.cwTricky?.[childId] ?? {})) out.push({ subject: SUBJECTS.CW, label: cwLabel(k), count: n });
   for (const [k, n] of Object.entries(s.rcTricky?.[childId] ?? {})) out.push({ subject: SUBJECTS.RC, label: PASSAGE_BY_ID.get(k)?.title ?? k, count: n });
-  return out.sort((a, b) => b.count - a.count).slice(0, limit);
+  // Two questions about the same thing (e.g. "loop" both ways round) show as one item.
+  const merged = new Map<string, TrickyItem>();
+  for (const t of out) {
+    const k = `${t.subject}|${t.label}`;
+    const m = merged.get(k);
+    merged.set(k, m ? { ...m, count: m.count + t.count } : t);
+  }
+  return [...merged.values()].sort((a, b) => b.count - a.count).slice(0, limit);
 }
 
+
+// ---- full progress report (one child) -------------------------------------------
+
+export interface SubjectReport {
+  /** Level-id prefix, e.g. "SP". */
+  code: string;
+  subject: string;
+  levelId: string;
+  levelTitle: string;
+  /** 1-based position of the current level, and how many levels there are. */
+  levelNo: number;
+  levelCount: number;
+  levelsPassed: number;
+  sets30: number;
+  /** First-time accuracy over the last 30 days (null = no practice). */
+  accuracy30: number | null;
+  accuracyThisWeek: number | null;
+  accuracyLastWeek: number | null;
+  lastPractised: string | null;
+  flagged: boolean;
+}
+
+export interface ChildReport {
+  streak: number;
+  sets7: number;
+  minutes7: number;
+  sets30: number;
+  minutes30: number;
+  /** Last 30 days, oldest first. */
+  days: { date: Date; sets: number; goalMet: boolean }[];
+  goal: number;
+  subjects: SubjectReport[];
+  memory: { spelling: MemorySummary; coding: MemorySummary };
+  tricky: TrickyItem[];
+  levelsPassed: { levelId: string; subject: string; when: string }[];
+}
+
+export interface ReportLevels {
+  code: string;
+  name: string;
+  levels: { id: string; title: string }[];
+  progress?: LevelProgress;
+  /** Show even with no practice yet (it's on the child's home page). */
+  shown: boolean;
+}
+
+function accuracyOf(list: Attempt[]): number | null {
+  const total = list.reduce((t, a) => t + a.total, 0);
+  return total ? list.reduce((t, a) => t + a.correctFirstTime, 0) / total : null;
+}
+
+function daysAgo(now: Date, n: number): Date {
+  const d = new Date(now);
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() - n);
+  return d;
+}
+
+/**
+ * Everything on a child's progress report. `strands` is the list of subjects
+ * with their levels and the child's progress (built by the report page from
+ * src/lib/strands.ts + times tables), so this stays a pure function.
+ */
+export function childReport(s: AppState, childId: string, strands: ReportLevels[], now = new Date()): ChildReport {
+  const mine = s.attempts.filter((a) => a.childId === childId && new Date(a.finishedAt) <= now);
+  const since = (n: number) => mine.filter((a) => new Date(a.finishedAt) >= daysAgo(now, n - 1));
+  const last30 = since(30);
+  const last7 = since(7);
+  const prev7 = mine.filter((a) => new Date(a.finishedAt) >= daysAgo(now, 13) && new Date(a.finishedAt) < daysAgo(now, 6));
+  const goal = dailyGoal(s, childId);
+
+  const days = Array.from({ length: 30 }, (_, k) => {
+    const date = daysAgo(now, 29 - k);
+    const sets = setsOn(last30, childId, date);
+    return { date, sets, goalMet: sets >= goal };
+  });
+
+  const subjects: SubjectReport[] = [];
+  for (const st of strands) {
+    const of = (list: Attempt[]) => list.filter((a) => a.levelId.startsWith(`${st.code}-`));
+    const all = of(mine);
+    if (!st.shown && all.length === 0 && !st.progress) continue;
+    const current = st.progress?.current ?? st.levels[0]?.id;
+    const idx = Math.max(0, st.levels.findIndex((l) => l.id === current));
+    subjects.push({
+      code: st.code,
+      subject: st.name,
+      levelId: current,
+      levelTitle: st.levels[idx]?.title ?? "",
+      levelNo: idx + 1,
+      levelCount: st.levels.length,
+      levelsPassed: st.progress?.passed.length ?? 0,
+      sets30: of(last30).length,
+      accuracy30: accuracyOf(of(last30)),
+      accuracyThisWeek: accuracyOf(of(last7)),
+      accuracyLastWeek: accuracyOf(of(prev7)),
+      lastPractised: all.at(-1)?.finishedAt ?? null,
+      flagged: !!st.progress?.flagged,
+    });
+  }
+
+  const mem = s.memory?.[childId] ?? {};
+  return {
+    streak: dayStreak(s.attempts, childId, now),
+    sets7: last7.length,
+    minutes7: Math.round(last7.reduce((t, a) => t + a.durationMs, 0) / 60000),
+    sets30: last30.length,
+    minutes30: Math.round(last30.reduce((t, a) => t + a.durationMs, 0) / 60000),
+    days,
+    goal,
+    subjects,
+    memory: { spelling: summarise(mem, "sp:", now), coding: summarise(mem, "cw:", now) },
+    tricky: trickyItems(s, childId, 15),
+    levelsPassed: mine
+      .filter((a) => a.outcome === "levelPassed")
+      .slice(-12)
+      .reverse()
+      .map((a) => ({ levelId: a.levelId, subject: subjectOf(a.levelId), when: a.finishedAt })),
+  };
+}

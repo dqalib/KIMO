@@ -10,8 +10,10 @@
 // - Phonics, spelling, grammar, addition/subtraction, numbers, reading: most recently changed progress wins per child; tricky-word counts take the higher.
 // - Handwriting: per letter, the further stage wins (then the longer streak).
 // - Answer input (keypad/Pencil) per child: the most recently changed copy wins.
+// - Coding words: like the other strands. Memory boxes: per item, the most recently answered copy wins.
 // - Parent PIN: the most recently changed copy wins.
 
+import { mergeMemory } from "./memory";
 import { mergeReviews } from "./reading";
 import type { AppState, LetterProgress } from "./store-types";
 
@@ -87,6 +89,12 @@ export function mergeStates(a: AppState, b: AppState): AppState {
   const mt = mergeWordStrand(liveChildren, a.mt, b.mt, a.mtUpdatedAt, b.mtUpdatedAt, a.mtTricky, b.mtTricky);
   const fr = mergeWordStrand(liveChildren, a.fr, b.fr, a.frUpdatedAt, b.frUpdatedAt, a.frTricky, b.frTricky);
   const rc = mergeWordStrand(liveChildren, a.rc, b.rc, a.rcUpdatedAt, b.rcUpdatedAt, a.rcTricky, b.rcTricky);
+  const cw = mergeWordStrand(liveChildren, a.cw, b.cw, a.cwUpdatedAt, b.cwUpdatedAt, a.cwTricky, b.cwTricky);
+  const memory: NonNullable<AppState["memory"]> = {};
+  for (const c of liveChildren) {
+    const m = mergeMemory(a.memory?.[c.id], b.memory?.[c.id]);
+    if (Object.keys(m).length) memory[c.id] = m;
+  }
   const rcReview = mergeReviews(a.rcReview, b.rcReview);
   // Placement: a strand counts as placed if either device placed it (keep the earlier time).
   const placed: NonNullable<AppState["placed"]> = {};
@@ -130,6 +138,8 @@ export function mergeStates(a: AppState, b: AppState): AppState {
     ...(Object.keys(mt.progress).length ? { mt: mt.progress, mtUpdatedAt: mt.updatedAt, mtTricky: mt.tricky } : {}),
     ...(Object.keys(fr.progress).length ? { fr: fr.progress, frUpdatedAt: fr.updatedAt, frTricky: fr.tricky } : {}),
     ...(Object.keys(rc.progress).length ? { rc: rc.progress, rcUpdatedAt: rc.updatedAt, rcTricky: rc.tricky } : {}),
+    ...(Object.keys(cw.progress).length ? { cw: cw.progress, cwUpdatedAt: cw.updatedAt, cwTricky: cw.tricky } : {}),
+    ...(Object.keys(memory).length ? { memory } : {}),
     ...(Object.keys(rcReview).length ? { rcReview } : {}),
     ...(Object.keys(placed).length ? { placed } : {}),
     ...(Object.keys(dailyGoal).length ? { dailyGoal } : {}),

@@ -5,6 +5,9 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import ChoiceGrid from "@/components/ChoiceGrid";
 import NumberPad from "@/components/NumberPad";
 import PencilAnswer from "@/components/PencilAnswer";
+import SpeakButton from "@/components/SpeakButton";
+import { armSfx, playRight, playWrong } from "@/lib/sfx";
+import { spokenMaths } from "@/lib/speech";
 import { accuracy, isPassingSet, timeTargetMs, type Outcome, type SetResult } from "@/lib/mastery";
 import { PENCIL_EXTRA_SECONDS, type Child, type InputMode } from "@/lib/store";
 
@@ -171,6 +174,15 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
   );
   const onPencilUnavailable = useCallback(() => setMode("keypad"), []);
 
+  // Instant right / wrong sound (tap-answer questions get theirs from ChoiceGrid).
+  useEffect(armSfx, []);
+  useEffect(() => {
+    if (!flash || q?.options) return;
+    if (flash === "good") playRight();
+    else playWrong();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- only when the flash changes
+  }, [flash]);
+
   // Tables Check rehearsal: each question has a hard time limit.
   useEffect(() => {
     if (!level.hardLimit || phase !== "main") return;
@@ -266,6 +278,8 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
         >
           {q && (renderText ? renderText(shownPrompt(q.prompt)) : shownPrompt(q.prompt))}
         </p>
+        {/* Word questions can be read aloud (British voice). */}
+        {q && isWordy(q.prompt) && <SpeakButton key={q.key} text={spokenMaths(q.prompt)} label="Hear it" />}
         {!q?.options && (
           <p
             className={`min-h-20 min-w-40 px-6 rounded-2xl border-4 border-dashed text-6xl font-black tabular-nums flex items-center justify-center ${
