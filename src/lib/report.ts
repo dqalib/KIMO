@@ -224,6 +224,20 @@ export interface SubjectReport {
   accuracyLastWeek: number | null;
   lastPractised: string | null;
   flagged: boolean;
+  /** The most recent exam on this subject. */
+  lastExam: { levelId: string; score: number; total: number; passed: boolean; when: string } | null;
+  /** Great practice sets in a row (2+ = ready for the exam). */
+  readyStreak: number;
+}
+
+export interface ExamRecord {
+  subject: string;
+  levelId: string;
+  score: number;
+  total: number;
+  passed: boolean;
+  when: string;
+  missed: { prompt: string; given: string; answer: string }[];
 }
 
 export interface ChildReport {
@@ -239,6 +253,8 @@ export interface ChildReport {
   memory: { spelling: MemorySummary; coding: MemorySummary };
   tricky: TrickyItem[];
   levelsPassed: { levelId: string; subject: string; when: string }[];
+  /** Latest exams first. */
+  exams: ExamRecord[];
 }
 
 export interface ReportLevels {
@@ -302,6 +318,11 @@ export function childReport(s: AppState, childId: string, strands: ReportLevels[
       accuracyLastWeek: accuracyOf(of(prev7)),
       lastPractised: all.at(-1)?.finishedAt ?? null,
       flagged: !!st.progress?.flagged,
+      lastExam: (() => {
+        const e = all.filter((a) => a.mode === "exam").at(-1);
+        return e ? { levelId: e.levelId, score: e.correctFirstTime, total: e.total, passed: e.outcome === "levelPassed", when: e.finishedAt } : null;
+      })(),
+      readyStreak: st.progress?.passStreak ?? 0,
     });
   }
 
@@ -322,5 +343,18 @@ export function childReport(s: AppState, childId: string, strands: ReportLevels[
       .slice(-12)
       .reverse()
       .map((a) => ({ levelId: a.levelId, subject: subjectOf(a.levelId), when: a.finishedAt })),
+    exams: mine
+      .filter((a) => a.mode === "exam")
+      .slice(-10)
+      .reverse()
+      .map((a) => ({
+        subject: subjectOf(a.levelId),
+        levelId: a.levelId,
+        score: a.correctFirstTime,
+        total: a.total,
+        passed: a.outcome === "levelPassed",
+        when: a.finishedAt,
+        missed: a.answers ?? [],
+      })),
   };
 }

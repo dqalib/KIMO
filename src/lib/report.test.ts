@@ -141,3 +141,21 @@ describe("childReport", () => {
     expect(r.tricky[0]).toMatchObject({ label: "because", count: 2 });
   });
 });
+
+describe("exams on the report", () => {
+  it("lists exams newest first with missed answers, and the last exam per subject", async () => {
+    const { childReport } = await import("./report");
+    const s = base([
+      att("GP-03", daysAgo(3), { mode: "exam", correctFirstTime: 7, outcome: "setFailed", answers: [{ prompt: "Pick the noun", given: "run", answer: "dog" }] }),
+      att("GP-03", daysAgo(2), { mode: "practice" }),
+      att("GP-03", daysAgo(1), { mode: "exam", correctFirstTime: 10, outcome: "levelPassed" }),
+    ]);
+    const r = childReport(s, "y", [{ code: "GP", name: "Grammar", levels: [{ id: "GP-03", title: "x" }, { id: "GP-04", title: "y" }], shown: true }], now);
+    expect(r.exams.map((e) => [e.score, e.passed])).toEqual([
+      [10, true],
+      [7, false],
+    ]);
+    expect(r.exams[1].missed[0]).toMatchObject({ given: "run", answer: "dog" });
+    expect(r.subjects[0].lastExam).toMatchObject({ score: 10, passed: true });
+  });
+});

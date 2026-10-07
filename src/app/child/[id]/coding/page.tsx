@@ -6,18 +6,20 @@
 // ("Do you still remember?") until they're remembered well.
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useCallback, useRef, useState } from "react";
 import ChoiceGrid from "@/components/ChoiceGrid";
+import SetResultScreen from "@/components/SetResultScreen";
 import SpeakButton from "@/components/SpeakButton";
-import { generateCwSet, getCwLevel, getTerm, nextCwLevel, prevCwLevel, spokenTerm, type CwLevel, type CwQuestion, type CwTerm } from "@/lib/coding";
-import { accuracy, type Outcome, type SetResult } from "@/lib/mastery";
+import { cwLevelTerms, generateCwSet, getCwLevel, getTerm, nextCwLevel, prevCwLevel, spokenTerm, type CwLevel, type CwQuestion, type CwTerm } from "@/lib/coding";
+import type { Outcome, SetResult } from "@/lib/mastery";
 import { dueKeys } from "@/lib/memory";
 import { speak } from "@/lib/speech";
 import { childMemory, recordMemory, recordStrandSet, strandProgress, strandTricky, useAppState, type Child } from "@/lib/store";
 
 export default function CodingPage() {
   const { id } = useParams<{ id: string }>();
+  const exam = useSearchParams().get("exam") === "1";
   const state = useAppState();
   if (!state) return null;
   const child = state.children.find((c) => c.id === id);
@@ -29,7 +31,9 @@ export default function CodingPage() {
       .filter((k) => k.startsWith("cw:"))
       .map((k) => k.slice(3)),
   );
-  return <Session child={child} level={level} seen={seen} due={dueKeys(mem, "cw:")} tricky={strandTricky(state, "cw", id)} />;
+  // Exam: every word in the level, no learn cards and no earlier-day review words.
+  if (exam) return <Session child={child} level={level} seen={new Set(cwLevelTerms(level.id).map((t) => t.id))} due={[]} tricky={{}} exam />;
+  return <Session child={child} level={level} seen={seen} due={dueKeys(mem, "cw:")} tricky={strandTricky(state, "cw", id)} exam={false} />;
 }
 
 type Phase = "ready" | "learn" | "main" | "fix" | "done";
@@ -40,7 +44,21 @@ function reshuffle(q: CwQuestion): CwQuestion {
   return { ...q, options: order.map((i) => q.options[i]), answer: order.indexOf(q.answer) };
 }
 
-function Session({ child, level, seen, due, tricky }: { child: Child; level: CwLevel; seen: Set<string>; due: string[]; tricky: Record<string, number> }) {
+function Session({
+  child,
+  level,
+  seen,
+  due,
+  tricky,
+  exam,
+}: {
+  child: Child;
+  level: CwLevel;
+  seen: Set<string>;
+  due: string[];
+  tricky: Record<string, number>;
+  exam: boolean;
+}) {
   const [set] = useState(() => generateCwSet(level, seen, due, tricky));
   const reviewCount = set.questions.filter((q) => q.review).length;
   const [phase, setPhase] = useState<Phase>("ready");
@@ -53,6 +71,8 @@ function Session({ child, level, seen, due, tricky }: { child: Child; level: CwL
   const remembered = useRef(0);
   const wrong = useRef<CwQuestion[]>([]);
   const termOk = useRef(new Map<string, boolean>());
+  const missed = useRef<{ prompt: string; given: string; answer: string }[]>([]);
+  const sending = useRef(false);
   const startedAt = useRef(0);
 
   const list = phase === "fix" ? fix : set.questions;
@@ -61,6 +81,8 @@ function Session({ child, level, seen, due, tricky }: { child: Child; level: CwL
   const finish = useCallback(() => {
     const main = set.questions.filter((x) => !x.review);
     const r: SetResult = {
+      mode: exam ? "exam" : "practice",
+      ...(exam ? { answers: missed.current } : {}),
       total: main.length,
       correctFirstTime: correct.current,
       durationMs: Date.now() - startedAt.current,
@@ -85,7 +107,7 @@ function Session({ child, level, seen, due, tricky }: { child: Child; level: CwL
     );
     setResult({ r, outcome, remembered: remembered.current });
     setPhase("done");
-  }, [child.id, level, set.questions]);
+  }, [child.id, level, set.questions, exam]);
 
   const advance = useCallback(() => {
     setShown(null);
@@ -93,18 +115,18 @@ function Session({ child, level, seen, due, tricky }: { child: Child; level: CwL
       setI(i + 1);
       return;
     }
-    if (phase === "main" && wrong.current.length) {
+    if (!exam && phase === "main" && wrong.current.length) {
       setFix(wrong.current.map(reshuffle));
       setI(0);
       setPhase("fix");
       return;
     }
     finish();
-  }, [i, list.length, phase, finish]);
+  }, [i, list.length, phase, finish, exam]);
 
   const choose = useCallback(
     (k: number) => {
-      if (shown || !q) return;
+      if (shown || !q || sending.current) return;
       const ok = k === q.answer;
       if (phase === "main") {
         if (q.termId) termOk.current.set(q.termId, (termOk.current.get(q.termId) ?? true) && ok);
@@ -113,10 +135,20 @@ function Session({ child, level, seen, due, tricky }: { child: Child; level: CwL
         } else if (ok) correct.current++;
         if (!ok) wrong.current.push(q);
       }
+      if (exam) {
+        // Exam: no marking shown — save it and move on.
+        if (!ok) missed.current.push({ prompt: q.prompt, given: q.options[k], answer: q.options[q.answer] });
+        sending.current = true;
+        setTimeout(() => {
+          sending.current = false;
+          advance();
+        }, 250);
+        return;
+      }
       setShown({ chosen: k, correct: q.answer });
       if (ok) setTimeout(advance, 900);
     },
-    [shown, q, phase, advance],
+    [shown, q, phase, advance, exam],
   );
 
   function start() {
@@ -131,18 +163,21 @@ function Session({ child, level, seen, due, tricky }: { child: Child; level: CwL
   if (phase === "ready") {
     return (
       <main className="flex-1 flex flex-col items-center justify-center gap-6 p-6 text-center">
-        <p className="text-muted font-bold text-lg">{level.id} · Coding words</p>
+        <p className="text-muted font-bold text-lg">
+          {level.id} · Coding words {exam ? "📝 Exam" : "practice"}
+        </p>
         <h1 className="text-5xl font-black max-w-2xl">{level.title}</h1>
         <p className="text-xl font-semibold text-muted max-w-md">
-          {set.learn.length ? `${set.learn.length} new word${set.learn.length === 1 ? "" : "s"} to learn, then ` : ""}
-          tap the right answers. Tap 🔊 to hear it.
+          {exam
+            ? "This is the exam — no answers until the end. Get 9 out of 10 right to move up a level!"
+            : `${set.learn.length ? `${set.learn.length} new word${set.learn.length === 1 ? "" : "s"} to learn, then ` : ""}tap the right answers. Tap 🔊 to hear it.`}
         </p>
         <button
           onClick={start}
           className="h-20 px-16 rounded-3xl text-white text-3xl font-black shadow-[0_6px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
           style={{ background: child.color }}
         >
-          Go! 🚀
+          {exam ? "Start the exam 📝" : "Go! 🚀"}
         </button>
         <Link href={`/child/${child.id}`} className="text-muted underline">
           Not now
@@ -170,7 +205,19 @@ function Session({ child, level, seen, due, tricky }: { child: Child; level: CwL
     );
   }
 
-  if (phase === "done" && result) return <Result child={child} level={level} {...result} reviewTotal={reviewCount} />;
+  if (phase === "done" && result)
+    return (
+      <SetResultScreen
+        child={child}
+        r={result.r}
+        outcome={result.outcome}
+        exam={exam}
+        review={{ total: reviewCount, remembered: result.remembered }}
+        nextTitle={nextCwLevel(level.id)?.title}
+        allDoneText="You know every coding word — you're a computer expert!"
+        practiceHref={`/child/${child.id}/coding`}
+      />
+    );
   if (!q) return null;
 
   const wrongNow = shown && shown.chosen !== shown.correct;
@@ -192,6 +239,7 @@ function Session({ child, level, seen, due, tricky }: { child: Child; level: CwL
         </span>
       </header>
 
+      {exam && <p className="px-4 py-1 rounded-full bg-ink text-white text-lg font-extrabold">📝 Exam — answers at the end</p>}
       {phase === "fix" && <p className="text-xl font-extrabold text-warn">Let&apos;s try these again ✏️</p>}
       {phase === "main" && q.review && <p className="px-4 py-2 rounded-full bg-brand/10 text-brand text-xl font-extrabold">🧠 Do you still remember?</p>}
 
@@ -249,45 +297,6 @@ function LearnCard({ term, n, of, child, onNext }: { term: CwTerm; n: number; of
       >
         {n < of ? "Got it ▶" : "Got it — quiz me! ▶"}
       </button>
-    </main>
-  );
-}
-
-function Result({ child, level, r, outcome, remembered, reviewTotal }: { child: Child; level: CwLevel; r: SetResult; outcome: Outcome; remembered: number; reviewTotal: number }) {
-  const pct = Math.round(accuracy(r) * 100);
-  const next = nextCwLevel(level.id);
-  const head = {
-    levelPassed: { e: "🏆", t: "Level passed!", s: next ? `Next up: ${next.title}` : "You know every coding word — you're a computer expert!" },
-    setPassed: { e: "⭐", t: "Brilliant!", s: "One more set like that and you pass this level." },
-    setFailed: { e: "💪", t: "Good try!", s: "The words you missed will come up again soon." },
-    droppedBack: { e: "🔁", t: "Let's warm up", s: "We'll go back a level, then come back stronger." },
-  }[outcome];
-
-  return (
-    <main className="flex-1 flex flex-col items-center justify-center gap-6 p-6 text-center animate-pop">
-      <span className="text-8xl">{head.e}</span>
-      <h1 className="text-5xl font-black">{head.t}</h1>
-      <p className="text-xl font-semibold text-muted max-w-md">{head.s}</p>
-      <div className={`rounded-2xl bg-card border-4 px-6 py-4 ${pct >= level.accuracyTarget * 100 ? "border-good" : "border-warn"}`}>
-        <p className="text-4xl font-black tabular-nums">
-          {r.correctFirstTime}/{r.total}
-        </p>
-        <p className="font-bold text-muted">right first time</p>
-      </div>
-      {reviewTotal > 0 && (
-        <p className="text-xl font-bold">
-          🧠 Remembered {remembered} of {reviewTotal} word{reviewTotal === 1 ? "" : "s"} from before
-          {remembered === reviewTotal ? " — amazing memory!" : ""}
-        </p>
-      )}
-      <div className="flex gap-4 mt-2">
-        <Link href={`/child/${child.id}`} className="h-16 px-8 rounded-2xl bg-card border-2 border-line text-xl font-extrabold flex items-center">
-          Finish
-        </Link>
-        <a href={`/child/${child.id}/coding`} className="h-16 px-8 rounded-2xl text-white text-xl font-extrabold flex items-center" style={{ background: child.color }}>
-          Another set ▶
-        </a>
-      </div>
     </main>
   );
 }

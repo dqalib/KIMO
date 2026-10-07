@@ -1,4 +1,4 @@
-import type { LevelProgress, Outcome } from "./mastery";
+import type { LevelProgress, Outcome, SetMode } from "./mastery";
 import type { Memory } from "./memory";
 
 export interface Child {
@@ -20,6 +20,8 @@ export interface Attempt {
   secondsPerQuestion: number;
   outcome: Outcome;
   wrong: string[]; // prompts answered wrong first time
+  mode?: SetMode; // practice or exam (none = older sets, phonics, reading, handwriting)
+  answers?: { prompt: string; given: string; answer: string }[]; // exam only: what was missed, for the report
   item?: string; // what was practised, when it's one thing (e.g. a reading passage id)
 }
 

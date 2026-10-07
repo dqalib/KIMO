@@ -2,7 +2,7 @@
 
 // Addition & subtraction practice (AS levels) — same screen as times tables.
 
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import NumberPractice, { type NumberQuestion } from "@/components/NumberPractice";
 import { generateASSet, getASLevel, nextASLevel, prevASLevel } from "@/lib/as";
@@ -11,6 +11,7 @@ import { getInputMode, recordStrandSet, strandProgress, strandTricky, useAppStat
 
 export default function MathsPage() {
   const { id } = useParams<{ id: string }>();
+  const exam = useSearchParams().get("exam") === "1";
   const state = useAppState();
   const level = state ? getASLevel(strandProgress(state, "as", id).current) : undefined;
   const tricky = state ? strandTricky(state, "as", id) : undefined;
@@ -38,6 +39,7 @@ export default function MathsPage() {
       nextTitle={nextASLevel(level.id)?.title}
       prevTitle={prevASLevel(level.id)?.title}
       allDoneText="You've finished every adding and taking away level. Amazing!"
+      exam={exam}
       againHref={`/child/${child.id}/maths`}
     />
   );

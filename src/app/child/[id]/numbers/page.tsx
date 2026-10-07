@@ -2,7 +2,7 @@
 
 // Number & place value practice (NP levels) — same screen as times tables.
 
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import NumberPractice, { type NumberQuestion } from "@/components/NumberPractice";
 import { generateNPSet, getNPLevel, nextNPLevel, prevNPLevel } from "@/lib/np";
@@ -11,6 +11,7 @@ import { getInputMode, recordStrandSet, strandProgress, strandTricky, useAppStat
 
 export default function NumbersPage() {
   const { id } = useParams<{ id: string }>();
+  const exam = useSearchParams().get("exam") === "1";
   const state = useAppState();
   const level = state ? getNPLevel(strandProgress(state, "np", id).current) : undefined;
   const tricky = state ? strandTricky(state, "np", id) : undefined;
@@ -38,6 +39,7 @@ export default function NumbersPage() {
       nextTitle={nextNPLevel(level.id)?.title}
       prevTitle={prevNPLevel(level.id)?.title}
       allDoneText="You've finished every numbers level. Amazing!"
+      exam={exam}
       againHref={`/child/${child.id}/numbers`}
     />
   );

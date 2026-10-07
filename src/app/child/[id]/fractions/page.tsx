@@ -2,7 +2,7 @@
 
 // Fractions practice (FR levels) — fractions are drawn stacked (3 over 4) — same screen as numbers.
 
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import FractionText from "@/components/FractionText";
 import NumberPractice, { type NumberQuestion } from "@/components/NumberPractice";
@@ -12,6 +12,7 @@ import { getInputMode, recordStrandSet, strandProgress, strandTricky, useAppStat
 
 export default function FractionsPage() {
   const { id } = useParams<{ id: string }>();
+  const exam = useSearchParams().get("exam") === "1";
   const state = useAppState();
   const level = state ? getFRLevel(strandProgress(state, "fr", id).current) : undefined;
   const tricky = state ? strandTricky(state, "fr", id) : undefined;
@@ -39,6 +40,7 @@ export default function FractionsPage() {
       nextTitle={nextFRLevel(level.id)?.title}
       prevTitle={prevFRLevel(level.id)?.title}
       allDoneText="You've finished every fractions level. Amazing!"
+      exam={exam}
       againHref={`/child/${child.id}/fractions`}
       renderText={(text) => <FractionText text={text} />}
     />

@@ -7,7 +7,22 @@ export const MASTERY = {
   failsBeforeDropBack: 3, // consecutive failing sets
 };
 
+/**
+ * "practice": answers shown straight away; never moves the level (it builds
+ * readiness — two great practice sets in a row = "ready for the exam").
+ * "exam": no answers shown until the end; passing moves the level up, three
+ * failed exams in a row drop back a level. No mode (phonics, reading,
+ * handwriting): the original rule — two passing sets in a row.
+ */
+export type SetMode = "practice" | "exam";
+
+/** Great practice sets in a row before the "ready for the exam" star shows. */
+export const READY_FOR_EXAM = 2;
+
 export interface SetResult {
+  mode?: SetMode;
+  /** Exam only: the questions missed, with what was given and the right answer (saved for the report). */
+  answers?: { prompt: string; given: string; answer: string }[];
   total: number;
   correctFirstTime: number;
   durationMs: number;
@@ -53,6 +68,32 @@ export function applySet(
   // Practising a level other than the current one (e.g. revision) doesn't move progress.
   if (levelId !== p.current) {
     return { progress: p, outcome: isPassingSet(result) ? "setPassed" : "setFailed" };
+  }
+
+  if (result.mode === "practice") {
+    return isPassingSet(result)
+      ? { outcome: "setPassed", progress: { ...p, passStreak: p.passStreak + 1 } }
+      : { outcome: "setFailed", progress: { ...p, passStreak: 0 } };
+  }
+
+  if (result.mode === "exam") {
+    if (isPassingSet(result)) {
+      return {
+        outcome: "levelPassed",
+        progress: {
+          current: next ?? p.current,
+          passed: p.passed.includes(levelId) ? p.passed : [...p.passed, levelId],
+          passStreak: 0,
+          failStreak: 0,
+          flagged: false,
+        },
+      };
+    }
+    const failStreak = p.failStreak + 1;
+    if (failStreak >= MASTERY.failsBeforeDropBack && prev) {
+      return { outcome: "droppedBack", progress: { ...p, current: prev, passStreak: 0, failStreak: 0, flagged: true } };
+    }
+    return { outcome: "setFailed", progress: { ...p, passStreak: 0, failStreak, flagged: failStreak >= MASTERY.failsBeforeDropBack } };
   }
 
   if (isPassingSet(result)) {

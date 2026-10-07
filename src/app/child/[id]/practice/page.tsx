@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import NumberPractice, { type NumberQuestion } from "@/components/NumberPractice";
 import type { SetResult } from "@/lib/mastery";
@@ -9,6 +9,7 @@ import { generateSet, getLevel, nextLevel, prevLevel } from "@/lib/tt";
 
 export default function PracticePage() {
   const { id } = useParams<{ id: string }>();
+  const exam = useSearchParams().get("exam") === "1";
   const state = useAppState();
   const progress = state?.tt[id];
   const level = progress && getLevel(progress.current);
@@ -35,6 +36,7 @@ export default function PracticePage() {
       nextTitle={nextLevel(level.id)?.title}
       prevTitle={prevLevel(level.id)?.title}
       allDoneText="You've finished every times tables level. Amazing!"
+      exam={exam}
       againHref={`/child/${child.id}/practice`}
     />
   );

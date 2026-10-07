@@ -3,7 +3,7 @@
 // Telling the time (MT-02, MT-03, MT-05) — the numbers screen, with clocks drawn in the
 // question ("What time does the clock show?") or as the answers ("Which clock shows…?").
 
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import FractionText from "@/components/FractionText";
 import NumberPractice, { type NumberQuestion } from "@/components/NumberPractice";
@@ -14,6 +14,7 @@ import { getInputMode, recordStrandSet, strandProgress, strandTricky, useAppStat
 
 export default function TimePage() {
   const { id } = useParams<{ id: string }>();
+  const exam = useSearchParams().get("exam") === "1";
   const state = useAppState();
   const level = state ? getMTTimeLevel(strandProgress(state, "mt", id).current) : undefined;
   const tricky = state ? strandTricky(state, "mt", id) : undefined;
@@ -41,6 +42,7 @@ export default function TimePage() {
       nextTitle={nextMTTimeLevel(level.id)?.title}
       prevTitle={prevMTTimeLevel(level.id)?.title}
       allDoneText="You've finished every telling-the-time level. Brilliant!"
+      exam={exam}
       againHref={`/child/${child.id}/time`}
       renderText={(text) => <FractionText text={text} />}
     />

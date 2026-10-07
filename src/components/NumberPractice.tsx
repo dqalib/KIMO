@@ -8,11 +8,12 @@ import PencilAnswer from "@/components/PencilAnswer";
 import SpeakButton from "@/components/SpeakButton";
 import { armSfx, playRight, playWrong } from "@/lib/sfx";
 import { spokenMaths } from "@/lib/speech";
-import { accuracy, isPassingSet, timeTargetMs, type Outcome, type SetResult } from "@/lib/mastery";
+import { accuracy, timeTargetMs, type Outcome, type SetResult } from "@/lib/mastery";
 import { PENCIL_EXTRA_SECONDS, type Child, type InputMode } from "@/lib/store";
 
 type Phase = "ready" | "main" | "fix" | "done";
-type Flash = "good" | "bad" | null;
+/** good = right; bad = wrong (practice shows the answer); sent = exam answer saved (no marking shown). */
+type Flash = "good" | "bad" | "sent" | null;
 
 /** What a number-answer level needs to provide. */
 export interface NumberLevel {
@@ -47,17 +48,23 @@ interface Props {
   prevTitle?: string;
   /** Shown when the last level in the strand is passed. */
   allDoneText: string;
-  /** Link for "Another set". */
+  /** Link for "Another set" (practice). The exam is the same link with ?exam=1. */
   againHref: string;
   /** Draw prompts/options differently (fractions stack 3 over 4). */
   renderText?: (text: string) => ReactNode;
+  /** Exam: no marking or answers until the end; passing moves up a level. */
+  exam?: boolean;
 }
 
 /**
- * Number-answer practice (keypad or Apple Pencil): used by times tables and
- * addition & subtraction. Wrong answers come back at the end to fix.
+ * Number-answer screen (keypad, Apple Pencil or tap): times tables, adding &
+ * taking away, numbers, fractions, time.
+ * Practice: right/wrong shows straight away; a wrong answer shows the right one
+ *   and waits for "Next"; wrong ones come back at the end to fix.
+ * Exam: answers are saved without marking; the score and the missed questions
+ *   (with the right answers) are shown at the end.
  */
-export default function NumberPractice({ child, level, makeQuestions, initialMode, record, nextTitle, prevTitle, allDoneText, againHref, renderText }: Props) {
+export default function NumberPractice({ child, level, makeQuestions, initialMode, record, nextTitle, prevTitle, allDoneText, againHref, renderText, exam = false }: Props) {
   const [mode, setMode] = useState<InputMode>(initialMode);
   const [attemptNo, setAttemptNo] = useState(0); // bumps to clear the Pencil pad
   // Writing takes a little longer than tapping, so Pencil sets get extra time per question.
@@ -68,10 +75,10 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
   const [index, setIndex] = useState(0);
   const [input, setInput] = useState("");
   const [flash, setFlash] = useState<Flash>(null);
+  const [timedOut, setTimedOut] = useState(false);
   const [wrong, setWrong] = useState<NumberQuestion[]>([]);
   const [fixIndex, setFixIndex] = useState(0);
-  const [showAnswer, setShowAnswer] = useState(false);
-  // Tap-to-answer: colour the tapped button (green/red) and reveal the right one.
+  // Tap-to-answer: colour the tapped button (green/red) and reveal the right one (practice only).
   const [picked, setPicked] = useState<{ chosen: number; correct: number } | null>(null);
   const [result, setResult] = useState<{ r: SetResult; outcome: Outcome } | null>(null);
 
@@ -79,90 +86,105 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
   const mainEndedAt = useRef(0);
   const correctFirst = useRef(0);
   const wrongRef = useRef<NumberQuestion[]>([]);
+  const missed = useRef<{ prompt: string; given: string; answer: string }[]>([]);
   const busy = useRef(false);
 
   const q = phase === "fix" ? wrong[fixIndex] : questions[index];
 
   const finish = useCallback(() => {
     const r: SetResult = {
+      mode: exam ? "exam" : "practice",
       total: questions.length,
       correctFirstTime: correctFirst.current,
       durationMs: mainEndedAt.current - startedAt.current,
       secondsPerQuestion,
+      ...(exam ? { answers: missed.current } : {}),
     };
     const outcome = record(r, wrongRef.current);
     setResult({ r, outcome });
     setPhase("done");
-  }, [record, questions.length, secondsPerQuestion]);
+  }, [record, questions.length, secondsPerQuestion, exam]);
 
   const endMain = useCallback(() => {
     mainEndedAt.current = Date.now();
-    if (wrongRef.current.length > 0) {
+    if (!exam && wrongRef.current.length > 0) {
       setWrong([...wrongRef.current]);
       setFixIndex(0);
       setPhase("fix");
     } else finish();
-  }, [finish]);
+  }, [finish, exam]);
 
-  const advanceMain = useCallback(() => {
+  const clear = useCallback(() => {
     setInput("");
     setAttemptNo((n) => n + 1);
     setFlash(null);
     setPicked(null);
-    setShowAnswer(false);
+    setTimedOut(false);
     busy.current = false;
+  }, []);
+
+  const advanceMain = useCallback(() => {
+    clear();
     if (index + 1 < questions.length) setIndex(index + 1);
     else endMain();
-  }, [index, questions.length, endMain]);
+  }, [index, questions.length, endMain, clear]);
 
-  // Wrong: show the right answer long enough to read it, then move on.
-  const markWrongMain = useCallback(() => {
-    wrongRef.current.push(questions[index]);
-    setFlash("bad");
-    setShowAnswer(true);
-    setTimeout(advanceMain, 2000);
-  }, [questions, index, advanceMain]);
-
-  const submitValue = useCallback((value: string) => {
-    if (busy.current || !q || value === "") return;
-    busy.current = true;
-    const correct = typeof q.answer === "number" ? Number(value) === q.answer : value === q.answer;
-    if (q.options) setPicked({ chosen: q.options.indexOf(value), correct: q.options.indexOf(String(q.answer)) });
-
-    if (phase === "main") {
-      if (correct) {
-        correctFirst.current++;
-        setFlash("good");
-        setTimeout(advanceMain, q.options ? 700 : 400);
-      } else markWrongMain();
-      return;
-    }
-
-    // Fix phase: must get each one right before finishing.
-    if (correct) {
-      setFlash("good");
-      setTimeout(() => {
-        setFlash(null);
-        setPicked(null);
-        setInput("");
-        setAttemptNo((n) => n + 1);
-        setShowAnswer(false);
-        busy.current = false;
-        if (fixIndex + 1 < wrong.length) setFixIndex(fixIndex + 1);
-        else finish();
-      }, 400);
-    } else {
+  /** A wrong first try in the main round (typed, tapped or out of time). */
+  const markWrongMain = useCallback(
+    (given: string) => {
+      const cur = questions[index];
+      wrongRef.current.push(cur);
+      if (exam) {
+        missed.current.push({ prompt: shownPrompt(cur.prompt), given: given || "—", answer: String(cur.answer) });
+        setFlash("sent");
+        setTimeout(advanceMain, 250);
+        return;
+      }
+      // Practice: show the right answer and wait for the child to tap Next.
       setFlash("bad");
-      setShowAnswer(true);
-      setTimeout(() => {
-        setFlash(null);
-        setPicked(null);
-        setInput("");
-        setAttemptNo((n) => n + 1);
-        busy.current = false;
-      }, 1500);
-    }
-  }, [q, phase, advanceMain, markWrongMain, fixIndex, wrong.length, finish]);
+    },
+    [questions, index, advanceMain, exam],
+  );
+
+  const submitValue = useCallback(
+    (value: string) => {
+      if (busy.current || !q || value === "") return;
+      busy.current = true;
+      const correct = typeof q.answer === "number" ? Number(value) === q.answer : value === q.answer;
+      if (q.options && !exam) setPicked({ chosen: q.options.indexOf(value), correct: q.options.indexOf(String(q.answer)) });
+
+      if (phase === "main") {
+        if (correct) {
+          correctFirst.current++;
+          if (exam) {
+            setFlash("sent");
+            setTimeout(advanceMain, 250);
+          } else {
+            setFlash("good");
+            setTimeout(advanceMain, q.options ? 800 : 600);
+          }
+        } else markWrongMain(value);
+        return;
+      }
+
+      // Fix round (practice only): must get each one right before finishing.
+      if (correct) {
+        setFlash("good");
+        setTimeout(() => {
+          clear();
+          if (fixIndex + 1 < wrong.length) setFixIndex(fixIndex + 1);
+          else finish();
+        }, 600);
+      } else setFlash("bad");
+    },
+    [q, phase, advanceMain, markWrongMain, fixIndex, wrong.length, finish, exam, clear],
+  );
+
+  /** "Next" after a wrong answer (practice): main round moves on; fix round has another go. */
+  const afterWrong = useCallback(() => {
+    if (phase === "main") advanceMain();
+    else clear();
+  }, [phase, advanceMain, clear]);
 
   const submit = useCallback(() => submitValue(input), [submitValue, input]);
   const onPencilAnswer = useCallback(
@@ -174,14 +196,27 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
   );
   const onPencilUnavailable = useCallback(() => setMode("keypad"), []);
 
-  // Instant right / wrong sound (tap-answer questions get theirs from ChoiceGrid).
+  // Instant right / wrong sound in practice (tap-answer questions get theirs from ChoiceGrid).
   useEffect(armSfx, []);
   useEffect(() => {
-    if (!flash || q?.options) return;
+    if (exam || q?.options) return;
     if (flash === "good") playRight();
-    else playWrong();
+    else if (flash === "bad") playWrong();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- only when the flash changes
   }, [flash]);
+
+  // Enter = Next after a wrong answer (laptop / keyboard case).
+  useEffect(() => {
+    if (flash !== "bad") return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Enter") afterWrong();
+    };
+    const t = setTimeout(() => window.addEventListener("keydown", onKey), 300);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [flash, afterWrong]);
 
   // Tables Check rehearsal: each question has a hard time limit.
   useEffect(() => {
@@ -189,7 +224,8 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
     const t = setTimeout(() => {
       if (busy.current) return;
       busy.current = true;
-      markWrongMain();
+      setTimedOut(true);
+      markWrongMain("");
     }, level.secondsPerQuestion * 1000);
     return () => clearTimeout(t);
   }, [level, phase, index, markWrongMain]);
@@ -200,13 +236,17 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
   if (phase === "ready") {
     return (
       <main className="flex-1 flex flex-col items-center justify-center gap-6 p-6 text-center">
-        <p className="text-muted font-bold text-lg">{level.id}</p>
+        <p className="text-muted font-bold text-lg">
+          {level.id} · {exam ? "📝 Exam" : "Practice"}
+        </p>
         <h1 className="text-5xl font-black">{level.title}</h1>
         <p className="text-xl font-semibold text-muted max-w-md">
           {questions.length} questions.{" "}
-          {level.hardLimit
-            ? `Just like the real check — ${level.secondsPerQuestion} seconds for each one!`
-            : "Take your time and get them right. Speed comes with practice."}
+          {exam
+            ? `This is the exam — no answers until the end. Get 9 out of 10 right${secondsPerQuestion > 0 ? " in time" : ""} to move up a level!`
+            : level.hardLimit
+              ? `Just like the real check — ${level.secondsPerQuestion} seconds for each one!`
+              : "Take your time and get them right. Speed comes with practice."}
         </p>
         <button
           onClick={() => {
@@ -216,7 +256,7 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
           className="h-20 px-16 rounded-3xl text-white text-3xl font-black shadow-[0_6px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
           style={{ background: child.color }}
         >
-          Go! 🚀
+          {exam ? "Start the exam 📝" : "Go! 🚀"}
         </button>
         <Link href={`/child/${child.id}`} className="text-muted underline">
           Not now
@@ -226,10 +266,24 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
   }
 
   if (phase === "done" && result)
-    return <Result child={child} {...result} nextTitle={nextTitle} prevTitle={prevTitle} allDoneText={allDoneText} againHref={againHref} />;
+    return (
+      <Result
+        child={child}
+        {...result}
+        exam={exam}
+        renderText={renderText}
+        nextTitle={nextTitle}
+        prevTitle={prevTitle}
+        allDoneText={allDoneText}
+        againHref={againHref}
+      />
+    );
 
   const total = phase === "fix" ? wrong.length : questions.length;
   const pos = phase === "fix" ? fixIndex : index;
+  const show = (text: string) => (renderText ? renderText(text) : text);
+  const isBad = flash === "bad";
+  const isGood = flash === "good";
 
   return (
     <main className="flex-1 flex flex-col items-center gap-6 p-4 sm:p-6 max-w-3xl mx-auto w-full">
@@ -251,11 +305,10 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
         </span>
       </header>
 
-      {phase === "fix" && (
-        <p className="text-xl font-extrabold text-warn">Let&apos;s fix these ones ✏️</p>
-      )}
+      {exam && <p className="px-4 py-1 rounded-full bg-ink text-white text-lg font-extrabold">📝 Exam — answers at the end</p>}
+      {phase === "fix" && <p className="text-xl font-extrabold text-warn">Let&apos;s fix these ones ✏️</p>}
 
-      {level.hardLimit && phase === "main" && (
+      {level.hardLimit && phase === "main" && !flash && (
         <div className="w-full max-w-sm h-3 rounded-full bg-line overflow-hidden">
           <div
             key={index}
@@ -268,7 +321,7 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
 
       <div
         className={`w-full max-w-xl rounded-3xl bg-card border-4 py-10 flex flex-col items-center gap-4 transition-colors ${
-          flash === "good" ? "border-good" : flash === "bad" ? "border-bad animate-shake" : "border-line"
+          isGood ? "border-good" : isBad ? "border-bad animate-shake" : "border-line"
         }`}
       >
         <p
@@ -276,28 +329,41 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
             q && isWordy(q.prompt) ? (q.prompt.length > 40 ? "text-3xl sm:text-4xl" : "text-4xl sm:text-5xl") : "text-6xl sm:text-7xl"
           }`}
         >
-          {q && (renderText ? renderText(shownPrompt(q.prompt)) : shownPrompt(q.prompt))}
+          {q && show(shownPrompt(q.prompt))}
         </p>
         {/* Word questions can be read aloud (British voice). */}
         {q && isWordy(q.prompt) && <SpeakButton key={q.key} text={spokenMaths(q.prompt)} label="Hear it" />}
         {!q?.options && (
           <p
             className={`min-h-20 min-w-40 px-6 rounded-2xl border-4 border-dashed text-6xl font-black tabular-nums flex items-center justify-center ${
-              flash === "good" ? "text-good border-good" : flash === "bad" ? "text-bad border-bad" : "border-line"
+              isGood ? "text-good border-good" : isBad ? "text-bad border-bad line-through decoration-4" : "border-line"
             }`}
           >
             {input || " "}
           </p>
         )}
-        {showAnswer && q && (
-          <p className="text-2xl font-bold text-muted animate-pop">
-            {flash === "bad" ? "Not quite — it" : "It"}&apos;s <span className="text-ink">{renderText ? renderText(String(q.answer)) : q.answer}</span>
-            {phase === "fix" && flash !== "bad" && <> — {q.options ? "tap it" : "type it in"}</>}
-          </p>
-        )}
+        {isGood && <p className="text-4xl font-black text-good animate-pop">✓ Correct!</p>}
       </div>
 
-      {q?.options ? (
+      {isBad && q ? (
+        // Practice, wrong: big and clear, with the right answer, and wait for Next.
+        <div className="w-full max-w-xl flex flex-col items-center gap-4 animate-pop">
+          <p className="text-4xl font-black text-bad">{timedOut ? "⏰ Out of time!" : "✗ Not quite"}</p>
+          <div className="w-full rounded-3xl bg-good/10 border-4 border-good py-5 px-4 flex flex-col items-center gap-1">
+            <p className="text-lg font-bold text-muted">The right answer is</p>
+            <p className="text-5xl sm:text-6xl font-black text-good tabular-nums text-center">
+              {q.options ? show(String(q.answer)) : <>{show(shownPrompt(q.prompt))} {show(String(q.answer))}</>}
+            </p>
+          </div>
+          <button
+            onClick={afterWrong}
+            className="h-20 px-14 rounded-3xl text-white text-3xl font-black shadow-[0_6px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
+            style={{ background: child.color }}
+          >
+            {phase === "fix" ? "Try again" : "Next ▶"}
+          </button>
+        </div>
+      ) : q?.options ? (
         <ChoiceGrid
           key={`${phase}-${phase === "fix" ? fixIndex : index}-${attemptNo}`}
           options={q.options}
@@ -319,7 +385,7 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
       ) : (
         <NumberPad onDigit={onDigit} onBack={onBack} onSubmit={submit} disabled={flash !== null} />
       )}
-      {!level.hardLimit && !q?.options && (
+      {!level.hardLimit && !q?.options && !isBad && (
         <button
           className="text-sm text-muted underline"
           onClick={() => {
@@ -334,10 +400,15 @@ export default function NumberPractice({ child, level, makeQuestions, initialMod
   );
 }
 
+/** The exam link for a practice page ("/child/x/maths" → "/child/x/maths?exam=1"). */
+export const examHref = (href: string) => `${href}?exam=1`;
+
 function Result({
   child,
   r,
   outcome,
+  exam,
+  renderText,
   nextTitle,
   prevTitle,
   allDoneText,
@@ -346,6 +417,8 @@ function Result({
   child: Child;
   r: SetResult;
   outcome: Outcome;
+  exam: boolean;
+  renderText?: (text: string) => ReactNode;
   nextTitle?: string;
   prevTitle?: string;
   allDoneText: string;
@@ -354,31 +427,27 @@ function Result({
   const pct = Math.round(accuracy(r) * 100);
   const secs = Math.round(r.durationMs / 1000);
   const target = Math.round(timeTargetMs(r) / 1000);
-  const fast = r.durationMs <= timeTargetMs(r);
+  const timed = r.secondsPerQuestion > 0;
+  const fast = !timed || r.durationMs <= timeTargetMs(r);
+  const show = (text: string) => (renderText ? renderText(text) : text);
 
-  const headline: Record<Outcome, { emoji: string; title: string; text: string }> = {
-    levelPassed: {
-      emoji: "🏆",
-      title: "Level passed!",
-      text: nextTitle ? `Next up: ${nextTitle}` : allDoneText,
-    },
-    setPassed: { emoji: "⭐", title: "Great set!", text: "One more set like that and you pass this level." },
-    setFailed: {
-      emoji: "💪",
-      title: "Good effort!",
-      text: isPassingSet(r)
-        ? "Keep going!"
-        : pct < 90
-          ? "Aim for 9 out of 10 right first time. You can do it!"
-          : "Nearly! Try to be a little bit quicker.",
-    },
-    droppedBack: {
-      emoji: "🔁",
-      title: "Let's warm up",
-      text: prevTitle ? `We'll practise ${prevTitle} again, then come back stronger.` : "Let's try again.",
-    },
-  };
-  const h = headline[outcome];
+  const h = exam
+    ? {
+        levelPassed: { emoji: "🏆", title: "Exam passed!", text: nextTitle ? `You've moved up! Next: ${nextTitle}` : allDoneText },
+        setPassed: { emoji: "⭐", title: "Well done!", text: "Great score." },
+        setFailed: {
+          emoji: "💪",
+          title: "Not passed yet",
+          text: pct < 90 ? "You need 9 out of 10. Practise the ones below, then try again." : "Right answers — now a little quicker. Practise, then try again.",
+        },
+        droppedBack: { emoji: "🔁", title: "Let's warm up", text: prevTitle ? `We'll practise ${prevTitle} again, then come back stronger.` : "Let's try again." },
+      }[outcome]
+    : {
+        levelPassed: { emoji: "🏆", title: "Level passed!", text: nextTitle ? `Next up: ${nextTitle}` : allDoneText },
+        setPassed: { emoji: "⭐", title: "Great practice!", text: "When you feel ready, take the exam to move up a level 📝" },
+        setFailed: { emoji: "💪", title: "Good effort!", text: pct < 90 ? "Keep practising — aim for 9 out of 10 right first time." : "Nearly! Try to be a little bit quicker." },
+        droppedBack: { emoji: "🔁", title: "Let's warm up", text: prevTitle ? `We'll practise ${prevTitle} again, then come back stronger.` : "Let's try again." },
+      }[outcome];
 
   return (
     <main className="flex-1 flex flex-col items-center justify-center gap-6 p-6 text-center animate-pop">
@@ -386,23 +455,37 @@ function Result({
       <h1 className="text-5xl font-black">{h.title}</h1>
       <p className="text-xl font-semibold text-muted max-w-md">{h.text}</p>
       <div className="flex gap-4">
-        <Stat label="Right first time" value={`${r.correctFirstTime}/${r.total}`} good={pct >= 90} />
-        <Stat label="Time" value={`${secs}s`} sub={`target ${target}s`} good={fast} />
+        <Stat label={exam ? "Score" : "Right first time"} value={`${r.correctFirstTime}/${r.total}`} good={pct >= 90} />
+        {timed && <Stat label="Time" value={`${secs}s`} sub={`target ${target}s`} good={fast} />}
       </div>
-      <div className="flex gap-4 mt-2">
-        <Link
-          href={`/child/${child.id}`}
-          className="h-16 px-8 rounded-2xl bg-card border-2 border-line text-xl font-extrabold flex items-center"
-        >
+
+      {exam && r.answers && r.answers.length > 0 && (
+        <div className="w-full max-w-xl rounded-3xl bg-card border-2 border-line p-4 text-left">
+          <p className="font-extrabold text-lg mb-2">The ones you missed</p>
+          <ul className="flex flex-col divide-y divide-line">
+            {r.answers.map((a, k) => (
+              <li key={k} className="py-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xl">
+                <span className="font-bold flex-1 min-w-40">{show(a.prompt)}</span>
+                <span className="text-bad line-through">{a.given === "—" ? "no answer" : show(a.given)}</span>
+                <span className="font-black text-good">{show(a.answer)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="flex flex-wrap justify-center gap-4 mt-2">
+        <Link href={`/child/${child.id}`} className="h-16 px-8 rounded-2xl bg-card border-2 border-line text-xl font-extrabold flex items-center">
           Finish
         </Link>
-        <a
-          href={againHref}
-          className="h-16 px-8 rounded-2xl text-white text-xl font-extrabold flex items-center"
-          style={{ background: child.color }}
-        >
-          Another set ▶
+        <a href={againHref} className="h-16 px-8 rounded-2xl text-white text-xl font-extrabold flex items-center" style={{ background: child.color }}>
+          {exam ? "Practise ▶" : "Another set ▶"}
         </a>
+        {!exam && outcome !== "droppedBack" && (
+          <a href={examHref(againHref)} className="h-16 px-8 rounded-2xl bg-ink text-white text-xl font-extrabold flex items-center">
+            Take the exam 📝
+          </a>
+        )}
       </div>
     </main>
   );

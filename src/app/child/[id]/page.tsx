@@ -6,6 +6,7 @@ import { currentLetter, lettersMastered } from "@/lib/hw";
 import { FAMILIES } from "@/lib/letters";
 import { getInputMode, letterProgress, PENCIL_EXTRA_SECONDS, needsPlacement, strandProgress, strandStarted, useAppState, type PlacementStrand } from "@/lib/store";
 import { approvedPassages } from "@/lib/reading";
+import { READY_FOR_EXAM } from "@/lib/mastery";
 import { dailyGoal, dayStreak } from "@/lib/report";
 import { STRANDS } from "@/lib/strands";
 import { TT_LEVELS, getLevel } from "@/lib/tt";
@@ -72,7 +73,9 @@ export default function ChildHome() {
       </div>
 
       {STRANDS.filter((st) => st.shownFor(child.schoolYear) || strandStarted(state, st.key, id)).map((st) => {
-        const current = strandProgress(state, st.key, id).current;
+        const progress = strandProgress(state, st.key, id);
+        const current = progress.current;
+        const ready = !!st.exam && progress.passStreak >= READY_FOR_EXAM;
         const lvl = st.levels.find((l) => l.id === current);
         if (!lvl) return null;
         if (st.key === "rc" && approvedPassages(current, state.rcReview).length === 0) return null;
@@ -91,14 +94,27 @@ export default function ChildHome() {
               </p>
               <h2 className="text-3xl font-black">{lvl.title}</h2>
               {lvl.grownUp && <p className="text-muted font-semibold">Needs a grown-up to listen</p>}
+              {ready && <p className="text-good font-extrabold">⭐ Ready for the exam!</p>}
             </div>
-            <Link
-              href={checkFirst(st.key) ? `/child/${id}/check/${st.key}` : `/child/${id}/${st.path}`}
-              className="h-16 px-8 rounded-2xl text-white text-2xl font-extrabold flex items-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
-              style={{ background: child.color }}
-            >
-              {checkFirst(st.key) ? "Let's go ▶" : st.button}
-            </Link>
+            <div className="flex flex-col gap-2 shrink-0">
+              <Link
+                href={checkFirst(st.key) ? `/child/${id}/check/${st.key}` : `/child/${id}/${st.path}`}
+                className="h-16 px-8 rounded-2xl text-white text-2xl font-extrabold flex items-center justify-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
+                style={{ background: child.color }}
+              >
+                {checkFirst(st.key) ? "Let's go ▶" : st.exam ? "Practise ▶" : st.button}
+              </Link>
+              {st.exam && !checkFirst(st.key) && (
+                <Link
+                  href={`/child/${id}/${st.path}?exam=1`}
+                  className={`h-12 px-6 rounded-2xl text-lg font-extrabold flex items-center justify-center border-2 ${
+                    ready ? "bg-ink text-white border-ink animate-pulse" : "bg-card text-ink border-line"
+                  }`}
+                >
+                  📝 Exam
+                </Link>
+              )}
+            </div>
           </section>
         );
       })}
@@ -142,14 +158,24 @@ export default function ChildHome() {
           {current.setSize} questions · aim for{" "}
           {current.secondsPerQuestion + (getInputMode(state, id) === "pencil" && !current.hardLimit ? PENCIL_EXTRA_SECONDS : 0)} seconds each
           {getInputMode(state, id) === "pencil" && !current.hardLimit && " · ✏️ Pencil"}
-          {tt.passStreak > 0 && " · 1 more great set to pass!"}
+          {tt.passStreak >= READY_FOR_EXAM && " · ⭐ Ready for the exam!"}
         </p>
-        <Link
-          href={checkFirst("tt") ? `/child/${id}/check/tt` : `/child/${id}/practice`}
-          className="self-start mt-2 h-16 px-10 rounded-2xl bg-white text-ink text-2xl font-extrabold flex items-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
-        >
-          {checkFirst("tt") ? "Let's go ▶" : "Start ▶"}
-        </Link>
+        <div className="flex flex-wrap gap-3 mt-2">
+          <Link
+            href={checkFirst("tt") ? `/child/${id}/check/tt` : `/child/${id}/practice`}
+            className="h-16 px-10 rounded-2xl bg-white text-ink text-2xl font-extrabold flex items-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
+          >
+            {checkFirst("tt") ? "Let's go ▶" : "Practise ▶"}
+          </Link>
+          {!checkFirst("tt") && (
+            <Link
+              href={`/child/${id}/practice?exam=1`}
+              className={`h-16 px-8 rounded-2xl text-2xl font-extrabold flex items-center border-4 border-white ${tt.passStreak >= READY_FOR_EXAM ? "bg-ink text-white animate-pulse" : "text-white"}`}
+            >
+              📝 Exam
+            </Link>
+          )}
+        </div>
       </section>
 
       <section>

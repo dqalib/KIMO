@@ -259,7 +259,10 @@ function Dashboard() {
                       <td>
                         {Math.round(a.durationMs / 1000)}s{a.secondsPerQuestion > 0 && ` / ${a.total * a.secondsPerQuestion}s`}
                       </td>
-                      <td>{OUTCOME_LABEL[a.outcome]}</td>
+                      <td>
+                        {a.mode === "exam" ? "📝 Exam: " : a.mode === "practice" ? "Practice: " : ""}
+                        {OUTCOME_LABEL[a.outcome]}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

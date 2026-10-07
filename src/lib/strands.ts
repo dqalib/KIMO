@@ -24,6 +24,8 @@ export interface StrandInfo {
   shownFor: (schoolYear: number) => boolean;
   /** Shown to the parent when the strand is hidden by default. */
   hiddenNote: string;
+  /** Has an exam (no answers shown; passing moves up a level). Phonics and reading are marked differently. */
+  exam?: boolean;
 }
 
 export const STRANDS: StrandInfo[] = [
@@ -46,6 +48,7 @@ export const STRANDS: StrandInfo[] = [
     levels: AS_LEVELS,
     shownFor: (y) => y <= 2,
     hiddenNote: "for Years 1–2",
+    exam: true,
   },
   {
     key: "np",
@@ -56,6 +59,7 @@ export const STRANDS: StrandInfo[] = [
     levels: NP_LEVELS,
     shownFor: () => true,
     hiddenNote: "",
+    exam: true,
   },
   {
     key: "fr",
@@ -66,6 +70,7 @@ export const STRANDS: StrandInfo[] = [
     levels: FR_LEVELS,
     shownFor: () => true,
     hiddenNote: "",
+    exam: true,
   },
   {
     key: "mt",
@@ -76,6 +81,7 @@ export const STRANDS: StrandInfo[] = [
     levels: MT_TIME_LEVELS,
     shownFor: () => true,
     hiddenNote: "",
+    exam: true,
   },
   {
     key: "sp",
@@ -87,6 +93,7 @@ export const STRANDS: StrandInfo[] = [
     // Years 1–5: Year 1 starts with the Year 1 tricky words.
     shownFor: () => true,
     hiddenNote: "",
+    exam: true,
   },
   {
     key: "gp",
@@ -97,6 +104,7 @@ export const STRANDS: StrandInfo[] = [
     levels: GP_LEVELS,
     shownFor: (y) => y >= 2,
     hiddenNote: "starts in Year 2",
+    exam: true,
   },
   {
     key: "cw",
@@ -107,6 +115,7 @@ export const STRANDS: StrandInfo[] = [
     levels: CW_LEVELS,
     shownFor: () => true,
     hiddenNote: "",
+    exam: true,
   },
   {
     key: "rc",

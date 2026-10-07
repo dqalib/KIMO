@@ -128,6 +128,38 @@ function Report() {
         <MemoryCard title="Coding words memory" unit="word" m={r.memory.coding} label={(k) => getTerm(k)?.term ?? k} />
       </div>
 
+      <Card title="Exams" note="Exams show no answers until the end; passing one (90%+) moves up a level.">
+        {r.exams.length ? (
+          <ul className="flex flex-col divide-y divide-line">
+            {r.exams.map((e, k) => (
+              <li key={k} className="py-2 flex flex-col gap-1">
+                <span className="flex flex-wrap gap-x-3">
+                  <span className="text-muted w-16 tabular-nums">{shortDate(e.when)}</span>
+                  <span className="font-bold">{e.subject}</span>
+                  <span>{e.levelId}</span>
+                  <span className="tabular-nums font-bold">
+                    {e.score}/{e.total}
+                  </span>
+                  <span className={e.passed ? "text-good font-bold" : "text-warn font-bold"}>{e.passed ? "✓ passed" : "not yet"}</span>
+                </span>
+                {e.missed.length > 0 && (
+                  <span className="text-sm text-muted pl-16">
+                    Missed:{" "}
+                    {e.missed.map((m, j) => (
+                      <span key={j} className="mr-3">
+                        {m.answer} <span className="line-through text-bad">{m.given}</span>
+                      </span>
+                    ))}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-muted">No exams taken yet.</p>
+        )}
+      </Card>
+
       <Card title="Keeps tripping up on" note="Most-missed first, across every subject.">
         {r.tricky.length ? (
           <ul className="flex flex-wrap gap-2 text-sm">
@@ -216,6 +248,13 @@ function SubjectRow({ s }: { s: SubjectReport }) {
           <b>{pct(s.accuracy30)}</b> right first time
         </span>
         <Trend s={s} />
+        {s.lastExam ? (
+          <span className={s.lastExam.passed ? "text-good font-bold" : "text-warn font-bold"}>
+            📝 last exam {s.lastExam.score}/{s.lastExam.total} {s.lastExam.passed ? "passed" : "not yet"} ({shortDate(s.lastExam.when)})
+          </span>
+        ) : s.readyStreak >= 2 ? (
+          <span className="text-good font-bold">⭐ ready for the exam</span>
+        ) : null}
         <span className="text-muted">{s.lastPractised ? `last practised ${shortDate(s.lastPractised)}` : "not started"}</span>
       </div>
     </div>
