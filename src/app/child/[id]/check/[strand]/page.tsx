@@ -2,13 +2,12 @@
 
 // Placement check: the first time a child opens times tables, adding &
 // taking away, spelling or grammar, a short quiz finds their starting level
-// (see src/lib/placement.ts). Like an exam: no marking during the check (so
-// it never feels like a test they can fail); the questions they missed are
-// shown with the right answers at the end.
+// (see src/lib/placement.ts). Every answer is marked straight away (right, or
+// wrong with the right answer shown); the missed ones are listed again at the end.
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ChoiceGrid from "@/components/ChoiceGrid";
 import FractionText, { sayFractions } from "@/components/FractionText";
 import LetterKeyboard from "@/components/LetterKeyboard";
@@ -21,6 +20,7 @@ import { timeToNumberQuestion } from "@/lib/time-questions";
 import { GP_LEVELS, defaultGpStart, generateGpSet, getGpLevel, spokenGp } from "@/lib/grammar";
 import { NP_LEVELS, defaultNPStart, generateNPSet, getNPLevel } from "@/lib/np";
 import { PER_LEVEL, recordRound, startPlacement, type PlacementState } from "@/lib/placement";
+import { armSfx, playRight, playWrong } from "@/lib/sfx";
 import { speak } from "@/lib/speech";
 import { SP_LEVELS, defaultSpStart, generateSpSet, getSpLevel, isCorrectSpelling, spokenPrompt } from "@/lib/spelling";
 import { finishPlacement, useAppState, type Child, type PlacementStrand } from "@/lib/store";
@@ -28,7 +28,15 @@ import { TT_LEVELS, defaultStartLevel, generateSet, getLevel } from "@/lib/tt";
 
 type CheckQuestion =
   | { kind: "number"; prompt: string; answer: number }
-  | { kind: "choice"; prompt: string; sentence?: string; say: string; options: string[]; answer: number; stack: boolean }
+  | {
+      kind: "choice";
+      prompt: string;
+      sentence?: string;
+      say: string;
+      options: string[];
+      answer: number;
+      stack: boolean;
+    }
   | { kind: "spell"; say: string; word: string };
 
 interface StrandCheck {
@@ -53,14 +61,24 @@ const CHECKS: Partial<Record<PlacementStrand, StrandCheck>> = {
     path: "practice",
     levels: TT_LEVELS,
     start: defaultStartLevel,
-    questions: (id) => pick(generateSet(getLevel(id)!, {}), PER_LEVEL).map((q) => ({ kind: "number", prompt: q.prompt, answer: q.answer })),
+    questions: (id) =>
+      pick(generateSet(getLevel(id)!, {}), PER_LEVEL).map((q) => ({
+        kind: "number",
+        prompt: q.prompt,
+        answer: q.answer,
+      })),
   },
   as: {
     name: "Adding & taking away",
     path: "maths",
     levels: AS_LEVELS,
     start: defaultASStart,
-    questions: (id) => pick(generateASSet(getASLevel(id)!), PER_LEVEL).map((q) => ({ kind: "number", prompt: q.text, answer: q.answer })),
+    questions: (id) =>
+      pick(generateASSet(getASLevel(id)!), PER_LEVEL).map((q) => ({
+        kind: "number",
+        prompt: q.text,
+        answer: q.answer,
+      })),
   },
   np: {
     name: "Numbers",
@@ -70,7 +88,14 @@ const CHECKS: Partial<Record<PlacementStrand, StrandCheck>> = {
     questions: (id) =>
       pick(generateNPSet(getNPLevel(id)!), PER_LEVEL).map((q) =>
         q.options
-          ? { kind: "choice", prompt: q.text, say: q.text, options: q.options, answer: q.options.indexOf(String(q.answer)), stack: false }
+          ? {
+              kind: "choice",
+              prompt: q.text,
+              say: q.text,
+              options: q.options,
+              answer: q.options.indexOf(String(q.answer)),
+              stack: false,
+            }
           : { kind: "number", prompt: q.text, answer: Number(q.answer) },
       ),
   },
@@ -82,7 +107,14 @@ const CHECKS: Partial<Record<PlacementStrand, StrandCheck>> = {
     questions: (id) =>
       pick(generateFRSet(getFRLevel(id)!), PER_LEVEL).map((q) =>
         q.options
-          ? { kind: "choice", prompt: q.text, say: sayFractions(q.text), options: q.options, answer: q.options.indexOf(String(q.answer)), stack: false }
+          ? {
+              kind: "choice",
+              prompt: q.text,
+              say: sayFractions(q.text),
+              options: q.options,
+              answer: q.options.indexOf(String(q.answer)),
+              stack: false,
+            }
           : { kind: "number", prompt: q.text, answer: Number(q.answer) },
       ),
   },
@@ -94,7 +126,14 @@ const CHECKS: Partial<Record<PlacementStrand, StrandCheck>> = {
     questions: (id) =>
       pick(generateTimeSet(id).map(timeToNumberQuestion), PER_LEVEL).map((q) =>
         q.options
-          ? { kind: "choice", prompt: q.prompt, say: sayFractions(q.prompt), options: q.options, answer: q.options.indexOf(String(q.answer)), stack: false }
+          ? {
+              kind: "choice",
+              prompt: q.prompt,
+              say: sayFractions(q.prompt),
+              options: q.options,
+              answer: q.options.indexOf(String(q.answer)),
+              stack: false,
+            }
           : { kind: "number", prompt: q.prompt, answer: Number(q.answer) },
       ),
   },
@@ -103,7 +142,10 @@ const CHECKS: Partial<Record<PlacementStrand, StrandCheck>> = {
     path: "spelling",
     levels: SP_LEVELS,
     start: defaultSpStart,
-    questions: (id) => generateSpSet(getSpLevel(id)!).slice(0, PER_LEVEL).map((w) => ({ kind: "spell", say: spokenPrompt(w), word: w.word })),
+    questions: (id) =>
+      generateSpSet(getSpLevel(id)!)
+        .slice(0, PER_LEVEL)
+        .map((w) => ({ kind: "spell", say: spokenPrompt(w), word: w.word })),
   },
   gp: {
     name: "Grammar",
@@ -152,12 +194,22 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
 
   const q = questions[i];
 
-  const answer = useCallback(
+  const proceed = useCallback(
     (ok: boolean, given: string) => {
       const addMissed = (m: { prompt: string; given: string; answer: string }) => setMissed((xs) => [...xs, m]);
       if (!ok && q) {
-        if (q.kind === "number") addMissed({ prompt: q.prompt.includes("?") || /[A-Za-z]{2,}/.test(q.prompt) ? q.prompt : `${q.prompt} =`, given, answer: String(q.answer) });
-        else if (q.kind === "choice") addMissed({ prompt: [q.prompt, q.sentence].filter(Boolean).join(" — "), given, answer: q.options[q.answer] });
+        if (q.kind === "number")
+          addMissed({
+            prompt: q.prompt.includes("?") || /[A-Za-z]{2,}/.test(q.prompt) ? q.prompt : `${q.prompt} =`,
+            given,
+            answer: String(q.answer),
+          });
+        else if (q.kind === "choice")
+          addMissed({
+            prompt: [q.prompt, q.sentence].filter(Boolean).join(" — "),
+            given,
+            answer: q.options[q.answer],
+          });
         else addMissed({ prompt: "Spelling", given, answer: q.word });
       }
       const nowRight = right + (ok ? 1 : 0);
@@ -184,6 +236,35 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
     [right, i, questions.length, plan, strand, child.id, check, q],
   );
 
+  // Mark straight away: right → "Correct!" then on; wrong → show the right answer and wait for Next.
+  const [fb, setFb] = useState<{
+    ok: boolean;
+    given: string;
+    right: string;
+    chosen?: number;
+  } | null>(null);
+  useEffect(armSfx, []);
+  const answer = useCallback(
+    (ok: boolean, given: string, chosen?: number) => {
+      if (fb || !q) return;
+      const rightText = q.kind === "number" ? String(q.answer) : q.kind === "choice" ? q.options[q.answer] : q.word;
+      setFb({ ok, given, right: rightText, chosen });
+      if (q.kind !== "choice") (ok ? playRight : playWrong)(); // ChoiceGrid plays its own
+      if (ok)
+        setTimeout(() => {
+          setFb(null);
+          proceed(true, given);
+        }, 800);
+    },
+    [fb, q, proceed],
+  );
+  const next = useCallback(() => {
+    if (!fb) return;
+    const given = fb.given;
+    setFb(null);
+    proceed(false, given);
+  }, [fb, proceed]);
+
   const submitNumber = useCallback(() => {
     if (!q || q.kind !== "number" || input === "") return;
     answer(Number(input) === q.answer, input);
@@ -203,8 +284,8 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
         <p className="text-muted font-bold text-lg">{check.name}</p>
         <h1 className="text-5xl font-black max-w-2xl">Starting check: let&apos;s find your level!</h1>
         <p className="text-xl font-semibold text-muted max-w-md">
-          This happens once. A few questions, getting a bit harder — just try your best, it&apos;s fine not to know some. There&apos;s no timer. Like an exam,
-          you&apos;ll see the answers at the end. After this, practice shows you right or wrong straight away.
+          This happens once. A few questions, getting a bit harder — just try your best, it&apos;s fine not to know some. There&apos;s no timer. You&apos;ll see
+          if each answer is right straight away.
         </p>
         <button
           onClick={() => {
@@ -242,7 +323,9 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
                   <span className="font-bold flex-1 min-w-40">
                     <FractionText text={m.prompt} />
                   </span>
-                  <span className="text-bad">✗ <s>{m.given ? <FractionText text={m.given} /> : "no answer"}</s></span>
+                  <span className="text-bad">
+                    ✗ <s>{m.given ? <FractionText text={m.given} /> : "no answer"}</s>
+                  </span>
                   <span className="font-black text-good">
                     ✓ <FractionText text={m.answer} />
                   </span>
@@ -255,7 +338,11 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
           <Link href={`/child/${child.id}`} className="h-16 px-8 rounded-2xl bg-card border-2 border-line text-xl font-extrabold flex items-center">
             Later
           </Link>
-          <a href={`/child/${child.id}/${check.path}`} className="h-16 px-8 rounded-2xl text-white text-xl font-extrabold flex items-center" style={{ background: child.color }}>
+          <a
+            href={`/child/${child.id}/${check.path}`}
+            className="h-16 px-8 rounded-2xl text-white text-xl font-extrabold flex items-center"
+            style={{ background: child.color }}
+          >
             Start practising ▶
           </a>
         </div>
@@ -275,20 +362,28 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
           {check.name} · starting check · question {asked + 1}
         </p>
       </header>
-      <p className="px-4 py-1 rounded-full bg-ink text-white text-lg font-extrabold">🧭 Starting check — answers at the end</p>
+      <p className="px-4 py-1 rounded-full bg-ink text-white text-lg font-extrabold">🧭 Starting check</p>
 
       <div key={`${plan.current}-${i}`} className="w-full flex flex-col items-center gap-6 animate-pop">
         {q.kind === "number" && (
           <>
-            <div className="w-full max-w-xl rounded-3xl bg-card border-4 border-line py-10 flex flex-col items-center gap-4">
+            <div
+              className={`w-full max-w-xl rounded-3xl bg-card border-4 py-10 flex flex-col items-center gap-4 ${
+                fb ? (fb.ok ? "border-good" : "border-bad animate-shake") : "border-line"
+              }`}
+            >
               <p className={`px-4 text-center font-black tabular-nums ${/[A-Za-z]{2,}/.test(q.prompt) ? "text-4xl" : "text-6xl sm:text-7xl"}`}>
                 <FractionText text={q.prompt.includes("?") || /[A-Za-z]{2,}/.test(q.prompt) ? q.prompt : `${q.prompt} =`} />
               </p>
-              <p className="min-h-20 min-w-40 px-6 rounded-2xl border-4 border-dashed border-line text-6xl font-black tabular-nums flex items-center justify-center">
+              <p
+                className={`min-h-20 min-w-40 px-6 rounded-2xl border-4 border-dashed text-6xl font-black tabular-nums flex items-center justify-center ${
+                  fb ? (fb.ok ? "border-good text-good" : "border-bad text-bad line-through decoration-4") : "border-line"
+                }`}
+              >
                 {input || " "}
               </p>
             </div>
-            <NumberPad onDigit={onDigit} onBack={onBack} onSubmit={submitNumber} submitLabel="▶" />
+            {!fb && <NumberPad onDigit={onDigit} onBack={onBack} onSubmit={submitNumber} submitLabel="✓" />}
           </>
         )}
 
@@ -299,18 +394,48 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
               <FractionText text={q.prompt} />
             </h1>
             {q.sentence && <p className="text-4xl font-extrabold text-center">{q.sentence.replace("___", "____")}</p>}
-            <ChoiceGrid options={q.options} stack={q.stack} renderOption={(o) => <FractionText text={o} />} onChoose={(o, k) => answer(k === q.answer, o)} />
+            <ChoiceGrid
+              options={q.options}
+              stack={q.stack}
+              renderOption={(o) => <FractionText text={o} />}
+              result={fb?.chosen !== undefined ? { chosen: fb.chosen, correct: q.answer } : undefined}
+              onChoose={(o, k) => answer(k === q.answer, o, k)}
+            />
           </>
         )}
 
         {q.kind === "spell" && (
           <>
             <SpeakButton text={q.say} label="Hear it again" size="lg" />
-            <div className="w-full max-w-xl min-h-24 rounded-3xl border-4 border-brand bg-card flex items-center justify-center px-4 text-6xl font-extrabold tracking-wide">
+            <div
+              className={`w-full max-w-xl min-h-24 rounded-3xl border-4 bg-card flex items-center justify-center px-4 text-6xl font-extrabold tracking-wide ${
+                fb ? (fb.ok ? "border-good text-good" : "border-bad text-bad") : "border-brand"
+              }`}
+            >
               {input || <span className="text-line">…</span>}
             </div>
-            <LetterKeyboard onKey={onKey} onBack={onBack} onSubmit={submitSpelling} />
+            {!fb && <LetterKeyboard onKey={onKey} onBack={onBack} onSubmit={submitSpelling} />}
           </>
+        )}
+
+        {fb?.ok && <p className="text-4xl font-black text-good animate-pop">✓ Correct!</p>}
+        {fb && !fb.ok && (
+          <div className="w-full max-w-xl flex flex-col items-center gap-4 animate-pop">
+            <p className="text-4xl font-black text-bad">✗ Not quite</p>
+            <div className="w-full rounded-3xl bg-good/10 border-4 border-good py-5 px-4 flex flex-col items-center gap-1">
+              <p className="text-lg font-bold text-muted">The right answer is</p>
+              <p className="text-5xl font-black text-good text-center">
+                <FractionText text={fb.right} />
+              </p>
+            </div>
+            <button
+              onClick={next}
+              className="h-20 px-14 rounded-3xl text-white text-3xl font-black shadow-[0_6px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
+              style={{ background: child.color }}
+            >
+              Next ▶
+            </button>
+          </div>
         )}
       </div>
     </main>
