@@ -2,8 +2,9 @@
 
 // Placement check: the first time a child opens times tables, adding &
 // taking away, spelling or grammar, a short quiz finds their starting level
-// (see src/lib/placement.ts). No right/wrong marking — just "next", so it
-// never feels like a test they can fail.
+// (see src/lib/placement.ts). Like an exam: no marking during the check (so
+// it never feels like a test they can fail); the questions they missed are
+// shown with the right answers at the end.
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -147,11 +148,18 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
   const [right, setRight] = useState(0);
   const [input, setInput] = useState("");
   const [asked, setAsked] = useState(0);
+  const [missed, setMissed] = useState<{ prompt: string; given: string; answer: string }[]>([]);
 
   const q = questions[i];
 
   const answer = useCallback(
-    (ok: boolean) => {
+    (ok: boolean, given: string) => {
+      const addMissed = (m: { prompt: string; given: string; answer: string }) => setMissed((xs) => [...xs, m]);
+      if (!ok && q) {
+        if (q.kind === "number") addMissed({ prompt: q.prompt.includes("?") || /[A-Za-z]{2,}/.test(q.prompt) ? q.prompt : `${q.prompt} =`, given, answer: String(q.answer) });
+        else if (q.kind === "choice") addMissed({ prompt: [q.prompt, q.sentence].filter(Boolean).join(" — "), given, answer: q.options[q.answer] });
+        else addMissed({ prompt: "Spelling", given, answer: q.word });
+      }
       const nowRight = right + (ok ? 1 : 0);
       setInput("");
       setAsked((n) => n + 1);
@@ -173,16 +181,16 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
       // Keep audio flowing on iPad: speak inside the tap that moves on.
       if (qs[0]?.kind === "spell") void speak(qs[0].say);
     },
-    [right, i, questions.length, plan, strand, child.id, check],
+    [right, i, questions.length, plan, strand, child.id, check, q],
   );
 
   const submitNumber = useCallback(() => {
     if (!q || q.kind !== "number" || input === "") return;
-    answer(Number(input) === q.answer);
+    answer(Number(input) === q.answer, input);
   }, [q, input, answer]);
   const submitSpelling = useCallback(() => {
     if (!q || q.kind !== "spell" || !input.trim()) return;
-    answer(isCorrectSpelling(input, q.word));
+    answer(isCorrectSpelling(input, q.word), input.trim());
   }, [q, input, answer]);
   const onDigit = useCallback((d: string) => setInput((v) => (v.length < 5 ? v + d : v)), []);
   const onKey = useCallback((ch: string) => setInput((v) => (v.length < 16 ? v + ch : v)), []);
@@ -193,9 +201,10 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
       <main className="flex-1 flex flex-col items-center justify-center gap-6 p-6 text-center">
         <span className="text-8xl">🧭</span>
         <p className="text-muted font-bold text-lg">{check.name}</p>
-        <h1 className="text-5xl font-black max-w-2xl">Let&apos;s find your level!</h1>
+        <h1 className="text-5xl font-black max-w-2xl">Starting check: let&apos;s find your level!</h1>
         <p className="text-xl font-semibold text-muted max-w-md">
-          A few questions, getting a bit harder. Just try your best — it&apos;s fine not to know some. There&apos;s no timer.
+          This happens once. A few questions, getting a bit harder — just try your best, it&apos;s fine not to know some. There&apos;s no timer. Like an exam,
+          you&apos;ll see the answers at the end. After this, practice shows you right or wrong straight away.
         </p>
         <button
           onClick={() => {
@@ -224,6 +233,24 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
         <p className="text-3xl font-black">
           {lvl?.id} · {lvl?.title}
         </p>
+        {missed.length > 0 && (
+          <div className="w-full max-w-xl rounded-3xl bg-card border-2 border-line p-4 text-left">
+            <p className="font-extrabold text-lg mb-2">The ones you missed</p>
+            <ul className="flex flex-col divide-y divide-line">
+              {missed.map((m, k) => (
+                <li key={k} className="py-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-xl">
+                  <span className="font-bold flex-1 min-w-40">
+                    <FractionText text={m.prompt} />
+                  </span>
+                  <span className="text-bad">✗ <s>{m.given ? <FractionText text={m.given} /> : "no answer"}</s></span>
+                  <span className="font-black text-good">
+                    ✓ <FractionText text={m.answer} />
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className="flex gap-4 mt-2">
           <Link href={`/child/${child.id}`} className="h-16 px-8 rounded-2xl bg-card border-2 border-line text-xl font-extrabold flex items-center">
             Later
@@ -245,9 +272,10 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
           ✕
         </Link>
         <p className="font-bold text-muted">
-          {check.name} · finding your level · question {asked + 1}
+          {check.name} · starting check · question {asked + 1}
         </p>
       </header>
+      <p className="px-4 py-1 rounded-full bg-ink text-white text-lg font-extrabold">🧭 Starting check — answers at the end</p>
 
       <div key={`${plan.current}-${i}`} className="w-full flex flex-col items-center gap-6 animate-pop">
         {q.kind === "number" && (
@@ -271,7 +299,7 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
               <FractionText text={q.prompt} />
             </h1>
             {q.sentence && <p className="text-4xl font-extrabold text-center">{q.sentence.replace("___", "____")}</p>}
-            <ChoiceGrid options={q.options} stack={q.stack} renderOption={(o) => <FractionText text={o} />} onChoose={(_, k) => answer(k === q.answer)} />
+            <ChoiceGrid options={q.options} stack={q.stack} renderOption={(o) => <FractionText text={o} />} onChoose={(o, k) => answer(k === q.answer, o)} />
           </>
         )}
 

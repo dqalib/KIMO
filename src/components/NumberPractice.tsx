@@ -466,8 +466,8 @@ function Result({
             {r.answers.map((a, k) => (
               <li key={k} className="py-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xl">
                 <span className="font-bold flex-1 min-w-40">{show(a.prompt)}</span>
-                <span className="text-bad line-through">{a.given === "—" ? "no answer" : show(a.given)}</span>
-                <span className="font-black text-good">{show(a.answer)}</span>
+                <span className="text-bad">✗ <s>{a.given === "—" ? "no answer" : show(a.given)}</s></span>
+                <span className="font-black text-good">✓ {show(a.answer)}</span>
               </li>
             ))}
           </ul>

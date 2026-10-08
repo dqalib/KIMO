@@ -65,8 +65,8 @@ export default function SetResultScreen({ child, r, outcome, exam, review, nextT
               <li key={k} className="py-3 flex flex-col gap-1">
                 {a.prompt && <span className="text-muted font-semibold">{a.prompt}</span>}
                 <span className="flex flex-wrap items-baseline gap-x-4 text-2xl">
-                  <span className="text-bad line-through">{a.given || "no answer"}</span>
-                  <span className="font-black text-good">{a.answer}</span>
+                  <span className="text-bad">✗ <s>{a.given || "no answer"}</s></span>
+                  <span className="font-black text-good">✓ {a.answer}</span>
                 </span>
               </li>
             ))}

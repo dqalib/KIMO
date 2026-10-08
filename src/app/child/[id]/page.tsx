@@ -102,7 +102,7 @@ export default function ChildHome() {
                 className="h-16 px-8 rounded-2xl text-white text-2xl font-extrabold flex items-center justify-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
                 style={{ background: child.color }}
               >
-                {checkFirst(st.key) ? "Let's go ▶" : st.exam ? "Practise ▶" : st.button}
+                {checkFirst(st.key) ? "🧭 Starting check ▶" : st.exam ? "Practise ▶" : st.button}
               </Link>
               {st.exam && !checkFirst(st.key) && (
                 <Link
@@ -165,7 +165,7 @@ export default function ChildHome() {
             href={checkFirst("tt") ? `/child/${id}/check/tt` : `/child/${id}/practice`}
             className="h-16 px-10 rounded-2xl bg-white text-ink text-2xl font-extrabold flex items-center shadow-[0_5px_0_rgba(0,0,0,0.2)] active:translate-y-1 active:shadow-none"
           >
-            {checkFirst("tt") ? "Let's go ▶" : "Practise ▶"}
+            {checkFirst("tt") ? "🧭 Starting check ▶" : "Practise ▶"}
           </Link>
           {!checkFirst("tt") && (
             <Link
