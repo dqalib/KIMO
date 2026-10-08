@@ -334,7 +334,7 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
             </ul>
           </div>
         )}
-        <div className="flex gap-4 mt-2">
+        <div className="flex flex-wrap justify-center gap-4 mt-2">
           <Link href={`/child/${child.id}`} className="h-16 px-8 rounded-2xl bg-card border-2 border-line text-xl font-extrabold flex items-center">
             Later
           </Link>
@@ -345,6 +345,11 @@ function Check({ child, strand, check }: { child: Child; strand: PlacementStrand
           >
             Start practising ▶
           </a>
+          {strand !== "ph" && strand !== "rc" && (
+            <a href={`/child/${child.id}/${check.path}?exam=1`} className="h-16 px-8 rounded-2xl bg-ink text-white text-xl font-extrabold flex items-center">
+              📝 Exam
+            </a>
+          )}
         </div>
       </main>
     );

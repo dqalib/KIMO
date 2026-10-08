@@ -4,7 +4,16 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { currentLetter, lettersMastered } from "@/lib/hw";
 import { FAMILIES } from "@/lib/letters";
-import { getInputMode, letterProgress, PENCIL_EXTRA_SECONDS, needsPlacement, strandProgress, strandStarted, useAppState, type PlacementStrand } from "@/lib/store";
+import {
+  getInputMode,
+  letterProgress,
+  PENCIL_EXTRA_SECONDS,
+  needsPlacement,
+  strandProgress,
+  strandStarted,
+  useAppState,
+  type PlacementStrand,
+} from "@/lib/store";
 import { approvedPassages } from "@/lib/reading";
 import { READY_FOR_EXAM } from "@/lib/mastery";
 import { dailyGoal, dayStreak } from "@/lib/report";
@@ -104,7 +113,7 @@ export default function ChildHome() {
               >
                 {checkFirst(st.key) ? "🧭 Starting check ▶" : st.exam ? "Practise ▶" : st.button}
               </Link>
-              {st.exam && !checkFirst(st.key) && (
+              {st.exam && (
                 <Link
                   href={`/child/${id}/${st.path}?exam=1`}
                   className={`h-12 px-6 rounded-2xl text-lg font-extrabold flex items-center justify-center border-2 ${
@@ -130,9 +139,7 @@ export default function ChildHome() {
           </div>
           <div className="flex-1 flex flex-col gap-2">
             <p className="font-bold text-muted">Handwriting ✏️ · {lettersMastered(state, id)}/26 letters</p>
-            <h2 className="text-3xl font-black">
-              {hwLetter ? `Letter “${hwLetter.char}”` : "All letters learned!"}
-            </h2>
+            <h2 className="text-3xl font-black">{hwLetter ? `Letter “${hwLetter.char}”` : "All letters learned!"}</h2>
             {hwLetter && (
               <p className="text-muted font-semibold">
                 {hwFamily?.name} · {({ 1: "trace it", 2: "trace the faint one", 3: "write it alone", 4: "" } as const)[hwStage]}
@@ -167,14 +174,14 @@ export default function ChildHome() {
           >
             {checkFirst("tt") ? "🧭 Starting check ▶" : "Practise ▶"}
           </Link>
-          {!checkFirst("tt") && (
+          {
             <Link
               href={`/child/${id}/practice?exam=1`}
               className={`h-16 px-8 rounded-2xl text-2xl font-extrabold flex items-center border-4 border-white ${tt.passStreak >= READY_FOR_EXAM ? "bg-ink text-white animate-pulse" : "text-white"}`}
             >
               📝 Exam
             </Link>
-          )}
+          }
         </div>
       </section>
 
